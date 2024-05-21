@@ -1,0 +1,46 @@
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Inspection {
+  id        String      @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  startDate DateTime @default(now())
+  inspectionDuration Int
+  inspectionType String
+  factory String
+  creatorId String
+  orderNo String
+  orderCost Int
+  taskDescription String
+  managerKP String
+  TN String
+  RTN String
+  opisanieTovara String
+  inspector String[]
+  meetingPoint String
+  reportReceived Boolean
+}
+
+
+// export type InspectionType = {
+// 	id: string
+// 	date: string
+// 	inspectionDuration: Number
+// 	inspectionType: inspectionMode
+// 	factory: FactoryType
+// 	creatorId: string
+// 	orderNo?: string
+// 	orderCost?: string
+// 	taskDescription?: string
+// 	recommendedInspector?: employeeType
+// 	recommendedInspector2?: employeeType
+// }

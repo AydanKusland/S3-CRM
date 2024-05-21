@@ -1,10 +1,9 @@
 function Sidebar() {
 	return (
-		<aside className='border-2'>
-			<ul>
-				<li>Inspections</li>
-				<li>Stats?</li>
-				<li></li>
+		<aside className='flex justify-center p-20 border-2'>
+			<ul className='text-center'>
+				<li className='mt-2'>Inspections</li>
+				<li>Stats</li>
 			</ul>
 		</aside>
 	)

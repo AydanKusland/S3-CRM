@@ -14,8 +14,9 @@ export type InspectionType = {
 
 export type FactoryType = {
 	id: string
-	factoryName: string
-	city: string
+	factoryFullName: string
+	factoryShortName: string
+	city: string // one or many?
 	baiduCoords?: string
 	transportation?: string
 	department: string // one or many?
