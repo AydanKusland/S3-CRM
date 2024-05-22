@@ -1,19 +1,15 @@
-import Sidebar from '../../../components/Sidebar'
+import Sidebar from '@/components/Sidebar'
+import Navbar from '@/components/Navbar'
 
 function layout({ children }: { children: JSX.Element }) {
 	return (
-		<div>
-			<nav className='grid grid-cols-[1fr_80px] justify-center'>
-				<ul className='flex justify-center gap-4 border-2'>
-					<li>Inspections</li>
-					<li>LAB</li>
-				</ul>
-				<div className='justify-self-center border-2'> SETTINGS</div>
-			</nav>
-			<div className='grid grid-cols-[130px_1fr] gap-4'>
+		<div className='h-screen'>
+			<Navbar />
+
+			<main className='grid grid-cols-[115px_1fr] h-full'>
 				<Sidebar />
 				{children}
-			</div>
+			</main>
 		</div>
 	)
 }

@@ -32,8 +32,9 @@ export type employeeType = {
 }
 
 export enum inspectionMode {
-	Attestation = 'Аттестация',
+	Attestation = 'Посещение завода',
 	Inspection = 'Проверка заказа',
 	Fair = 'Выставка',
-	FieldTest = 'Тестирование образцов'
+	FieldTest = 'Тестирование образцов',
+	Office = 'Офисная работа'
 }

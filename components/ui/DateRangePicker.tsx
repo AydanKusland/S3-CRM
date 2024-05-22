@@ -10,18 +10,21 @@ function DateRangePickerComponent() {
 	const [startDate, endDate] = dateRange
 
 	return (
-		<DatePicker
-			dateFormat='dd.MM'
-			selectsRange={true}
-			startDate={startDate}
-			endDate={endDate}
-			// form='createInspectionForm'
-			onChange={(update: [Date, Date]) => {
-				setDateRange(update)
-			}}
-			withPortal
-			name='date'
-		/>
+		<div>
+			<DatePicker
+				className='text-center max-w-28'
+				dateFormat='dd.MM'
+				selectsRange={true}
+				startDate={startDate}
+				endDate={endDate}
+				// form='createInspectionForm'
+				onChange={(update: [Date, Date]) => {
+					setDateRange(update)
+				}}
+				withPortal
+				name='date'
+			/>
+		</div>
 	)
 }
 export default DateRangePickerComponent

@@ -5,7 +5,7 @@ function page() {
 	// load all inspections
 
 	return (
-		<div className='flex flex-col'>
+		<div className=''>
 			<InspectionCalendar />
 			<CreateInspection />
 			<div>HERE WILL BE ALL INSPECTIONS!</div>
