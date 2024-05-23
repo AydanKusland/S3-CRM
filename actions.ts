@@ -2,6 +2,6 @@
 
 import { InspectionType } from 'utils/types'
 
-export async function name(inspection: InspectionType) {
+export async function createInspection(inspection: InspectionType) {
 	console.log(inspection)
 }

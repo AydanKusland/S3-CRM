@@ -2,6 +2,7 @@
 
 import { inspectionMode } from 'utils/types'
 import DateRangePickerComponent from './ui/DateRangePicker'
+import { createInspection } from 'actions'
 
 function CreateInspection() {
 	const TNSelectOptions = [
@@ -17,8 +18,26 @@ function CreateInspection() {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
-		const values = Array.from(formData.entries())
-		console.log(values)
+
+		const formDataObj = Object.fromEntries(formData.entries())
+		console.log(formDataObj)
+		console.log(Object.keys(formDataObj))
+		console.log(Object.values(formDataObj))
+
+		for (const property in formDataObj) {
+			formDataObj[property] = formData.get(property) as string
+		}
+
+		console.log(formDataObj)
+
+		const formDataObject = {
+			date: formData.get('date') as string,
+			inspectionType: formData.get('inspectionType') as string,
+			tovarnoeNapravlenie: formData.get('tovarnoeNapravlenie') as string
+		}
+
+		createInspection(Object.values(formDataObj))
+
 		// send values to DB
 		// return inputs to default?
 	}
@@ -28,8 +47,16 @@ function CreateInspection() {
 			<div className='flex flex-wrap justify-around gap-y-2'>
 				{/* Даты */}
 				<DateRangePickerComponent />
+				{/* Тип работ */}
+				<select name='inspectionType' className='max-w-56'>
+					{Object.values(inspectionMode).map(option => (
+						<option key={option} value={option}>
+							{option}
+						</option>
+					))}
+				</select>
 				{/* Товарное направление */}
-				<select name='TN' required>
+				<select name='tovarnoeNapravlenie' required>
 					{TNSelectOptions.map(option => (
 						<option key={option} value={option}>
 							{option}
@@ -37,16 +64,8 @@ function CreateInspection() {
 					))}
 				</select>
 				{/* Название завода */}
-				<select name='FactoryName'>
+				<select name='factoryShortName'>
 					{factories.map(option => (
-						<option key={option} value={option}>
-							{option}
-						</option>
-					))}
-				</select>
-				{/* Тип работ */}
-				<select name='inspectionType' className='max-w-56'>
-					{Object.values(inspectionMode).map(option => (
 						<option key={option} value={option}>
 							{option}
 						</option>
@@ -56,7 +75,7 @@ function CreateInspection() {
 				<input
 					className='w-64'
 					type='text'
-					name='productType'
+					name='productInfo'
 					placeholder='Заказ, Артикулы, Наименование'
 				/>
 				{/* Стоимость заказа */}
@@ -65,7 +84,7 @@ function CreateInspection() {
 					<input
 						className='max-w-28'
 						type='number'
-						name='orderPrice'
+						name='orderCost'
 						step={10000}
 						defaultValue={100000}
 					/>
@@ -74,18 +93,18 @@ function CreateInspection() {
 				<input
 					className='max-w-48'
 					type='text'
-					name='comment'
+					name='commentary'
 					placeholder='комментарий'
 				/>
 				{/* Адрес завода */}
 				<input
 					className='max-w-48'
 					type='text'
-					name='address'
+					name='factoryAddress'
 					defaultValue='Yueqing'
 				/>
-				{/* Исполнитель */}
-				<select name='ispolnitel'>
+				{/* Исполнитель или Рекомендуемый исполнитель */}
+				<select name='recommendedExecutor'>
 					{inspectors.map(option => (
 						<option key={option} value={option}>
 							{option}

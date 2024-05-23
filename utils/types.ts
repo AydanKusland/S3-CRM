@@ -1,15 +1,16 @@
 export type InspectionType = {
-	id: string
+	// id: string
 	date: string
-	inspectionDuration: Number
-	inspectionType: inspectionMode
-	factory: FactoryType
-	creatorId: string
-	orderNo?: string
+	inspectionType: string
+	tovarnoeNapravlenie?: string
+	// inspectionDuration: Number
+	factoryShortName?: string
+	// creatorId: string
+	productInfo?: string
 	orderCost?: string
-	taskDescription?: string
-	recommendedInspector?: employeeType
-	recommendedInspector2?: employeeType
+	commentary?: string
+	factoryAddress?: string
+	recommendedExecutor?: employeeType
 }
 
 export type FactoryType = {
