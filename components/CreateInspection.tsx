@@ -2,7 +2,7 @@
 
 import { inspectionMode } from 'utils/types'
 import DateRangePickerComponent from './ui/DateRangePicker'
-import { createInspection } from 'actions'
+import { createInspectionAction } from 'utils/actions'
 
 function CreateInspection() {
 	const TNSelectOptions = [
@@ -16,27 +16,18 @@ function CreateInspection() {
 	const inspectors = ['Любой', 'Инженер', 'Пронин', 'Волколупов', 'Соловьёв']
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+		// e.preventDefault()
 		const formData = new FormData(e.currentTarget)
 
 		const formDataObj = Object.fromEntries(formData.entries())
-		console.log(formDataObj)
-		console.log(Object.keys(formDataObj))
-		console.log(Object.values(formDataObj))
+
+		const formDataObject: any = {}
 
 		for (const property in formDataObj) {
-			formDataObj[property] = formData.get(property) as string
+			formDataObject[property] = formData.get(property) as string
 		}
 
-		console.log(formDataObj)
-
-		const formDataObject = {
-			date: formData.get('date') as string,
-			inspectionType: formData.get('inspectionType') as string,
-			tovarnoeNapravlenie: formData.get('tovarnoeNapravlenie') as string
-		}
-
-		createInspection(Object.values(formDataObj))
+		createInspectionAction(formDataObject)
 
 		// send values to DB
 		// return inputs to default?
@@ -77,6 +68,7 @@ function CreateInspection() {
 					type='text'
 					name='productInfo'
 					placeholder='Заказ, Артикулы, Наименование'
+					autoComplete='on'
 				/>
 				{/* Стоимость заказа */}
 				<div className='relative '>
@@ -87,6 +79,7 @@ function CreateInspection() {
 						name='orderCost'
 						step={10000}
 						defaultValue={100000}
+						min={0}
 					/>
 				</div>
 				{/* Комментарий */}
@@ -95,6 +88,7 @@ function CreateInspection() {
 					type='text'
 					name='commentary'
 					placeholder='комментарий'
+					autoComplete='on'
 				/>
 				{/* Адрес завода */}
 				<input

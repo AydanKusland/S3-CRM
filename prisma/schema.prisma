@@ -10,37 +10,21 @@ datasource db {
 }
 
 model Inspection {
-  id        String      @id @default(uuid())
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  startDate DateTime @default(now())
-  inspectionDuration Int
+  date String
   inspectionType String
-  factory String
+  tovarnoeNapravlenie String
+  factoryShortName String
+  productInfo String
+  orderCost String
+  commentary String
+  factoryAddress String
+  recommendedExecutor String
+  inspectionDuration Int
   creatorId String
-  orderNo String
-  orderCost Int
-  taskDescription String
   managerKP String
-  TN String
   RTN String
-  opisanieTovara String
-  inspector String[]
-  meetingPoint String
   reportReceived Boolean
 }
-
-
-// export type InspectionType = {
-// 	id: string
-// 	date: string
-// 	inspectionDuration: Number
-// 	inspectionType: inspectionMode
-// 	factory: FactoryType
-// 	creatorId: string
-// 	orderNo?: string
-// 	orderCost?: string
-// 	taskDescription?: string
-// 	recommendedInspector?: employeeType
-// 	recommendedInspector2?: employeeType
-// }

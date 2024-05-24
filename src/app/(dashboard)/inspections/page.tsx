@@ -1,5 +1,6 @@
 import CreateInspection from '@/components/CreateInspection'
 import InspectionCalendar from '@/components/InspectionCalendar'
+import InspectionList from '@/components/InspectionList'
 
 function page() {
 	// load all inspections
@@ -8,7 +9,7 @@ function page() {
 		<div className=''>
 			<InspectionCalendar />
 			<CreateInspection />
-			<div>HERE WILL BE ALL INSPECTIONS!</div>
+			<InspectionList />
 			{/* Inspections related to your TN or having your name should be highlighted */}
 			{/* Every inspection without assigned date goes to the next week */}
 		</div>
