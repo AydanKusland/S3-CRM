@@ -1,35 +1,52 @@
 'use client'
 
-import { inspectionMode } from 'utils/types'
+import { CreateAndEditInspectionType, inspectionMode } from 'utils/types'
 import DateRangePickerComponent from './ui/DateRangePicker'
 import { createInspectionAction } from 'utils/actions'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
+const TNSelectOptions = [
+	'23 Фонарь',
+	'56 Кабель',
+	'Выставка',
+	'Прочее',
+	'Офисная работа'
+]
+const factories = ['Xianxing', 'UTL', 'Новый завод']
+const inspectors = ['Любой', 'Инженер', 'Пронин', 'Волколупов', 'Соловьёв']
 
 function CreateInspection() {
-	const TNSelectOptions = [
-		'23 Фонарь',
-		'56 Кабель',
-		'Выставка',
-		'Прочее',
-		'Офисная работа'
-	]
-	const factories = ['Xianxing', 'UTL', 'Новый завод']
-	const inspectors = ['Любой', 'Инженер', 'Пронин', 'Волколупов', 'Соловьёв']
+	const queryClient = useQueryClient()
+
+	const { mutate, isPending } = useMutation({
+		mutationFn: (values: CreateAndEditInspectionType) =>
+			createInspectionAction(values),
+		onSuccess: data => {
+			if (!data) {
+				console.log('NO DATA')
+				return
+			}
+			console.log('inspection created!')
+			queryClient.invalidateQueries({ queryKey: ['inspections'] })
+		}
+	})
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		// e.preventDefault()
+		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
-
 		const formDataObj = Object.fromEntries(formData.entries())
-
 		const formDataObject: any = {}
-
 		for (const property in formDataObj) {
-			formDataObject[property] = formData.get(property) as string
+			// extract province property from address
+			if (property === 'factoryAddress') {
+				const factoryAddressString = formDataObj[property] as string
+				const [province, ...rest] = factoryAddressString.split(',')
+				formDataObject.province = province
+				formDataObject.factoryAddress = rest.join(' ')
+			} else formDataObject[property] = formData.get(property) as string
 		}
 
-		createInspectionAction(formDataObject)
-
-		// send values to DB
+		mutate(formDataObject)
 		// return inputs to default?
 	}
 
@@ -92,21 +109,29 @@ function CreateInspection() {
 				/>
 				{/* Адрес завода */}
 				<input
+					required
+					min={10}
 					className='max-w-48'
 					type='text'
 					name='factoryAddress'
-					defaultValue='Yueqing'
+					defaultValue='Zhejiang, Yueqing'
 				/>
 				{/* Исполнитель или Рекомендуемый исполнитель */}
-				<select name='recommendedExecutor'>
+				<input
+					required
+					list='recommendedExecutors'
+					name='recommendedExecutor'
+					autoComplete='on'
+				/>
+				<datalist id='recommendedExecutors'>
 					{inspectors.map(option => (
-						<option key={option} value={option}>
-							{option}
-						</option>
+						<option key={option} value={option} />
 					))}
-				</select>
+				</datalist>
 				{/* Submit Button */}
-				<button type='submit'>Create!</button>
+				<button type='submit' disabled={isPending}>
+					Create!
+				</button>
 			</div>
 		</form>
 	)

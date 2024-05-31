@@ -10,8 +10,6 @@ import {
 export async function createInspectionAction(
 	inspectionArg: CreateAndEditInspectionType
 ): Promise<InspectionType | null> {
-	console.log(inspectionArg)
-
 	try {
 		createAndEditInspectionSchema.parse(inspectionArg)
 		const inspection: InspectionType = await prisma.inspection.create({
@@ -24,7 +22,7 @@ export async function createInspectionAction(
 				reportReceived: true
 			}
 		})
-		console.log(inspection, 'success!')
+		// console.log(inspection, 'success!')
 
 		return inspection
 	} catch (error) {
@@ -38,8 +36,7 @@ export async function getAllInspectionsAction(): Promise<{
 }> {
 	try {
 		const inspections = await prisma.inspection.findMany({})
-		console.log('trying to load all inspections')
-		console.log(inspections)
+		console.log('success loading all inspections')
 
 		return { inspections }
 	} catch (error) {

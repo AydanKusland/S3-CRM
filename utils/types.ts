@@ -24,6 +24,7 @@ export type FactoryType = {
 	id: string
 	factoryFullName: string
 	factoryShortName: string
+	province: string
 	city: string // one or many?
 	baiduCoords?: string
 	transportation?: string
@@ -49,9 +50,9 @@ export enum inspectionMode {
 
 export const createAndEditInspectionSchema = z.object({
 	date: z.string().min(5, { message: 'something is wrong with a date' }),
-	inspectionType: z
-		.string()
-		.min(5, { message: 'something is wrong with inspection type' })
+	province: z.string().min(5),
+	factoryAddress: z.string().min(5),
+	recommendedExecutor: z.string().min(2)
 })
 
 export type CreateAndEditInspectionType = z.infer<

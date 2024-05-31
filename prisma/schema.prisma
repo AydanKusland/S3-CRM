@@ -20,6 +20,7 @@ model Inspection {
   productInfo String
   orderCost String
   commentary String
+  province String @default("Province Is Not Defined")
   factoryAddress String
   recommendedExecutor String
   inspectionDuration Int
