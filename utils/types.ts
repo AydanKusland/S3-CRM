@@ -8,9 +8,10 @@ export type InspectionType = {
 	inspectionType: string
 	tovarnoeNapravlenie: string
 	factoryShortName: string
-	productInfo: string
+	orderNumber: string
 	orderCost: string
 	commentary: string
+	province: string
 	factoryAddress: string
 	recommendedExecutor: string
 	inspectionDuration: number
@@ -58,3 +59,19 @@ export const createAndEditInspectionSchema = z.object({
 export type CreateAndEditInspectionType = z.infer<
 	typeof createAndEditInspectionSchema
 >
+
+export const createAndEditUserSchema = z.object({
+	fullName: z.string().min(3, { message: 'enter full name' }),
+	shortName: z.string().min(2, { message: 'enter short name' })
+})
+
+export type CreateAndEditUserType = z.infer<typeof createAndEditUserSchema>
+
+// model User {
+//   id String @id @default(uuid())
+//   fullName String
+//   shortName String
+//   tovarnoeNapravlenie String[]
+//   factories Factory[]
+//   userRights String[]
+// }

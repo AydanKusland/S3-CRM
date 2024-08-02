@@ -17,7 +17,7 @@ model Inspection {
   inspectionType String
   tovarnoeNapravlenie String
   factoryShortName String
-  productInfo String
+  orderNumber String
   orderCost String
   commentary String
   province String @default("Province Is Not Defined")
@@ -28,4 +28,25 @@ model Inspection {
   managerKP String
   RTN String
   reportReceived Boolean
+}
+
+model Factory {
+  id String @id @default(uuid())
+  fullName String
+  shortName String
+  tovarnoeNapravlenie String[]
+  province String
+  address String
+  contact String
+  product String
+  user User[]
+}
+
+model User {
+  id String @id @default(uuid())
+  fullName String
+  shortName String
+  tovarnoeNapravlenie String[]
+  factories Factory[]
+  userRights String[]
 }

@@ -2,17 +2,20 @@ import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-function DateRangePickerComponent() {
-	const today = new Date()
-	// const fiveDaysFromNow = new Date(today.getTime() + 5 * 24 * 60 * 60 * 1000)
+function DateRangePickerComponent({ inspectionDate = new Date() }) {
+	const [inspectionStart, inspectionEnd] = inspectionDate.split('-')
 
-	const [dateRange, setDateRange] = useState([today, today])
+	const [dateRange, setDateRange] = useState([
+		new Date(inspectionStart),
+		new Date(inspectionEnd)
+	])
+
 	const [startDate, endDate] = dateRange
 
 	return (
 		<div>
 			<DatePicker
-				className='text-center max-w-28'
+				className='text-center max-w-28 rounded-r-none'
 				dateFormat='dd.MM'
 				selectsRange={true}
 				startDate={startDate}

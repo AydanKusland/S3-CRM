@@ -4,19 +4,23 @@ import { CreateAndEditInspectionType, inspectionMode } from 'utils/types'
 import DateRangePickerComponent from './ui/DateRangePicker'
 import { createInspectionAction } from 'utils/actions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+import { InspectionForm } from './InspectionForm'
+import { OtherInspectionForms } from './OtherInspectionForms'
 
-const TNSelectOptions = [
-	'23 Фонарь',
-	'56 Кабель',
-	'Выставка',
-	'Прочее',
-	'Офисная работа'
+const inspectors = [
+	'Любой',
+	'Любой инженер',
+	'Пронин',
+	'Волколупов',
+	'Соловьёв'
 ]
-const factories = ['Xianxing', 'UTL', 'Новый завод']
-const inspectors = ['Любой', 'Инженер', 'Пронин', 'Волколупов', 'Соловьёв']
 
 function CreateInspection() {
 	const queryClient = useQueryClient()
+	const [inspectionType, setInspectionType] = useState(
+		inspectionMode.Inspection
+	)
 
 	const { mutate, isPending } = useMutation({
 		mutationFn: (values: CreateAndEditInspectionType) =>
@@ -35,93 +39,47 @@ function CreateInspection() {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
 		const formDataObj = Object.fromEntries(formData.entries())
-		const formDataObject: any = {}
-		for (const property in formDataObj) {
-			// extract province property from address
-			if (property === 'factoryAddress') {
-				const factoryAddressString = formDataObj[property] as string
-				const [province, ...rest] = factoryAddressString.split(',')
-				formDataObject.province = province
-				formDataObject.factoryAddress = rest.join(' ')
-			} else formDataObject[property] = formData.get(property) as string
-		}
-
-		mutate(formDataObject)
+		mutate(formDataObj)
 		// return inputs to default?
 	}
 
+	const chooseForm = (e: React.ChangeEvent) => {
+		setInspectionType(e.target.selectedOptions[0].label)
+		console.log(e.target.selectedOptions[0].label)
+	}
+
 	return (
-		<form onSubmit={handleSubmit} className='p-2'>
-			<div className='flex flex-wrap justify-around gap-y-2'>
+		<form onSubmit={handleSubmit} className='p-3 border-2 grid'>
+			<div className='flex flex-wrap gap-y-2'>
 				{/* Даты */}
-				<DateRangePickerComponent />
+				<DateRangePickerComponent inspectionDate={'03.01 - 05.01'} />
 				{/* Тип работ */}
-				<select name='inspectionType' className='max-w-56'>
+				<select
+					name='inspectionType'
+					className='max-w-56 rounded-none'
+					onChange={chooseForm}
+					defaultValue={inspectionType}
+				>
 					{Object.values(inspectionMode).map(option => (
 						<option key={option} value={option}>
 							{option}
 						</option>
 					))}
 				</select>
-				{/* Товарное направление */}
-				<select name='tovarnoeNapravlenie' required>
-					{TNSelectOptions.map(option => (
-						<option key={option} value={option}>
-							{option}
-						</option>
-					))}
-				</select>
-				{/* Название завода */}
-				<select name='factoryShortName'>
-					{factories.map(option => (
-						<option key={option} value={option}>
-							{option}
-						</option>
-					))}
-				</select>
-				{/* Что за товар, номера проформ, количество артикулов */}
-				<input
-					className='w-64'
-					type='text'
-					name='productInfo'
-					placeholder='Заказ, Артикулы, Наименование'
-					autoComplete='on'
-				/>
-				{/* Стоимость заказа */}
-				<div className='relative '>
-					<span className='absolute left-1 text-black '>¥</span>
-					<input
-						className='max-w-28'
-						type='number'
-						name='orderCost'
-						step={10000}
-						defaultValue={100000}
-						min={0}
-					/>
-				</div>
-				{/* Комментарий */}
-				<input
-					className='max-w-48'
-					type='text'
-					name='commentary'
-					placeholder='комментарий'
-					autoComplete='on'
-				/>
-				{/* Адрес завода */}
-				<input
-					required
-					min={10}
-					className='max-w-48'
-					type='text'
-					name='factoryAddress'
-					defaultValue='Zhejiang, Yueqing'
-				/>
+				{/* Выбранный вид формы */}
+				{inspectionType === inspectionMode.Inspection ? (
+					<InspectionForm />
+				) : (
+					<OtherInspectionForms />
+				)}
 				{/* Исполнитель или Рекомендуемый исполнитель */}
 				<input
 					required
+					className='rounded-l-none'
 					list='recommendedExecutors'
 					name='recommendedExecutor'
 					autoComplete='on'
+					placeholder='исполнитель'
 				/>
 				<datalist id='recommendedExecutors'>
 					{inspectors.map(option => (

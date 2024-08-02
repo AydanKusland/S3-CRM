@@ -22,8 +22,6 @@ export async function createInspectionAction(
 				reportReceived: true
 			}
 		})
-		// console.log(inspection, 'success!')
-
 		return inspection
 	} catch (error) {
 		console.log(error)
@@ -36,7 +34,7 @@ export async function getAllInspectionsAction(): Promise<{
 }> {
 	try {
 		const inspections = await prisma.inspection.findMany({})
-		console.log('success loading all inspections')
+		console.log('success loading all inspections!!!')
 
 		return { inspections }
 	} catch (error) {
