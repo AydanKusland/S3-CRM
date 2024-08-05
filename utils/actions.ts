@@ -15,7 +15,6 @@ export async function createInspectionAction(
 		const inspection: InspectionType = await prisma.inspection.create({
 			data: {
 				...inspectionArg,
-				inspectionDuration: 1,
 				creatorId: 'apple',
 				managerKP: 'Tugov',
 				RTN: 'Golubcov',
@@ -40,5 +39,21 @@ export async function getAllInspectionsAction(): Promise<{
 	} catch (error) {
 		console.log(error)
 		return { inspections: [] }
+	}
+}
+
+export async function deleteInspectionAction(
+	id: string
+): Promise<InspectionType | null> {
+	try {
+		const inspection = await prisma.inspection.delete({
+			where: {
+				id
+			}
+		})
+		return inspection
+	} catch (error) {
+		console.log(error)
+		return null
 	}
 }

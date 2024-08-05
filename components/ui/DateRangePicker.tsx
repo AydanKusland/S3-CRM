@@ -2,12 +2,14 @@ import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-function DateRangePickerComponent({ inspectionDate = new Date() }) {
-	const [inspectionStart, inspectionEnd] = inspectionDate.split('-')
-
+function DateRangePickerComponent({
+	inspectionDate
+}: {
+	inspectionDate: Date[]
+}) {
 	const [dateRange, setDateRange] = useState([
-		new Date(inspectionStart),
-		new Date(inspectionEnd)
+		inspectionDate[0],
+		inspectionDate[1]
 	])
 
 	const [startDate, endDate] = dateRange
@@ -15,12 +17,11 @@ function DateRangePickerComponent({ inspectionDate = new Date() }) {
 	return (
 		<div>
 			<DatePicker
-				className='text-center max-w-28 rounded-r-none'
-				dateFormat='dd.MM'
+				className='text-center max-w-52 rounded-r-none'
+				dateFormat='dd.MM.yyyy'
 				selectsRange={true}
 				startDate={startDate}
 				endDate={endDate}
-				// form='createInspectionForm'
 				onChange={(update: [Date, Date]) => {
 					setDateRange(update)
 				}}

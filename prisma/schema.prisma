@@ -11,8 +11,6 @@ datasource db {
 
 model Inspection {
   id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   date String
   inspectionType String
   tovarnoeNapravlenie String
@@ -23,7 +21,6 @@ model Inspection {
   province String @default("Province Is Not Defined")
   factoryAddress String
   recommendedExecutor String
-  inspectionDuration Int
   creatorId String
   managerKP String
   RTN String

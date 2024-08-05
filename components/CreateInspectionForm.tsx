@@ -1,12 +1,22 @@
-const TNSelectOptions = ['23 Фонарь', '56 Кабель']
-const factories = ['Xianxing', 'UTL', 'Новый завод']
+'use client'
 
-export const InspectionForm = () => {
+import tovarnieNapravlenia from 'utils/tovarnieNapravlenia'
+import { InspectionType } from 'utils/types'
+
+const factories = ['Xianxing', 'UTL', 'Huajia']
+
+const provinces = ['Zhejiang', 'Guangdong', 'Fujiang']
+
+export const CreateInspectionForm = () => {
 	return (
 		<>
 			{/* Товарное направление */}
-			<select name='tovarnoeNapravlenie' className='rounded-none' required>
-				{TNSelectOptions.map(option => (
+			<select
+				name='tovarnoeNapravlenie'
+				className='max-w-32 rounded-none'
+				required
+			>
+				{tovarnieNapravlenia.map(option => (
 					<option key={option} value={option}>
 						{option}
 					</option>
@@ -20,10 +30,10 @@ export const InspectionForm = () => {
 					</option>
 				))}
 			</select>
-			{/* Что за товар, номера проформ, количество артикулов */}
+			{/* Номера заказа*/}
 			<input
 				required
-				className='max-w-32 rounded-none'
+				className='max-w-28 rounded-none'
 				type='text'
 				name='orderNumber'
 				placeholder='Номер заказа'
@@ -31,9 +41,9 @@ export const InspectionForm = () => {
 			/>
 			{/* Стоимость заказа */}
 			<div className='relative '>
-				<span className='absolute left-1 text-black '>¥</span>
+				<span className='absolute text-red-500 top-px'>¥</span>
 				<input
-					className='max-w-28 rounded-none'
+					className='max-w-24 rounded-none pl-1 '
 					type='number'
 					name='orderCost'
 					step={10000}
@@ -50,14 +60,16 @@ export const InspectionForm = () => {
 				autoComplete='on'
 			/>
 			{/* Провинция */}
-			<input
+			<select
 				required
-				min={10}
 				className='rounded-none'
-				type='text'
 				name='province'
 				defaultValue='Zhejiang'
-			/>
+			>
+				{provinces.map(province => (
+					<option key={province}>{province}</option>
+				))}
+			</select>
 			{/* Адрес завода */}
 			<input
 				required

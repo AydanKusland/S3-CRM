@@ -5,8 +5,8 @@ import DateRangePickerComponent from './ui/DateRangePicker'
 import { createInspectionAction } from 'utils/actions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { InspectionForm } from './InspectionForm'
 import { OtherInspectionForms } from './OtherInspectionForms'
+import { CreateInspectionForm } from './CreateInspectionForm'
 
 const inspectors = [
 	'Любой',
@@ -18,7 +18,7 @@ const inspectors = [
 
 function CreateInspection() {
 	const queryClient = useQueryClient()
-	const [inspectionType, setInspectionType] = useState(
+	const [inspectionType, setInspectionType] = useState<string>(
 		inspectionMode.Inspection
 	)
 
@@ -38,12 +38,22 @@ function CreateInspection() {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
-		const formDataObj = Object.fromEntries(formData.entries())
+
+		let formDataObj = {
+			date: '01.01.2001',
+			province: 'defaultProvince',
+			factoryAddress: 'defaultAddress',
+			recommendedExecutor: 'cat'
+		}
+
+		for (const key of formData.keys()) {
+			formDataObj[key] = formData.get(key) as string
+		}
 		mutate(formDataObj)
 		// return inputs to default?
 	}
 
-	const chooseForm = (e: React.ChangeEvent) => {
+	const chooseForm = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		setInspectionType(e.target.selectedOptions[0].label)
 		console.log(e.target.selectedOptions[0].label)
 	}
@@ -52,7 +62,7 @@ function CreateInspection() {
 		<form onSubmit={handleSubmit} className='p-3 border-2 grid'>
 			<div className='flex flex-wrap gap-y-2'>
 				{/* Даты */}
-				<DateRangePickerComponent inspectionDate={'03.01 - 05.01'} />
+				<DateRangePickerComponent inspectionDate={[new Date(), new Date()]} />
 				{/* Тип работ */}
 				<select
 					name='inspectionType'
@@ -68,7 +78,7 @@ function CreateInspection() {
 				</select>
 				{/* Выбранный вид формы */}
 				{inspectionType === inspectionMode.Inspection ? (
-					<InspectionForm />
+					<CreateInspectionForm />
 				) : (
 					<OtherInspectionForms />
 				)}
@@ -87,7 +97,7 @@ function CreateInspection() {
 					))}
 				</datalist>
 				{/* Submit Button */}
-				<button type='submit' disabled={isPending}>
+				<button type='submit' disabled={isPending} className='ml-1'>
 					Create!
 				</button>
 			</div>

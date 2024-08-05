@@ -2,23 +2,20 @@ import * as z from 'zod'
 
 export type InspectionType = {
 	id: string
-	createdAt: Date
-	updatedAt: Date
 	date: string
 	inspectionType: string
-	tovarnoeNapravlenie: string
-	factoryShortName: string
-	orderNumber: string
-	orderCost: string
-	commentary: string
 	province: string
-	factoryAddress: string
-	recommendedExecutor: string
-	inspectionDuration: number
 	creatorId: string
-	managerKP: string
-	RTN: string
-	reportReceived: Boolean
+	factoryShortName?: string
+	tovarnoeNapravlenie?: string
+	orderNumber?: string
+	orderCost?: string
+	commentary?: string
+	recommendedExecutor: string
+	factoryAddress?: string
+	managerKP?: string
+	RTN?: string
+	reportReceived?: Boolean
 }
 
 export type FactoryType = {
@@ -32,13 +29,6 @@ export type FactoryType = {
 	department: string // one or many?
 	factoryManagerName?: string
 	factoryManagerContact?: string
-}
-
-export type employeeType = {
-	id: string
-	name: string
-	outsource: Boolean
-	inCompanyFrom?: Date
 }
 
 export enum inspectionMode {
@@ -66,12 +56,3 @@ export const createAndEditUserSchema = z.object({
 })
 
 export type CreateAndEditUserType = z.infer<typeof createAndEditUserSchema>
-
-// model User {
-//   id String @id @default(uuid())
-//   fullName String
-//   shortName String
-//   tovarnoeNapravlenie String[]
-//   factories Factory[]
-//   userRights String[]
-// }
