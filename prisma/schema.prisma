@@ -11,20 +11,20 @@ datasource db {
 
 model Inspection {
   id String @id @default(uuid())
+  creatorId String
   date String
   inspectionType String
-  tovarnoeNapravlenie String
-  factoryShortName String
-  orderNumber String
-  orderCost String
-  commentary String
-  province String @default("Province Is Not Defined")
-  factoryAddress String
+  province String 
   recommendedExecutor String
-  creatorId String
-  managerKP String
-  RTN String
-  reportReceived Boolean
+  tovarnoeNapravlenie String?
+  RTN String?
+  factoryShortName String?
+  orderNumber String?
+  orderCost String?
+  commentary String?
+  factoryAddress String?
+  managerKP String?
+  reportReceived Boolean?
 }
 
 model Factory {

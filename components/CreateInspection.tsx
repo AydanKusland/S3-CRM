@@ -1,29 +1,16 @@
 'use client'
 
-import { CreateAndEditInspectionType, inspectionMode } from 'utils/types'
-import DateRangePickerComponent from './ui/DateRangePicker'
+import { BasicInspectionType, InspectionType } from 'utils/types'
 import { createInspectionAction } from 'utils/actions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
-import { OtherInspectionForms } from './OtherInspectionForms'
-import { CreateInspectionForm } from './CreateInspectionForm'
-
-const inspectors = [
-	'Любой',
-	'Любой инженер',
-	'Пронин',
-	'Волколупов',
-	'Соловьёв'
-]
+import { CreateForm } from './forms/CreateForm'
+import DateRangePickerComponent from './ui/DateRangePicker'
 
 function CreateInspection() {
 	const queryClient = useQueryClient()
-	const [inspectionType, setInspectionType] = useState<string>(
-		inspectionMode.Inspection
-	)
 
 	const { mutate, isPending } = useMutation({
-		mutationFn: (values: CreateAndEditInspectionType) =>
+		mutationFn: (values: BasicInspectionType | InspectionType) =>
 			createInspectionAction(values),
 		onSuccess: data => {
 			if (!data) {
@@ -40,62 +27,31 @@ function CreateInspection() {
 		const formData = new FormData(e.currentTarget)
 
 		let formDataObj = {
+			creatorId: 'pipa',
 			date: '01.01.2001',
+			inspectionType: '',
 			province: 'defaultProvince',
-			factoryAddress: 'defaultAddress',
 			recommendedExecutor: 'cat'
 		}
 
 		for (const key of formData.keys()) {
-			formDataObj[key] = formData.get(key) as string
+			const useKey: keyof typeof formDataObj = key as keyof typeof formDataObj
+			formDataObj[useKey] = formData.get(key) as string
 		}
 		mutate(formDataObj)
-		// return inputs to default?
-	}
-
-	const chooseForm = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setInspectionType(e.target.selectedOptions[0].label)
-		console.log(e.target.selectedOptions[0].label)
 	}
 
 	return (
 		<form onSubmit={handleSubmit} className='p-3 border-2 grid'>
-			<div className='flex flex-wrap gap-y-2'>
+			<div className='flex flex-wrap gap-y-2 '>
 				{/* Даты */}
-				<DateRangePickerComponent inspectionDate={[new Date(), new Date()]} />
-				{/* Тип работ */}
-				<select
-					name='inspectionType'
-					className='max-w-56 rounded-none'
-					onChange={chooseForm}
-					defaultValue={inspectionType}
-				>
-					{Object.values(inspectionMode).map(option => (
-						<option key={option} value={option}>
-							{option}
-						</option>
-					))}
-				</select>
-				{/* Выбранный вид формы */}
-				{inspectionType === inspectionMode.Inspection ? (
-					<CreateInspectionForm />
-				) : (
-					<OtherInspectionForms />
-				)}
-				{/* Исполнитель или Рекомендуемый исполнитель */}
-				<input
-					required
-					className='rounded-l-none'
-					list='recommendedExecutors'
-					name='recommendedExecutor'
-					autoComplete='on'
-					placeholder='исполнитель'
+				<DateRangePickerComponent
+					inspectionDateStart={new Date()}
+					inspectionDateEnd={new Date()}
+					edit={false}
+					id={null}
 				/>
-				<datalist id='recommendedExecutors'>
-					{inspectors.map(option => (
-						<option key={option} value={option} />
-					))}
-				</datalist>
+				<CreateForm />
 				{/* Submit Button */}
 				<button type='submit' disabled={isPending} className='ml-1'>
 					Create!

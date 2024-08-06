@@ -1,17 +1,18 @@
-import * as z from 'zod'
-
-export type InspectionType = {
-	id: string
-	date: string
-	inspectionType: string
-	province: string
+export interface BasicInspectionType {
 	creatorId: string
+	date: string
+	inspectionType: inspectionMode | string
+	province: string
+	recommendedExecutor: string
+}
+
+export interface InspectionType extends BasicInspectionType {
+	id: string
 	factoryShortName?: string
 	tovarnoeNapravlenie?: string
 	orderNumber?: string
 	orderCost?: string
 	commentary?: string
-	recommendedExecutor: string
 	factoryAddress?: string
 	managerKP?: string
 	RTN?: string
@@ -32,27 +33,10 @@ export type FactoryType = {
 }
 
 export enum inspectionMode {
-	Attestation = 'Посещение завода',
 	Inspection = 'Проверка заказа',
-	Fair = 'Выставка',
+	Attestation = 'Посещение завода',
 	FieldTest = 'Тестирование образцов',
-	Office = 'Офисная работа'
+	Fair = 'Посещение выставки',
+	Office = 'Офисная работа, написание отчётов',
+	Window = 'Окно'
 }
-
-export const createAndEditInspectionSchema = z.object({
-	date: z.string().min(5, { message: 'something is wrong with a date' }),
-	province: z.string().min(5),
-	factoryAddress: z.string().min(5),
-	recommendedExecutor: z.string().min(2)
-})
-
-export type CreateAndEditInspectionType = z.infer<
-	typeof createAndEditInspectionSchema
->
-
-export const createAndEditUserSchema = z.object({
-	fullName: z.string().min(3, { message: 'enter full name' }),
-	shortName: z.string().min(2, { message: 'enter short name' })
-})
-
-export type CreateAndEditUserType = z.infer<typeof createAndEditUserSchema>

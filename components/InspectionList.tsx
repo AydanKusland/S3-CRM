@@ -27,12 +27,14 @@ function InspectionList() {
 				return (
 					<div key={province} className='grid uppercase mb-4'>
 						<h3 className='text-center mb-2'>{province}</h3>
-						{inspections.map(inspection => {
-							if (inspection.province === province)
-								return (
-									<Inspection key={inspection.id} inspection={inspection} />
-								)
-						})}
+						<div>
+							{inspections.map(inspection => {
+								if (inspection.province === province)
+									return (
+										<Inspection key={inspection.id} inspection={inspection} />
+									)
+							})}
+						</div>
 					</div>
 				)
 			})}

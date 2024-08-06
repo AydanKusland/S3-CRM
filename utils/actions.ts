@@ -1,20 +1,15 @@
 'use server'
 
 import prisma from './db'
-import {
-	CreateAndEditInspectionType,
-	InspectionType,
-	createAndEditInspectionSchema
-} from './types'
+import { BasicInspectionType, InspectionType } from './types'
 
 export async function createInspectionAction(
-	inspectionArg: CreateAndEditInspectionType
+	inspectionArgs: BasicInspectionType
 ): Promise<InspectionType | null> {
 	try {
-		createAndEditInspectionSchema.parse(inspectionArg)
 		const inspection: InspectionType = await prisma.inspection.create({
 			data: {
-				...inspectionArg,
+				...inspectionArgs,
 				creatorId: 'apple',
 				managerKP: 'Tugov',
 				RTN: 'Golubcov',
@@ -47,6 +42,21 @@ export async function deleteInspectionAction(
 ): Promise<InspectionType | null> {
 	try {
 		const inspection = await prisma.inspection.delete({
+			where: {
+				id
+			}
+		})
+		return inspection
+	} catch (error) {
+		console.log(error)
+		return null
+	}
+}
+export async function editInspectionAction(
+	id: string
+): Promise<InspectionType | null> {
+	try {
+		const inspection = await prisma.inspection.findUnique({
 			where: {
 				id
 			}
