@@ -25,7 +25,7 @@ function InspectionList() {
 		<div className='p-3 border-2'>
 			{provinceList.map((province: string) => {
 				return (
-					<div key={province} className='grid uppercase mb-4'>
+					<div key={province} className='grid uppercase mb-2'>
 						<h3 className='text-center mb-2'>{province}</h3>
 						<div>
 							{inspections.map(inspection => {

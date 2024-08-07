@@ -1,23 +1,21 @@
 'use client'
 
-import { BasicInspectionType, InspectionType } from 'utils/types'
+import { BasicInspectionType } from 'utils/types'
 import { createInspectionAction } from 'utils/actions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateForm } from './forms/CreateForm'
+import { MainForm } from './forms/MainForm'
 import DateRangePickerComponent from './ui/DateRangePicker'
 
 function CreateInspection() {
 	const queryClient = useQueryClient()
 
 	const { mutate, isPending } = useMutation({
-		mutationFn: (values: BasicInspectionType | InspectionType) =>
-			createInspectionAction(values),
+		mutationFn: (values: BasicInspectionType) => createInspectionAction(values),
 		onSuccess: data => {
 			if (!data) {
 				console.log('NO DATA')
 				return
 			}
-			console.log('inspection created!')
 			queryClient.invalidateQueries({ queryKey: ['inspections'] })
 		}
 	})
@@ -27,11 +25,11 @@ function CreateInspection() {
 		const formData = new FormData(e.currentTarget)
 
 		let formDataObj = {
-			creatorId: 'pipa',
-			date: '01.01.2001',
+			creatorId: '',
+			date: '',
 			inspectionType: '',
-			province: 'defaultProvince',
-			recommendedExecutor: 'cat'
+			province: '',
+			recommendedExecutor: ''
 		}
 
 		for (const key of formData.keys()) {
@@ -45,13 +43,8 @@ function CreateInspection() {
 		<form onSubmit={handleSubmit} className='p-3 border-2 grid'>
 			<div className='flex flex-wrap gap-y-2 '>
 				{/* Даты */}
-				<DateRangePickerComponent
-					inspectionDateStart={new Date()}
-					inspectionDateEnd={new Date()}
-					edit={false}
-					id={null}
-				/>
-				<CreateForm />
+				<DateRangePickerComponent inspectionDate={[new Date(), new Date()]} />
+				<MainForm />
 				{/* Submit Button */}
 				<button type='submit' disabled={isPending} className='ml-1'>
 					Create!

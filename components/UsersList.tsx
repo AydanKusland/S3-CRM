@@ -1,6 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import { UserInterface } from 'utils/types'
 import { getAllUsers } from 'utils/userActions'
 
 export const UsersList = () => {
@@ -18,13 +19,13 @@ export const UsersList = () => {
 
 	return (
 		<div className='flex'>
-			{users?.map(user => {
+			{users?.map((user: UserInterface) => {
 				return (
 					<div key={user.id} className='border-2 mx-auto'>
 						<h3 className='text-center'>{user.fullName}</h3>
 						{/* Товарные направления */}
 						<div className='border-2'>
-							{user.tovarnoeNapravlenie.map(napravlenie => (
+							{user.tovarnoeNapravlenie.map((napravlenie: string) => (
 								<p key={napravlenie}>{napravlenie}</p>
 							))}
 						</div>
@@ -35,7 +36,7 @@ export const UsersList = () => {
 								<h3 className=''>Доступные права</h3>
 								<div className='flex justify-around'>
 									<div>
-										{user.userRights.map(right => {
+										{user.userRights.map((right: string) => {
 											return (
 												<div key={right} className='flex gap-2'>
 													<div>{right}</div>

@@ -52,16 +52,23 @@ export async function deleteInspectionAction(
 		return null
 	}
 }
-export async function editInspectionAction(
+export async function editInspectionAction({
+	id,
+	time
+}: {
 	id: string
-): Promise<InspectionType | null> {
+	time: string
+}): Promise<InspectionType | null> {
 	try {
-		const inspection = await prisma.inspection.findUnique({
+		const updatedInspection = await prisma.inspection.update({
 			where: {
 				id
+			},
+			data: {
+				date: time
 			}
 		})
-		return inspection
+		return updatedInspection
 	} catch (error) {
 		console.log(error)
 		return null

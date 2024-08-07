@@ -4,28 +4,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import DateRangePickerComponent from './ui/DateRangePicker'
 import { InspectionType } from 'utils/types'
 import { deleteInspectionAction } from 'utils/actions'
-import { EditInspectionForm } from './forms/EditInspectionForm'
+import { MainForm } from './forms/MainForm'
+import { parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY } from 'utils/helpers'
 
 export const Inspection = ({ inspection }: { inspection: InspectionType }) => {
-	const [startDateString, endDateString] = inspection.date.split(' - ')
-	const standardizedStartDateString = `${startDateString.charAt(
-		3
-	)}${startDateString.charAt(4)}.${startDateString.charAt(
-		0
-	)}${startDateString.charAt(1)}.${startDateString.charAt(
-		6
-	)}${startDateString.charAt(7)}`
-
-	const standardizedEndDateString = `${startDateString.charAt(
-		3
-	)}${startDateString.charAt(4)}.${startDateString.charAt(
-		0
-	)}${startDateString.charAt(1)}.${startDateString.charAt(
-		6
-	)}${startDateString.charAt(7)}`
-
-	const startDate: Date = new Date(standardizedStartDateString)
-	const endDate: Date = new Date(standardizedEndDateString)
+	const [startDate, endDate] =
+		parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY(inspection.date)
 
 	const queryClient = useQueryClient()
 	const { mutate, isPending } = useMutation({
@@ -49,15 +33,13 @@ export const Inspection = ({ inspection }: { inspection: InspectionType }) => {
 
 	return (
 		<form>
-			<div key={inspection.id} className='mx-auto flex flex-wrap py-1.5'>
+			<div key={inspection.id} className='mx-auto flex flex-wrap py-1 text-sm'>
 				{/* Даты */}
 				<DateRangePickerComponent
-					inspectionDateStart={startDate}
-					inspectionDateEnd={endDate}
-					edit={true}
+					inspectionDate={[startDate, endDate]}
 					id={inspection.id}
 				/>
-				<EditInspectionForm inspection={inspection} />
+				<MainForm inspection={inspection} />
 				<button
 					className='ml-2'
 					onClick={deleteInspection}

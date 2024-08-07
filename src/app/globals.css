@@ -34,9 +34,9 @@ option {
 
 input,
 select {
+	appearance: none;
 	text-align: center;
 	border-radius: 3px;
-	padding: 1px 0px;
 }
 
 @layer utilities {

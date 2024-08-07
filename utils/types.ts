@@ -32,11 +32,21 @@ export type FactoryType = {
 	factoryManagerContact?: string
 }
 
+export interface UserInterface {
+	id: string
+	fullName: string
+	shortName: string
+	tovarnoeNapravlenie: string[]
+	factories: FactoryType[]
+	userRights: string[]
+}
+
 export enum inspectionMode {
 	Inspection = 'Проверка заказа',
 	Attestation = 'Посещение завода',
 	FieldTest = 'Тестирование образцов',
 	Fair = 'Посещение выставки',
 	Office = 'Офисная работа, написание отчётов',
-	Window = 'Окно'
+	Window = 'Окно',
+	Rest = 'Выходной!'
 }

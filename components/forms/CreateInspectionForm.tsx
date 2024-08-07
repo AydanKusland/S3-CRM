@@ -1,40 +1,22 @@
-import tovarnieNapravlenia from 'utils/tovarnieNapravlenia'
 import { InspectionType } from 'utils/types'
-
-const factories = ['Xianxing', 'UTL', 'Huajia']
+import { TovarnoeNapravlenieInput } from '../input fields/TovarnoeNapravlenieInput'
+import { FactoryNameInput } from '../input fields/FactoryNameInput'
+import { FactoryAddress } from '../input fields/FactoryAddress'
 
 export const CreateInspectionForm = ({
 	inspection
 }: {
-	inspection: InspectionType | null
+	inspection?: InspectionType
 }) => {
 	return (
 		<>
 			{/* Товарное направление */}
-			<select
-				name='tovarnoeNapravlenie'
-				className='max-w-36 rounded-none'
-				defaultValue={inspection?.tovarnoeNapravlenie}
-				required
-			>
-				{tovarnieNapravlenia.map(option => (
-					<option key={option} value={option}>
-						{option}
-					</option>
-				))}
-			</select>
+			<TovarnoeNapravlenieInput TN={inspection?.tovarnoeNapravlenie} />
 			{/* Название завода */}
-			<select name='factoryShortName' className='rounded-none'>
-				{factories.map(option => (
-					<option
-						key={option}
-						defaultValue={inspection?.factoryShortName}
-						value={option}
-					>
-						{option}
-					</option>
-				))}
-			</select>
+			<FactoryNameInput
+				inspectionTypeIsInspection
+				factoryName={inspection?.factoryShortName}
+			/>
 			{/* Номера заказа*/}
 			<input
 				required
@@ -57,17 +39,8 @@ export const CreateInspectionForm = ({
 					min={0}
 				/>
 			</div>
-
 			{/* Адрес завода */}
-			<input
-				required
-				min={10}
-				className='rounded-none'
-				type='text'
-				name='factoryAddress'
-				defaultValue={inspection?.factoryAddress}
-				placeholder='Адрес завода'
-			/>
+			<FactoryAddress address={inspection?.factoryAddress} />
 		</>
 	)
 }

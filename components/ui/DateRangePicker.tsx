@@ -3,29 +3,24 @@ import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { editInspectionAction } from 'utils/actions'
+import { changeDateFormatToDDMMYY } from 'utils/helpers'
 
 function DateRangePickerComponent({
-	inspectionDateStart,
-	inspectionDateEnd,
-	edit,
+	inspectionDate,
 	id
 }: {
-	inspectionDateStart: Date
-	inspectionDateEnd: Date
-	edit: boolean
-	id: string | null
+	inspectionDate: Date[]
+	id?: string
 }) {
-	const [dateRange, setDateRange] = useState([
-		inspectionDateStart,
-		inspectionDateEnd
-	])
+	const [dateRange, setDateRange] = useState(inspectionDate)
 
 	const [startDate, endDate] = dateRange
 
 	const queryClient = useQueryClient()
 
 	const { mutate } = useMutation({
-		mutationFn: (values: string) => editInspectionAction(values),
+		mutationFn: (values: { id: string; time: string }) =>
+			editInspectionAction(values),
 		onSuccess: data => {
 			if (!data) {
 				console.log('NO DATA')
@@ -38,20 +33,17 @@ function DateRangePickerComponent({
 
 	const changeInspectionDate = (update: Date[]) => {
 		if (id && update[1]) {
-			const time = `${update[0].toLocaleDateString('ru-RU', {
-				year: 'numeric',
-				month: 'numeric',
-				day: 'numeric'
-			})}`
-			mutate(id)
-			console.log(time)
+			const time = `${changeDateFormatToDDMMYY(
+				update[0]
+			)} - ${changeDateFormatToDDMMYY(update[1])}`
+			mutate({ id, time })
 		}
 	}
 
 	return (
 		<div>
 			<DatePicker
-				className='text-center max-w-44 rounded-r-none'
+				className='text-center max-w-40 rounded-r-none'
 				dateFormat='dd.MM.yy'
 				selectsRange={true}
 				startDate={startDate}

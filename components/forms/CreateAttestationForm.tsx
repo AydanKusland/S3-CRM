@@ -1,44 +1,24 @@
-import tovarnieNapravlenia from 'utils/tovarnieNapravlenia'
 import { InspectionType } from 'utils/types'
+import { TovarnoeNapravlenieInput } from '../input fields/TovarnoeNapravlenieInput'
+import { FactoryNameInput } from '../input fields/FactoryNameInput'
+import { FactoryAddress } from '../input fields/FactoryAddress'
 
 export const CreateAttestationForm = ({
 	inspection
 }: {
-	inspection: InspectionType | null
+	inspection?: InspectionType
 }) => {
 	return (
 		<>
 			{/* Товарное направление */}
-			<select
-				name='tovarnoeNapravlenie'
-				className='max-w-32 rounded-none'
-				required
-			>
-				{tovarnieNapravlenia.map(option => (
-					<option
-						key={option}
-						defaultValue={inspection?.tovarnoeNapravlenie}
-						value={option}
-					>
-						{option}
-					</option>
-				))}
-			</select>
+			<TovarnoeNapravlenieInput TN={inspection?.tovarnoeNapravlenie} />
 			{/* Название завода */}
-			<input
-				name='factoryShortName'
-				className='rounded-none'
-				placeholder='Название завода'
-				defaultValue={inspection?.factoryShortName}
+			<FactoryNameInput
+				inspectionTypeIsInspection={false}
+				factoryName={inspection?.factoryShortName}
 			/>
 			{/* Адрес завода */}
-			<input
-				className='rounded-none'
-				type='text'
-				name='factoryAddress'
-				defaultValue={inspection?.factoryAddress}
-				placeholder='Адрес завода'
-			/>
+			<FactoryAddress address={inspection?.factoryAddress} />
 		</>
 	)
 }
