@@ -37,6 +37,7 @@ select {
 	appearance: none;
 	text-align: center;
 	border-radius: 3px;
+	padding: 1px;
 }
 
 @layer utilities {

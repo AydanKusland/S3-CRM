@@ -54,6 +54,7 @@ function DateRangePickerComponent({
 				}}
 				withPortal
 				name='date'
+				// locale='en-GB'
 			/>
 		</div>
 	)
