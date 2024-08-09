@@ -1,18 +1,22 @@
 import CreateInspection from '@/components/CreateInspection'
 import InspectionCalendar from '@/components/InspectionCalendar'
 import InspectionList from '@/components/InspectionList'
+import { QueryClient } from '@tanstack/react-query'
+import { getAllInspectionsAction } from 'utils/actions'
 
-async function page() {
-	// prefetch all inspections
+export default async function InspectionsPage() {
+	// const queryClient = new QueryClient()
+	// await queryClient.prefetchQuery({
+	// 	queryKey: ['Inspections'],
+	// 	queryFn: getAllInspectionsAction()
+	// })
 
 	return (
-		<div>
+		<div className='h-screen'>
 			<InspectionCalendar />
 			<CreateInspection />
 			<InspectionList />
 			{/* Inspections related to your TN or having your name should be highlighted */}
-			{/* Every inspection without assigned date goes to the next week */}
 		</div>
 	)
 }
-export default page

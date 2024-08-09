@@ -2,9 +2,9 @@ import Sidebar from '@/components/Sidebar'
 
 function layout({ children }: { children: JSX.Element }) {
 	return (
-		<div className='h-screen grid grid-cols-[100px_1fr]'>
+		<div className='grid grid-cols-[100px_1fr]'>
 			<Sidebar />
-			<main className='h-full'>{children}</main>
+			<main>{children}</main>
 		</div>
 	)
 }

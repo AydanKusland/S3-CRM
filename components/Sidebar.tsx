@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 function Sidebar() {
 	return (
-		<aside className='w-full border-2'>
+		<aside className='h-screen border-2'>
 			<ul className='grid items-center h-full text-center'>
 				<Link href={'inspections'}>Inspections</Link>
 				<button>Stats</button>

@@ -8,7 +8,7 @@ import {
 	sortInspectionsByExecutorAndDate
 } from 'utils/helpers'
 
-function InspectionList() {
+export default function InspectionList() {
 	const { data } = useQuery({
 		queryKey: ['inspections'],
 		queryFn: () => getAllInspectionsAction()
@@ -19,7 +19,7 @@ function InspectionList() {
 		const inspections = sortInspectionsByExecutorAndDate(data.inspections)
 
 		return (
-			<div className='p-3 border-2'>
+			<div className='p-3'>
 				{provinceList.map((province: string) => {
 					return (
 						<div key={province} className='grid uppercase mb-2'>
@@ -39,4 +39,3 @@ function InspectionList() {
 		)
 	} else return <h1>HUI</h1>
 }
-export default InspectionList

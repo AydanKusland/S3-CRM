@@ -47,10 +47,12 @@ export const sortInspectionsByExecutorAndDate = (
 			a.recommendedExecutor === b.recommendedExecutor &&
 			a.province === b.province
 		) {
-			const dateA = Date.parse(a.date.split(' - ')[0])
-			const dateB = Date.parse(b.date.split(' - ')[0])
+			const formattedDateA =
+				parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY(a.date)[0]
+			const formattedDateB =
+				parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY(b.date)[0]
 
-			return dateA - dateB
+			return formattedDateA.valueOf() - formattedDateB.valueOf()
 		} else return 0
 	})
 }
@@ -61,4 +63,16 @@ export const makeProvinceList = (inspections: InspectionType[]): string[] => {
 			inspections.reduce((acc: string[], cur) => [...acc, cur.province], [])
 		)
 	)
+}
+
+export function changeDateByOneWeek(
+	initialDate: Date,
+	plusORminus: string
+): Date {
+	const oneWeekInMs = 1000 * 60 * 60 * 24 * 7
+	if (plusORminus === 'plus')
+		return new Date(initialDate.valueOf() + oneWeekInMs)
+	if (plusORminus === 'minus')
+		return new Date(initialDate.valueOf() - oneWeekInMs)
+	return initialDate
 }
