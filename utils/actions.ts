@@ -1,24 +1,14 @@
 'use server'
 
 import prisma from './db'
-import {
-	BasicInspectionType,
-	CreateBasicInspectionType,
-	InspectionType
-} from './types'
+import { InspectionType, InspectionTypeWithId } from './types'
 
 export async function createInspectionAction(
-	inspectionArgs: BasicInspectionType
-): Promise<InspectionType | null> {
+	data: InspectionType
+): Promise<InspectionTypeWithId | null> {
 	try {
-		const inspection: InspectionType = await prisma.inspection.create({
-			data: {
-				...inspectionArgs,
-				creatorId: 'apple',
-				managerKP: 'Tugov',
-				RTN: 'Golubcov',
-				reportReceived: true
-			}
+		const inspection: InspectionTypeWithId = await prisma.inspection.create({
+			data
 		})
 		return inspection
 	} catch (error) {
@@ -28,7 +18,7 @@ export async function createInspectionAction(
 }
 
 export async function getAllInspectionsAction(): Promise<{
-	inspections: InspectionType[]
+	inspections: InspectionTypeWithId[]
 }> {
 	try {
 		const inspections = await prisma.inspection.findMany({})
@@ -43,7 +33,7 @@ export async function getAllInspectionsAction(): Promise<{
 
 export async function deleteInspectionAction(
 	id: string
-): Promise<InspectionType | null> {
+): Promise<InspectionTypeWithId | null> {
 	try {
 		const inspection = await prisma.inspection.delete({
 			where: {
@@ -64,7 +54,7 @@ export async function editInspectionAction({
 	id: string
 	startDate: string
 	endDate: string
-}): Promise<InspectionType | null> {
+}): Promise<InspectionTypeWithId | null> {
 	try {
 		const updatedInspection = await prisma.inspection.update({
 			where: {

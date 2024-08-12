@@ -1,4 +1,8 @@
-import { InspectionType } from './types'
+import {
+	defaultInspectionObject,
+	inspectionMode,
+	InspectionType
+} from './types'
 
 export const changeDateFormatToDDMMYY = (date: Date): string =>
 	date.toLocaleDateString('ru-RU', {
@@ -40,7 +44,7 @@ export const sortInspectionsByExecutorAndDate = (
 				a.startDate
 			)
 			const formattedDateB = parseDateStringFromDDMMYYToDateStringMMDDYY(
-				b.endDate
+				b.startDate
 			)
 
 			return formattedDateA.valueOf() - formattedDateB.valueOf()
@@ -58,7 +62,7 @@ export const makeProvinceList = (inspections: InspectionType[]): string[] => {
 
 export function changeDateByOneWeek(
 	initialDate: Date,
-	plusORminus: string
+	plusORminus: 'plus' | 'minus'
 ): Date {
 	const oneWeekInMs = 1000 * 60 * 60 * 24 * 7
 	if (plusORminus === 'plus')
@@ -66,4 +70,33 @@ export function changeDateByOneWeek(
 	if (plusORminus === 'minus')
 		return new Date(initialDate.valueOf() - oneWeekInMs)
 	return initialDate
+}
+
+export function extractDataFromFormData(formData: FormData): InspectionType {
+	let createInspectionData: InspectionType = defaultInspectionObject
+
+	// Dealing with dates
+	const date: string = formData.get('date') as string
+	const [startDate, endDate] = date.split(' - ')
+	createInspectionData.startDate = startDate
+	createInspectionData.endDate = endDate
+
+	// Everything else
+
+	createInspectionData.inspectionType = formData.get('inspectionType') as string
+	createInspectionData.province = formData.get('province') as string
+	createInspectionData.factoryShortName = formData.get(
+		'factoryShortName'
+	) as string
+	createInspectionData.tovarnoeNapravlenie = formData.get(
+		'tovarnoeNapravlenie'
+	) as string
+	createInspectionData.orderNumber = formData.get('orderNumber') as string
+	createInspectionData.orderCost = formData.get('orderCost') as string
+	createInspectionData.commentary = formData.get('commentary') as string
+	createInspectionData.factoryAddress = formData.get('factoryAddress') as string
+	createInspectionData.managerKP = formData.get('managerKP') as string
+	createInspectionData.RTN = formData.get('RTN') as string
+
+	return createInspectionData
 }

@@ -2,12 +2,16 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import DateRangePickerComponent from './ui/DateRangePicker'
-import { InspectionType } from 'utils/types'
+import { InspectionTypeWithId } from 'utils/types'
 import { deleteInspectionAction } from 'utils/actions'
 import { MainForm } from './forms/MainForm'
 import { parseDateStringFromDDMMYYToDateStringMMDDYY } from 'utils/helpers'
 
-export const Inspection = ({ inspection }: { inspection: InspectionType }) => {
+export const Inspection = ({
+	inspection
+}: {
+	inspection: InspectionTypeWithId
+}) => {
 	const [startDate, endDate] = [
 		parseDateStringFromDDMMYYToDateStringMMDDYY(inspection.startDate),
 		parseDateStringFromDDMMYYToDateStringMMDDYY(inspection.endDate)

@@ -5,11 +5,11 @@ import { QueryClient } from '@tanstack/react-query'
 import { getAllInspectionsAction } from 'utils/actions'
 
 export default async function InspectionsPage() {
-	// const queryClient = new QueryClient()
-	// await queryClient.prefetchQuery({
-	// 	queryKey: ['Inspections'],
-	// 	queryFn: getAllInspectionsAction()
-	// })
+	const queryClient = new QueryClient()
+	await queryClient.prefetchQuery({
+		queryKey: ['inspections'],
+		queryFn: () => getAllInspectionsAction()
+	})
 
 	return (
 		<div className='h-screen'>

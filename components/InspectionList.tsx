@@ -7,6 +7,7 @@ import {
 	makeProvinceList,
 	sortInspectionsByExecutorAndDate
 } from 'utils/helpers'
+import { InspectionTypeWithId } from 'utils/types'
 
 export default function InspectionList() {
 	const { data } = useQuery({
@@ -25,7 +26,7 @@ export default function InspectionList() {
 						<div key={province} className='grid uppercase mb-2'>
 							<h3 className='text-center mb-2'>{province}</h3>
 							<div>
-								{inspections.map(inspection => {
+								{inspections.map((inspection: InspectionTypeWithId) => {
 									if (inspection.province === province)
 										return (
 											<Inspection key={inspection.id} inspection={inspection} />
@@ -37,5 +38,5 @@ export default function InspectionList() {
 				})}
 			</div>
 		)
-	} else return <h1>HUI</h1>
+	} else return <h1>LOADING</h1>
 }

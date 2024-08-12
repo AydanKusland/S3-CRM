@@ -1,20 +1,17 @@
 'use client'
 
-import {
-	BasicInspectionType,
-	InspectionType,
-	inspectionMode
-} from 'utils/types'
+import { InspectionType } from 'utils/types'
 import { createInspectionAction } from 'utils/actions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { MainForm } from './forms/MainForm'
 import DateRangePickerComponent from './ui/DateRangePicker'
+import { extractDataFromFormData } from 'utils/helpers'
 
 function CreateInspection() {
 	const queryClient = useQueryClient()
 
 	const { mutate, isPending } = useMutation({
-		mutationFn: (values: BasicInspectionType) => createInspectionAction(values),
+		mutationFn: (values: InspectionType) => createInspectionAction(values),
 		onSuccess: data => {
 			if (!data) {
 				console.log('NO DATA')
@@ -24,30 +21,10 @@ function CreateInspection() {
 		}
 	})
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
-		const date: string = formData.get('date') as string
-		formData.delete('date')
-		const [startDate, endDate] = date.split(' - ')
-		let createInspectionData: BasicInspectionType = {
-			startDate,
-			endDate,
-			inspectionType: inspectionMode.Attestation,
-			province: '',
-			recommendedExecutor: ''
-		}
-
-		for (const key of formData.keys()) {
-			const useKey: keyof BasicInspectionType =
-				key as keyof typeof createInspectionData
-
-			if (formData.get(useKey) != null) {
-				if (useKey === 'inspectionType')
-					createInspectionData[useKey] = formData.get(useKey) as inspectionMode
-				else createInspectionData[useKey] = formData.get(useKey) as string
-			}
-		}
+		const createInspectionData = extractDataFromFormData(formData)
 		mutate(createInspectionData)
 	}
 

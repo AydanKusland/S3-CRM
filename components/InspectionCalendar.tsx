@@ -6,20 +6,20 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { changeDateByOneWeek } from 'utils/helpers'
 
 function InspectionCalendar() {
-	const [startDate, setStartDate] = useState(new Date())
+	const [startWeek, setStartWeek] = useState(new Date())
 
 	return (
 		<div className='flex justify-center gap-2 py-1.5 text-xl'>
 			<button
-				onClick={() => setStartDate(changeDateByOneWeek(startDate, 'minus'))}
+				onClick={() => setStartWeek(changeDateByOneWeek(startWeek, 'minus'))}
 			>
 				<FaChevronLeft />
 			</button>
 			<div>
 				<DatePicker
 					className='max-w-24'
-					selected={startDate}
-					onChange={(date: Date) => setStartDate(date)}
+					selected={startWeek}
+					onChange={(date: Date) => setStartWeek(date)}
 					dateFormat='I/R'
 					showWeekNumbers
 					showWeekPicker
@@ -27,7 +27,7 @@ function InspectionCalendar() {
 				/>
 			</div>
 			<button
-				onClick={() => setStartDate(changeDateByOneWeek(startDate, 'plus'))}
+				onClick={() => setStartWeek(changeDateByOneWeek(startWeek, 'plus'))}
 			>
 				<FaChevronRight />
 			</button>

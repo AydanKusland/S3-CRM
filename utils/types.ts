@@ -1,25 +1,32 @@
-export interface BasicInspectionType {
+// export interface BasicInspectionType {
+// creatorId: string
+// startDate: string
+// endDate: string
+// inspectionType: inspectionMode
+// province: string
+// recommendedExecutor: string
+// }
+
+export interface InspectionType {
+	creatorId: string
 	startDate: string
 	endDate: string
-	inspectionType: inspectionMode
+	inspectionType: string
 	province: string
 	recommendedExecutor: string
-}
-export interface CreateBasicInspectionType extends BasicInspectionType {
-	creatorId: string
+	factoryShortName: string
+	tovarnoeNapravlenie: string
+	orderNumber: string
+	orderCost: string
+	commentary: string
+	factoryAddress: string
+	managerKP: string
+	RTN: string
+	reportReceived: boolean | null
 }
 
-export interface InspectionType extends CreateBasicInspectionType {
+export interface InspectionTypeWithId extends InspectionType {
 	id: string
-	factoryShortName?: string
-	tovarnoeNapravlenie?: string
-	orderNumber?: string
-	orderCost?: string
-	commentary?: string
-	factoryAddress?: string
-	managerKP?: string
-	RTN?: string
-	reportReceived?: Boolean
 }
 
 export type FactoryType = {
@@ -44,12 +51,30 @@ export interface UserInterface {
 	userRights: string[]
 }
 
-export enum inspectionMode {
-	Inspection = 'Проверка заказа',
-	Attestation = 'Посещение завода',
-	FieldTest = 'Тестирование образцов',
-	Fair = 'Посещение выставки',
-	Office = 'Офисная работа, написание отчётов',
-	Window = 'Окно',
-	RestDay = 'Выходной!'
+export const inspectionMode = [
+	'Проверка заказа',
+	'Посещение завода',
+	'Тестирование образцов',
+	'Посещение выставки',
+	'Офисная работа, написание отчётов',
+	'Окно',
+	'Выходной!'
+]
+
+export const defaultInspectionObject = {
+	creatorId: '',
+	startDate: '',
+	endDate: '',
+	inspectionType: inspectionMode[0],
+	province: '',
+	recommendedExecutor: '',
+	factoryShortName: '',
+	tovarnoeNapravlenie: '',
+	orderNumber: '',
+	orderCost: '',
+	commentary: '',
+	factoryAddress: '',
+	managerKP: '',
+	RTN: '',
+	reportReceived: null
 }

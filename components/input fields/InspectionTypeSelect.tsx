@@ -9,7 +9,7 @@ export const InspectionTypeSelect = ({
 	inspection?: InspectionType
 }) => {
 	const [inspectionType, setInspectionType] = useState<string>(
-		inspection?.inspectionType || inspectionMode.Inspection
+		inspection?.inspectionType || inspectionMode[0]
 	)
 
 	const chooseForm = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -30,11 +30,11 @@ export const InspectionTypeSelect = ({
 				))}
 			</select>
 			{/* Выбранный вид формы */}
-			{inspectionType === inspectionMode.Inspection && (
+			{inspectionType === inspectionMode[0] && (
 				<CreateInspectionForm inspection={inspection} />
 			)}
-			{(inspectionType === inspectionMode.Attestation ||
-				inspectionType === inspectionMode.FieldTest) && (
+			{(inspectionType === inspectionMode[1] ||
+				inspectionType === inspectionMode[2]) && (
 				<CreateAttestationForm inspection={inspection} />
 			)}
 		</>

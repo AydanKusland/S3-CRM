@@ -17,14 +17,14 @@ model Inspection {
   inspectionType String
   province String 
   recommendedExecutor String
-  tovarnoeNapravlenie String?
-  RTN String?
-  factoryShortName String?
-  orderNumber String?
-  orderCost String?
-  commentary String?
-  factoryAddress String?
-  managerKP String?
+  tovarnoeNapravlenie String
+  RTN String
+  factoryShortName String
+  orderNumber String
+  orderCost String
+  commentary String
+  factoryAddress String
+  managerKP String
   reportReceived Boolean?
 }
 
