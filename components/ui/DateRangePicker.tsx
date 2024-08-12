@@ -19,7 +19,7 @@ function DateRangePickerComponent({
 	const queryClient = useQueryClient()
 
 	const { mutate } = useMutation({
-		mutationFn: (values: { id: string; time: string }) =>
+		mutationFn: (values: { id: string; startDate: string; endDate: string }) =>
 			editInspectionAction(values),
 		onSuccess: data => {
 			if (!data) {
@@ -33,10 +33,9 @@ function DateRangePickerComponent({
 
 	const changeInspectionDate = (update: Date[]) => {
 		if (id && update[1]) {
-			const time = `${changeDateFormatToDDMMYY(
-				update[0]
-			)} - ${changeDateFormatToDDMMYY(update[1])}`
-			mutate({ id, time })
+			const startDate: string = changeDateFormatToDDMMYY(update[0])
+			const endDate: string = changeDateFormatToDDMMYY(update[1])
+			mutate({ id, startDate, endDate })
 		}
 	}
 

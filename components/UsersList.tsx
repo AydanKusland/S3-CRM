@@ -10,8 +10,6 @@ export const UsersList = () => {
 		queryFn: () => getAllUsers()
 	})
 
-	console.log(users)
-
 	const deleteRight = (e: React.MouseEvent) => {
 		console.log('right deleted')
 		// TODO delete rights

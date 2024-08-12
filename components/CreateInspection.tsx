@@ -1,6 +1,10 @@
 'use client'
 
-import { BasicInspectionType } from 'utils/types'
+import {
+	BasicInspectionType,
+	InspectionType,
+	inspectionMode
+} from 'utils/types'
 import { createInspectionAction } from 'utils/actions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { MainForm } from './forms/MainForm'
@@ -23,20 +27,28 @@ function CreateInspection() {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
-
-		let formDataObj = {
-			creatorId: '',
-			date: '',
-			inspectionType: '',
+		const date: string = formData.get('date') as string
+		formData.delete('date')
+		const [startDate, endDate] = date.split(' - ')
+		let createInspectionData: BasicInspectionType = {
+			startDate,
+			endDate,
+			inspectionType: inspectionMode.Attestation,
 			province: '',
 			recommendedExecutor: ''
 		}
 
 		for (const key of formData.keys()) {
-			const useKey: keyof typeof formDataObj = key as keyof typeof formDataObj
-			formDataObj[useKey] = formData.get(key) as string
+			const useKey: keyof BasicInspectionType =
+				key as keyof typeof createInspectionData
+
+			if (formData.get(useKey) != null) {
+				if (useKey === 'inspectionType')
+					createInspectionData[useKey] = formData.get(useKey) as inspectionMode
+				else createInspectionData[useKey] = formData.get(useKey) as string
+			}
 		}
-		mutate(formDataObj)
+		mutate(createInspectionData)
 	}
 
 	return (

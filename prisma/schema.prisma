@@ -12,7 +12,8 @@ datasource db {
 model Inspection {
   id String @id @default(uuid())
   creatorId String
-  date String
+  startDate String
+  endDate String
   inspectionType String
   province String 
   recommendedExecutor String

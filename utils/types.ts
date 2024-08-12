@@ -1,12 +1,15 @@
 export interface BasicInspectionType {
-	creatorId: string
-	date: string
-	inspectionType: inspectionMode | string
+	startDate: string
+	endDate: string
+	inspectionType: inspectionMode
 	province: string
 	recommendedExecutor: string
 }
+export interface CreateBasicInspectionType extends BasicInspectionType {
+	creatorId: string
+}
 
-export interface InspectionType extends BasicInspectionType {
+export interface InspectionType extends CreateBasicInspectionType {
 	id: string
 	factoryShortName?: string
 	tovarnoeNapravlenie?: string
@@ -48,5 +51,5 @@ export enum inspectionMode {
 	Fair = 'Посещение выставки',
 	Office = 'Офисная работа, написание отчётов',
 	Window = 'Окно',
-	Rest = 'Выходной!'
+	RestDay = 'Выходной!'
 }

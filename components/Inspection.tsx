@@ -5,11 +5,13 @@ import DateRangePickerComponent from './ui/DateRangePicker'
 import { InspectionType } from 'utils/types'
 import { deleteInspectionAction } from 'utils/actions'
 import { MainForm } from './forms/MainForm'
-import { parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY } from 'utils/helpers'
+import { parseDateStringFromDDMMYYToDateStringMMDDYY } from 'utils/helpers'
 
 export const Inspection = ({ inspection }: { inspection: InspectionType }) => {
-	const [startDate, endDate] =
-		parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY(inspection.date)
+	const [startDate, endDate] = [
+		parseDateStringFromDDMMYYToDateStringMMDDYY(inspection.startDate),
+		parseDateStringFromDDMMYYToDateStringMMDDYY(inspection.endDate)
+	]
 
 	const queryClient = useQueryClient()
 	const { mutate, isPending } = useMutation({

@@ -7,25 +7,14 @@ export const changeDateFormatToDDMMYY = (date: Date): string =>
 		year: '2-digit'
 	})
 
-export const parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY = (
+export const parseDateStringFromDDMMYYToDateStringMMDDYY = (
 	date: string
-): Date[] => {
-	const [firstDate, secondDate] = date.split(' - ')
-	const standardizedStartDateString = `${firstDate.charAt(3)}${firstDate.charAt(
+): Date => {
+	const standardizedStartDateString = `${date.charAt(3)}${date.charAt(
 		4
-	)}.${firstDate.charAt(0)}${firstDate.charAt(1)}.${firstDate.charAt(
-		6
-	)}${firstDate.charAt(7)}`
+	)}.${date.charAt(0)}${date.charAt(1)}.${date.charAt(6)}${date.charAt(7)}`
 
-	const standardizedEndDateString = `${secondDate.charAt(3)}${secondDate.charAt(
-		4
-	)}.${secondDate.charAt(0)}${secondDate.charAt(1)}.${secondDate.charAt(
-		6
-	)}${secondDate.charAt(7)}`
-	return [
-		new Date(standardizedStartDateString),
-		new Date(standardizedEndDateString)
-	]
+	return new Date(standardizedStartDateString)
 }
 
 const sortInspectionsByExecutor = (
@@ -47,10 +36,12 @@ export const sortInspectionsByExecutorAndDate = (
 			a.recommendedExecutor === b.recommendedExecutor &&
 			a.province === b.province
 		) {
-			const formattedDateA =
-				parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY(a.date)[0]
-			const formattedDateB =
-				parseDateStringFromDDMMYY_DDMMYYToDateArrayOfTwoMMDDYY(b.date)[0]
+			const formattedDateA = parseDateStringFromDDMMYYToDateStringMMDDYY(
+				a.startDate
+			)
+			const formattedDateB = parseDateStringFromDDMMYYToDateStringMMDDYY(
+				b.endDate
+			)
 
 			return formattedDateA.valueOf() - formattedDateB.valueOf()
 		} else return 0

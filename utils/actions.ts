@@ -1,7 +1,11 @@
 'use server'
 
 import prisma from './db'
-import { BasicInspectionType, InspectionType } from './types'
+import {
+	BasicInspectionType,
+	CreateBasicInspectionType,
+	InspectionType
+} from './types'
 
 export async function createInspectionAction(
 	inspectionArgs: BasicInspectionType
@@ -54,10 +58,12 @@ export async function deleteInspectionAction(
 }
 export async function editInspectionAction({
 	id,
-	time
+	startDate,
+	endDate
 }: {
 	id: string
-	time: string
+	startDate: string
+	endDate: string
 }): Promise<InspectionType | null> {
 	try {
 		const updatedInspection = await prisma.inspection.update({
@@ -65,7 +71,8 @@ export async function editInspectionAction({
 				id
 			},
 			data: {
-				date: time
+				startDate,
+				endDate
 			}
 		})
 		return updatedInspection
