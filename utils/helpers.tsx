@@ -1,7 +1,7 @@
 import {
 	defaultInspectionObject,
-	inspectionMode,
-	InspectionType
+	InspectionType,
+	InspectionTypeWithId
 } from './types'
 
 export const changeDateFormatToDDMMYY = (date: Date): string =>
@@ -22,37 +22,41 @@ export const parseDateStringFromDDMMYYToDateStringMMDDYY = (
 }
 
 const sortInspectionsByExecutor = (
-	inspections: InspectionType[]
-): InspectionType[] => {
+	inspections: InspectionTypeWithId[]
+): InspectionTypeWithId[] => {
 	return (inspections =
-		inspections.toSorted((a: InspectionType, b: InspectionType) =>
+		inspections.toSorted((a: InspectionTypeWithId, b: InspectionTypeWithId) =>
 			a.recommendedExecutor.localeCompare(b.recommendedExecutor)
 		) || [])
 }
 
 export const sortInspectionsByExecutorAndDate = (
-	inspections: InspectionType[]
-): InspectionType[] => {
+	inspections: InspectionTypeWithId[]
+): InspectionTypeWithId[] => {
 	let sortedByExecutor = sortInspectionsByExecutor(inspections)
 
-	return sortedByExecutor.toSorted((a: InspectionType, b: InspectionType) => {
-		if (
-			a.recommendedExecutor === b.recommendedExecutor &&
-			a.province === b.province
-		) {
-			const formattedDateA = parseDateStringFromDDMMYYToDateStringMMDDYY(
-				a.startDate
-			)
-			const formattedDateB = parseDateStringFromDDMMYYToDateStringMMDDYY(
-				b.startDate
-			)
+	return sortedByExecutor.toSorted(
+		(a: InspectionTypeWithId, b: InspectionTypeWithId) => {
+			if (
+				a.recommendedExecutor === b.recommendedExecutor &&
+				a.province === b.province
+			) {
+				const formattedDateA = parseDateStringFromDDMMYYToDateStringMMDDYY(
+					a.startDate
+				)
+				const formattedDateB = parseDateStringFromDDMMYYToDateStringMMDDYY(
+					b.startDate
+				)
 
-			return formattedDateA.valueOf() - formattedDateB.valueOf()
-		} else return 0
-	})
+				return formattedDateA.valueOf() - formattedDateB.valueOf()
+			} else return 0
+		}
+	)
 }
 
-export const makeProvinceList = (inspections: InspectionType[]): string[] => {
+export const makeProvinceList = (
+	inspections: InspectionTypeWithId[]
+): string[] => {
 	return Array.from(
 		new Set(
 			inspections.reduce((acc: string[], cur) => [...acc, cur.province], [])
