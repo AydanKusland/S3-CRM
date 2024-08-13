@@ -1,12 +1,3 @@
-// export interface BasicInspectionType {
-// creatorId: string
-// startDate: string
-// endDate: string
-// inspectionType: inspectionMode
-// province: string
-// recommendedExecutor: string
-// }
-
 export interface InspectionType {
 	creatorId: string
 	startDate: string
@@ -22,7 +13,7 @@ export interface InspectionType {
 	factoryAddress: string
 	managerKP: string
 	RTN: string
-	reportReceived: boolean | null
+	reportReceived: string
 }
 
 export interface InspectionTypeWithId extends InspectionType {
@@ -56,7 +47,7 @@ export const inspectionMode = [
 	'Посещение завода',
 	'Тестирование образцов',
 	'Посещение выставки',
-	'Офисная работа, написание отчётов',
+	'Офисная работа/отчёты',
 	'Окно',
 	'Выходной!'
 ]
@@ -74,7 +65,7 @@ export const defaultInspectionObject = {
 	orderCost: '',
 	commentary: '',
 	factoryAddress: '',
-	managerKP: '',
-	RTN: '',
-	reportReceived: null
+	managerKP: '-',
+	RTN: '-',
+	reportReceived: 'false'
 }

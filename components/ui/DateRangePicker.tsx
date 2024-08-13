@@ -1,7 +1,7 @@
+import 'react-datepicker/dist/react-datepicker.css'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
 import { editInspectionAction } from 'utils/actions'
 import { changeDateFormatToDDMMYY } from 'utils/helpers'
 
@@ -42,7 +42,7 @@ function DateRangePickerComponent({
 	return (
 		<div>
 			<DatePicker
-				className='text-center max-w-40 rounded-r-none'
+				className={`max-w-${id ? '32' : '40'} rounded-r-none`}
 				dateFormat='dd.MM.yy'
 				selectsRange={true}
 				startDate={startDate}

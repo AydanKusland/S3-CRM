@@ -26,6 +26,7 @@ export const FactoryNameInput = ({
 	} else
 		return (
 			<input
+				required
 				name='factoryShortName'
 				className='rounded-none'
 				defaultValue={factoryName}

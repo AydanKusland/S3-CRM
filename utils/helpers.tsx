@@ -77,7 +77,7 @@ export function changeDateByOneWeek(
 }
 
 export function extractDataFromFormData(formData: FormData): InspectionType {
-	let createInspectionData: InspectionType = defaultInspectionObject
+	const createInspectionData: InspectionType = defaultInspectionObject
 
 	// Dealing with dates
 	const date: string = formData.get('date') as string
@@ -87,20 +87,24 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 
 	// Everything else
 
-	createInspectionData.inspectionType = formData.get('inspectionType') as string
-	createInspectionData.province = formData.get('province') as string
-	createInspectionData.factoryShortName = formData.get(
-		'factoryShortName'
-	) as string
-	createInspectionData.tovarnoeNapravlenie = formData.get(
-		'tovarnoeNapravlenie'
-	) as string
-	createInspectionData.orderNumber = formData.get('orderNumber') as string
-	createInspectionData.orderCost = formData.get('orderCost') as string
-	createInspectionData.commentary = formData.get('commentary') as string
-	createInspectionData.factoryAddress = formData.get('factoryAddress') as string
-	createInspectionData.managerKP = formData.get('managerKP') as string
-	createInspectionData.RTN = formData.get('RTN') as string
+	const fields: Array<keyof InspectionType> = [
+		'inspectionType',
+		'province',
+		'recommendedExecutor',
+		'factoryShortName',
+		'tovarnoeNapravlenie',
+		'orderNumber',
+		'orderCost',
+		'commentary',
+		'factoryAddress',
+		'reportReceived'
+	]
+
+	fields.forEach((field: keyof InspectionType): void => {
+		const value = formData.get(field)
+		if (!(value instanceof File))
+			createInspectionData[field] = value === null ? '' : value
+	})
 
 	return createInspectionData
 }

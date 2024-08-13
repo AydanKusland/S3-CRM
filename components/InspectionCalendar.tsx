@@ -1,18 +1,43 @@
 'use client'
 
-import { useState } from 'react'
+import { getWeek } from 'date-fns'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { changeDateByOneWeek } from 'utils/helpers'
 
-function InspectionCalendar() {
+export default function InspectionCalendar() {
 	const [startWeek, setStartWeek] = useState(new Date())
+	const searchParams = useSearchParams()
+	const pathname = usePathname()
+	const { replace } = useRouter()
+
+	// useEffect(() => {
+	// 	const week = getWeek(startWeek).toString()
+	// 	const params = new URLSearchParams(searchParams)
+	// 	params.set('week', week.toString())
+	// 	replace(`${pathname}?${params.toString()}`)
+	// }, [startWeek, pathname, replace, searchParams])
+
+	const changeWeek = (
+		currentWeek: Date,
+		previousOrNextWeek: 'plus' | 'minus'
+	) => {
+		const newStartWeek: Date = changeDateByOneWeek(
+			startWeek,
+			previousOrNextWeek
+		)
+		setStartWeek(newStartWeek)
+		const params = new URLSearchParams(searchParams)
+		params.set('week', getWeek(newStartWeek).toString())
+		replace(`${pathname}?${params.toString()}`)
+	}
 
 	return (
 		<div className='flex justify-center gap-2 py-1.5 text-xl'>
-			<button
-				onClick={() => setStartWeek(changeDateByOneWeek(startWeek, 'minus'))}
-			>
+			<button onClick={() => changeWeek(startWeek, 'minus')}>
 				<FaChevronLeft />
 			</button>
 			<div>
@@ -26,13 +51,9 @@ function InspectionCalendar() {
 					calendarStartDay={1}
 				/>
 			</div>
-			<button
-				onClick={() => setStartWeek(changeDateByOneWeek(startWeek, 'plus'))}
-			>
+			<button onClick={() => changeWeek(startWeek, 'plus')}>
 				<FaChevronRight />
 			</button>
 		</div>
 	)
 }
-
-export default InspectionCalendar

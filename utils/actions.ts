@@ -2,6 +2,7 @@
 
 import prisma from './db'
 import { InspectionType, InspectionTypeWithId } from './types'
+import { cache } from 'react'
 
 export async function createInspectionAction(
 	data: InspectionType
@@ -16,6 +17,20 @@ export async function createInspectionAction(
 		return null
 	}
 }
+
+export const getInspections = cache(
+	async (): Promise<InspectionTypeWithId[]> => {
+		try {
+			const inspections = await prisma.inspection.findMany({})
+			console.log('success loading all inspections!!!')
+
+			return inspections
+		} catch (error) {
+			console.log(error)
+			return []
+		}
+	}
+)
 
 export async function getAllInspectionsAction(): Promise<{
 	inspections: InspectionTypeWithId[]

@@ -25,7 +25,7 @@ model Inspection {
   commentary String
   factoryAddress String
   managerKP String
-  reportReceived Boolean?
+  reportReceived String
 }
 
 model Factory {
