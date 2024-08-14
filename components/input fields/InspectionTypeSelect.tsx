@@ -1,19 +1,25 @@
+'use client'
+
 import { useState } from 'react'
-import { inspectionMode, InspectionType } from 'utils/types'
-import { CreateInspectionForm } from '../forms/CreateInspectionForm'
-import { CreateAttestationForm } from '../forms/CreateAttestationForm'
+import { inspectionMode, InspectionTypeWithId } from 'utils/types'
+import { CreateInspectionForm } from '../forms/CreateInspectionFormV2'
+import { editInspectionAction } from 'utils/actions'
 
 export const InspectionTypeSelect = ({
 	inspection
 }: {
-	inspection?: InspectionType
+	inspection?: InspectionTypeWithId
 }) => {
 	const [inspectionType, setInspectionType] = useState<string>(
 		inspection?.inspectionType || inspectionMode[0]
 	)
 
 	const chooseForm = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setInspectionType(e.target.selectedOptions[0].label)
+		const newInspectionType = e.target.selectedOptions[0]
+			.label as keyof InspectionTypeWithId
+		setInspectionType(newInspectionType)
+		if (inspection)
+			editInspectionAction(inspection.id, { inspectionType: newInspectionType })
 	}
 	return (
 		<>
@@ -30,12 +36,13 @@ export const InspectionTypeSelect = ({
 				))}
 			</select>
 			{/* Выбранный вид формы */}
-			{inspectionType === inspectionMode[0] && (
-				<CreateInspectionForm inspection={inspection} />
-			)}
 			{(inspectionType === inspectionMode[1] ||
-				inspectionType === inspectionMode[2]) && (
-				<CreateAttestationForm inspection={inspection} />
+				inspectionType === inspectionMode[2] ||
+				inspectionType === inspectionMode[0]) && (
+				<CreateInspectionForm
+					inspection={inspection}
+					inspectionType={inspectionType}
+				/>
 			)}
 		</>
 	)

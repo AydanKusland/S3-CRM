@@ -32,14 +32,3 @@ export default async function InspectionList() {
 		</div>
 	)
 }
-
-// const { data, isLoading } = useQuery({
-// 	queryKey: ['inspections'],
-// 	queryFn: () => getAllInspectionsAction()
-// })
-
-// if (isLoading) return <h1>INSPECTION LIST IS LOADING</h1>
-
-// if (data?.inspections) {
-// 	const provinceList = makeProvinceList(data.inspections)
-// 	const inspections = sortInspectionsByExecutorAndDate(data.inspections)

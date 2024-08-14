@@ -108,3 +108,13 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 
 	return createInspectionData
 }
+
+export const debounce = (fn: Function) => {
+	let timeout: NodeJS.Timeout
+	return (e: React.ChangeEvent<HTMLInputElement>) => {
+		clearTimeout(timeout)
+		timeout = setTimeout(() => {
+			fn(e)
+		}, 2000)
+	}
+}

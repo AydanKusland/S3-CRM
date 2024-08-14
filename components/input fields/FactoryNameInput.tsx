@@ -1,20 +1,24 @@
-import { inspectionMode } from 'utils/types'
+import { inspectionMode, InspectionTypeWithId } from 'utils/types'
+import useOptimizedDebounce from 'utils/useOptimizedDebounce'
 
 const factories = ['Xianxing', 'UTL', 'Huajia']
 
 export const FactoryNameInput = ({
-	factoryName,
-	inspectionTypeIsInspection
+	inspection,
+	inspectionType
 }: {
-	factoryName?: string
-	inspectionTypeIsInspection: boolean
+	inspection?: InspectionTypeWithId
+	inspectionType: string
 }) => {
-	if (inspectionTypeIsInspection) {
+	const optimizedDebounce = useOptimizedDebounce(inspection)
+
+	if (inspectionType === inspectionMode[0]) {
 		return (
 			<select
 				name='factoryShortName'
 				className='rounded-none'
-				defaultValue={factoryName}
+				defaultValue={inspection?.factoryShortName}
+				onChange={optimizedDebounce}
 			>
 				{factories.map(option => (
 					<option key={option} value={option}>
@@ -29,8 +33,9 @@ export const FactoryNameInput = ({
 				required
 				name='factoryShortName'
 				className='rounded-none'
-				defaultValue={factoryName}
+				defaultValue={inspection?.factoryShortName}
 				placeholder='Название завода'
+				onChange={optimizedDebounce}
 			/>
 		)
 }

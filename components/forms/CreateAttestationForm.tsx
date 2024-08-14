@@ -1,24 +1,26 @@
-import { InspectionType } from 'utils/types'
+import { InspectionTypeWithId } from 'utils/types'
 import { TovarnoeNapravlenieInput } from '../input fields/TovarnoeNapravlenieInput'
 import { FactoryNameInput } from '../input fields/FactoryNameInput'
 import { FactoryAddress } from '../input fields/FactoryAddress'
 
 export const CreateAttestationForm = ({
-	inspection
+	inspection,
+	inspectionType
 }: {
-	inspection?: InspectionType
+	inspection?: InspectionTypeWithId
+	inspectionType: string
 }) => {
 	return (
 		<>
 			{/* Товарное направление */}
-			<TovarnoeNapravlenieInput TN={inspection?.tovarnoeNapravlenie} />
+			<TovarnoeNapravlenieInput inspection={inspection} />
 			{/* Название завода */}
 			<FactoryNameInput
-				inspectionTypeIsInspection={false}
-				factoryName={inspection?.factoryShortName}
+				inspection={inspection}
+				inspectionType={inspectionType}
 			/>
 			{/* Адрес завода */}
-			<FactoryAddress address={inspection?.factoryAddress} />
+			<FactoryAddress inspection={inspection} />
 		</>
 	)
 }

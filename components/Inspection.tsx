@@ -1,11 +1,11 @@
 'use client'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import DateRangePickerComponent from './ui/DateRangePicker'
 import { InspectionTypeWithId } from 'utils/types'
 import { deleteInspectionAction } from 'utils/actions'
 import { MainForm } from './forms/MainForm'
 import { parseDateStringFromDDMMYYToDateStringMMDDYY } from 'utils/helpers'
+import { useFormStatus } from 'react-dom'
 
 export const Inspection = ({
 	inspection
@@ -17,25 +17,7 @@ export const Inspection = ({
 		parseDateStringFromDDMMYYToDateStringMMDDYY(inspection.endDate)
 	]
 
-	const queryClient = useQueryClient()
-	const { mutate, isPending } = useMutation({
-		mutationFn: (id: string) => deleteInspectionAction(id),
-		onSuccess: data => {
-			if (!data) {
-				console.log('SOMETHING WENT WRONG WHILE DELETING INSPECTION')
-				return
-			}
-			console.log('inspection deleted!')
-			queryClient.invalidateQueries({ queryKey: ['inspections'] })
-		}
-	})
-
-	const deleteInspection = () => {
-		mutate(inspection.id)
-	}
-	const editInspection = () => {
-		mutate(inspection.id)
-	}
+	const { pending } = useFormStatus()
 
 	return (
 		<form>
@@ -48,8 +30,10 @@ export const Inspection = ({
 				<MainForm inspection={inspection} />
 				<button
 					className='ml-2'
-					onClick={deleteInspection}
-					disabled={isPending}
+					onClick={() => {
+						deleteInspectionAction(inspection.id)
+					}}
+					disabled={pending}
 					type='button'
 				>
 					Delete
