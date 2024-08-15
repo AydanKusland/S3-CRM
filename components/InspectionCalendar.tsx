@@ -3,7 +3,7 @@
 import { getWeek } from 'date-fns'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { changeDateByOneWeek } from 'utils/helpers'
@@ -14,22 +14,16 @@ export default function InspectionCalendar() {
 	const pathname = usePathname()
 	const { replace } = useRouter()
 
-	// useEffect(() => {
-	// 	const week = getWeek(startWeek).toString()
-	// 	const params = new URLSearchParams(searchParams)
-	// 	params.set('week', week.toString())
-	// 	replace(`${pathname}?${params.toString()}`)
-	// }, [startWeek, pathname, replace, searchParams])
-
 	const changeWeek = (
-		currentWeek: Date,
-		previousOrNextWeek: 'plus' | 'minus'
-	) => {
-		const newStartWeek: Date = changeDateByOneWeek(
-			startWeek,
-			previousOrNextWeek
-		)
+		date: Date,
+		previousOrNextWeek: 'previous' | 'current' | 'next'
+	): void => {
+		const newStartWeek: Date = changeDateByOneWeek(date, previousOrNextWeek)
 		setStartWeek(newStartWeek)
+		setNewWeekInPath(newStartWeek)
+	}
+
+	const setNewWeekInPath = (newStartWeek: Date) => {
 		const params = new URLSearchParams(searchParams)
 		params.set('week', getWeek(newStartWeek).toString())
 		replace(`${pathname}?${params.toString()}`)
@@ -37,21 +31,21 @@ export default function InspectionCalendar() {
 
 	return (
 		<div className='flex justify-center gap-2 py-1.5 text-xl'>
-			<button onClick={() => changeWeek(startWeek, 'minus')}>
+			<button onClick={() => changeWeek(startWeek, 'previous')}>
 				<FaChevronLeft />
 			</button>
 			<div>
 				<DatePicker
 					className='max-w-24'
 					selected={startWeek}
-					onChange={(date: Date) => setStartWeek(date)}
+					onChange={(date: Date) => changeWeek(date, 'current')}
 					dateFormat='I/R'
 					showWeekNumbers
 					showWeekPicker
 					calendarStartDay={1}
 				/>
 			</div>
-			<button onClick={() => changeWeek(startWeek, 'plus')}>
+			<button onClick={() => changeWeek(startWeek, 'next')}>
 				<FaChevronRight />
 			</button>
 		</div>

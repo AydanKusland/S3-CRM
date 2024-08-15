@@ -6,6 +6,9 @@ import DatePicker from 'react-datepicker'
 import { editInspectionAction } from 'utils/actions'
 import { changeDateFormatToDDMMYY } from 'utils/helpers'
 
+// This stupid piece of shit should take date in MM.DD.YY format
+// But shows and gives date in DD.MM.YY format
+
 function DateRangePickerComponent({
 	inspectionDate,
 	id

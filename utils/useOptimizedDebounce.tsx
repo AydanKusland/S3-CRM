@@ -19,7 +19,7 @@ export default function useOptimizedDebounce(
 						[e.target.name]: newProp
 					})
 				}
-			}, 2000)
+			}, 1500)
 		}
 	}
 

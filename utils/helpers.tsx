@@ -1,3 +1,4 @@
+import { getWeek } from 'date-fns'
 import {
 	defaultInspectionObject,
 	InspectionType,
@@ -66,12 +67,13 @@ export const makeProvinceList = (
 
 export function changeDateByOneWeek(
 	initialDate: Date,
-	plusORminus: 'plus' | 'minus'
+	previousOrNextWeek: 'previous' | 'current' | 'next'
 ): Date {
+	if (previousOrNextWeek === 'current') return initialDate
 	const oneWeekInMs = 1000 * 60 * 60 * 24 * 7
-	if (plusORminus === 'plus')
+	if (previousOrNextWeek === 'next')
 		return new Date(initialDate.valueOf() + oneWeekInMs)
-	if (plusORminus === 'minus')
+	if (previousOrNextWeek === 'previous')
 		return new Date(initialDate.valueOf() - oneWeekInMs)
 	return initialDate
 }
@@ -82,11 +84,17 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 	// Dealing with dates
 	const date: string = formData.get('date') as string
 	const [startDate, endDate] = date.split(' - ')
+	// DDMMYY String Format
 	createInspectionData.startDate = startDate
 	createInspectionData.endDate = endDate
+	// Week And Year
+	const startDateInMMDDYY =
+		parseDateStringFromDDMMYYToDateStringMMDDYY(startDate)
+	const week = getWeek(new Date(startDateInMMDDYY)).toString()
+	const year = new Date(startDateInMMDDYY).getFullYear().toString()
+	createInspectionData.weekAndYear = [year, week]
 
 	// Everything else
-
 	const fields: Array<keyof InspectionType> = [
 		'inspectionType',
 		'province',
@@ -102,19 +110,19 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 
 	fields.forEach((field: keyof InspectionType): void => {
 		const value = formData.get(field)
-		if (!(value instanceof File))
+		if (!(value instanceof File) && field !== 'weekAndYear')
 			createInspectionData[field] = value === null ? '' : value
 	})
 
 	return createInspectionData
 }
 
-export const debounce = (fn: Function) => {
-	let timeout: NodeJS.Timeout
-	return (e: React.ChangeEvent<HTMLInputElement>) => {
-		clearTimeout(timeout)
-		timeout = setTimeout(() => {
-			fn(e)
-		}, 2000)
-	}
-}
+// export const debounce = (fn: Function) => {
+// 	let timeout: NodeJS.Timeout
+// 	return (e: React.ChangeEvent<HTMLInputElement>) => {
+// 		clearTimeout(timeout)
+// 		timeout = setTimeout(() => {
+// 			fn(e)
+// 		}, 1500)
+// 	}
+// }
