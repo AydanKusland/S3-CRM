@@ -65,17 +65,26 @@ export const makeProvinceList = (
 	)
 }
 
-export function changeDateByOneWeek(
-	initialDate: Date,
-	previousOrNextWeek: 'previous' | 'current' | 'next'
-): Date {
-	if (previousOrNextWeek === 'current') return initialDate
-	const oneWeekInMs = 1000 * 60 * 60 * 24 * 7
-	if (previousOrNextWeek === 'next')
-		return new Date(initialDate.valueOf() + oneWeekInMs)
-	if (previousOrNextWeek === 'previous')
-		return new Date(initialDate.valueOf() - oneWeekInMs)
-	return initialDate
+export function getPreviousOrNextWeek(
+	currentWeek: string,
+	prevOrNext: 'prev' | 'next'
+): string {
+	// argument format : "1990 46"
+	let [year, week] = currentWeek.split(' ').map(value => Number.parseInt(value))
+	if (prevOrNext === 'prev') {
+		if (week > 1) week--
+		else {
+			year--
+			week = 52
+		}
+	}
+	if (prevOrNext === 'next') {
+		if (week < 52) week++
+		else {
+			year++, (week = 1)
+		}
+	}
+	return `${year.toString()} ${week.toString()}`
 }
 
 export function extractDataFromFormData(formData: FormData): InspectionType {

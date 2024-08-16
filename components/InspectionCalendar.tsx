@@ -1,53 +1,41 @@
-'use client'
-
 import { getWeek } from 'date-fns'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import DatePicker from 'react-datepicker'
+import Link from 'next/link'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import { changeDateByOneWeek } from 'utils/helpers'
+import DatePickerWrapped from './ui/DatePickerWrapped'
+import { getPreviousOrNextWeek } from 'utils/helpers'
 
-export default function InspectionCalendar() {
-	const [startWeek, setStartWeek] = useState(new Date())
-	const searchParams = useSearchParams()
-	const pathname = usePathname()
-	const { replace } = useRouter()
+export default function InspectionCalendar({
+	searchParams
+}: {
+	searchParams: { [key: string]: string | undefined }
+}) {
+	const currentWeekAndYear: string = `${new Date()
+		.getFullYear()
+		.toString()} ${getWeek(new Date()).toString()}`
 
-	const changeWeek = (
-		date: Date,
-		previousOrNextWeek: 'previous' | 'current' | 'next'
-	): void => {
-		const newStartWeek: Date = changeDateByOneWeek(date, previousOrNextWeek)
-		setStartWeek(newStartWeek)
-		setNewWeekInPath(newStartWeek)
-	}
+	const yearAndWeek: string = searchParams.yearAndWeek || currentWeekAndYear
 
-	const setNewWeekInPath = (newStartWeek: Date) => {
-		const params = new URLSearchParams(searchParams)
-		params.set('week', getWeek(newStartWeek).toString())
-		replace(`${pathname}?${params.toString()}`)
-	}
+	const previousWeek = getPreviousOrNextWeek(yearAndWeek, 'prev')
+	const nextWeek = getPreviousOrNextWeek(yearAndWeek, 'next')
 
 	return (
 		<div className='flex justify-center gap-2 py-1.5 text-xl'>
-			<button onClick={() => changeWeek(startWeek, 'previous')}>
+			<Link
+				href={`?${new URLSearchParams({
+					yearAndWeek: previousWeek
+				})}`}
+			>
 				<FaChevronLeft />
-			</button>
-			<div>
-				<DatePicker
-					className='max-w-24'
-					selected={startWeek}
-					onChange={(date: Date) => changeWeek(date, 'current')}
-					dateFormat='I/R'
-					showWeekNumbers
-					showWeekPicker
-					calendarStartDay={1}
-				/>
-			</div>
-			<button onClick={() => changeWeek(startWeek, 'next')}>
+			</Link>
+			<DatePickerWrapped />
+
+			<Link
+				href={`?${new URLSearchParams({
+					yearAndWeek: nextWeek
+				})}`}
+			>
 				<FaChevronRight />
-			</button>
+			</Link>
 		</div>
 	)
 }
