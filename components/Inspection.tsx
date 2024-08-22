@@ -1,11 +1,8 @@
-'use client'
-
 import DateRangePickerComponent from './ui/DateRangePicker'
 import { InspectionTypeWithId } from 'utils/types'
-import { deleteInspectionAction } from 'utils/actions'
 import { MainForm } from './forms/MainForm'
 import { parseDateStringFromDDMMYYToDateStringMMDDYY } from 'utils/helpers'
-import { useFormStatus } from 'react-dom'
+import DeleteButton from './DeleteButton'
 
 export const Inspection = ({
 	inspection
@@ -17,27 +14,16 @@ export const Inspection = ({
 		parseDateStringFromDDMMYYToDateStringMMDDYY(inspection.endDate)
 	]
 
-	const { pending } = useFormStatus()
-
 	return (
 		<form>
-			<div key={inspection.id} className='mx-auto flex flex-wrap py-1 text-sm'>
+			<div key={inspection.id} className='flex flex-wrap py-1 text-sm'>
 				{/* Даты */}
 				<DateRangePickerComponent
 					inspectionDate={[startDate, endDate]}
 					id={inspection.id}
 				/>
 				<MainForm inspection={inspection} />
-				<button
-					className='ml-2'
-					onClick={() => {
-						deleteInspectionAction(inspection.id)
-					}}
-					disabled={pending}
-					type='button'
-				>
-					Delete
-				</button>
+				<DeleteButton id={inspection.id} />
 			</div>
 		</form>
 	)

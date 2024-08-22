@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { inspectionMode, InspectionTypeWithId } from 'utils/types'
-import { CreateInspectionForm } from '../forms/CreateInspectionFormV2'
+import { CreateInspectionForm } from '../forms/CreateInspectionForm'
 import { editInspectionAction } from 'utils/actions'
 
 export const InspectionTypeSelect = ({

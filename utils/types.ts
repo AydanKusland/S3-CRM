@@ -14,7 +14,7 @@ export interface InspectionType {
 	managerKP: string
 	RTN: string
 	reportReceived: string
-	weekAndYear: string[]
+	year_week: string
 }
 
 export interface InspectionTypeWithId extends InspectionType {
@@ -69,5 +69,5 @@ export const defaultInspectionObject = {
 	managerKP: '-',
 	RTN: '-',
 	reportReceived: 'false',
-	weekAndYear: ['year', 'week']
+	year_week: '2025_01'
 }

@@ -4,6 +4,8 @@ import {
 	InspectionType,
 	InspectionTypeWithId
 } from './types'
+import { cache } from 'react'
+import prisma from './db'
 
 export const changeDateFormatToDDMMYY = (date: Date): string =>
 	date.toLocaleDateString('ru-RU', {
@@ -34,7 +36,7 @@ const sortInspectionsByExecutor = (
 export const sortInspectionsByExecutorAndDate = (
 	inspections: InspectionTypeWithId[]
 ): InspectionTypeWithId[] => {
-	let sortedByExecutor = sortInspectionsByExecutor(inspections)
+	const sortedByExecutor = sortInspectionsByExecutor(inspections)
 
 	return sortedByExecutor.toSorted(
 		(a: InspectionTypeWithId, b: InspectionTypeWithId) => {
@@ -69,8 +71,8 @@ export function getPreviousOrNextWeek(
 	currentWeek: string,
 	prevOrNext: 'prev' | 'next'
 ): string {
-	// argument format : "1990 46"
-	let [year, week] = currentWeek.split(' ').map(value => Number.parseInt(value))
+	// argument format : "1990-46"
+	let [year, week] = currentWeek.split('-').map(value => Number.parseInt(value))
 	if (prevOrNext === 'prev') {
 		if (week > 1) week--
 		else {
@@ -84,7 +86,7 @@ export function getPreviousOrNextWeek(
 			year++, (week = 1)
 		}
 	}
-	return `${year.toString()} ${week.toString()}`
+	return `${year.toString()}-${week.toString()}`
 }
 
 export function extractDataFromFormData(formData: FormData): InspectionType {
@@ -97,11 +99,7 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 	createInspectionData.startDate = startDate
 	createInspectionData.endDate = endDate
 	// Week And Year
-	const startDateInMMDDYY =
-		parseDateStringFromDDMMYYToDateStringMMDDYY(startDate)
-	const week = getWeek(new Date(startDateInMMDDYY)).toString()
-	const year = new Date(startDateInMMDDYY).getFullYear().toString()
-	createInspectionData.weekAndYear = [year, week]
+	createInspectionData.year_week = parseWeekAndYearFromStartDate(startDate)
 
 	// Everything else
 	const fields: Array<keyof InspectionType> = [
@@ -119,19 +117,32 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 
 	fields.forEach((field: keyof InspectionType): void => {
 		const value = formData.get(field)
-		if (!(value instanceof File) && field !== 'weekAndYear')
+		if (!(value instanceof File) && field !== 'year_week')
 			createInspectionData[field] = value === null ? '' : value
 	})
 
 	return createInspectionData
 }
 
-// export const debounce = (fn: Function) => {
-// 	let timeout: NodeJS.Timeout
-// 	return (e: React.ChangeEvent<HTMLInputElement>) => {
-// 		clearTimeout(timeout)
-// 		timeout = setTimeout(() => {
-// 			fn(e)
-// 		}, 1500)
-// 	}
-// }
+export function parseWeekAndYearFromStartDate(startDate: string): string {
+	const startDateInMMDDYY =
+		parseDateStringFromDDMMYYToDateStringMMDDYY(startDate)
+	const week = getWeek(new Date(startDateInMMDDYY)).toString()
+	const year = new Date(startDateInMMDDYY).getFullYear().toString()
+	return `${year}-${week}`
+}
+
+export const getInspections = cache(
+	async (year_week?: string): Promise<InspectionTypeWithId[]> => {
+		try {
+			const inspections = await prisma.inspection.findMany({
+				where: { year_week }
+			})
+			console.log('success loading all inspections!!!')
+			return inspections
+		} catch (error) {
+			console.log(error)
+			return []
+		}
+	}
+)

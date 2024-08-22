@@ -1,39 +1,28 @@
-import { getWeek } from 'date-fns'
 import Link from 'next/link'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import DatePickerWrapped from './ui/DatePickerWrapped'
 import { getPreviousOrNextWeek } from 'utils/helpers'
+import { parse } from 'date-fns'
 
 export default function InspectionCalendar({
-	searchParams
+	yearAndWeek
 }: {
-	searchParams: { [key: string]: string | undefined }
+	yearAndWeek: string
 }) {
-	const currentWeekAndYear: string = `${new Date()
-		.getFullYear()
-		.toString()} ${getWeek(new Date()).toString()}`
-
-	const yearAndWeek: string = searchParams.yearAndWeek || currentWeekAndYear
-
 	const previousWeek = getPreviousOrNextWeek(yearAndWeek, 'prev')
 	const nextWeek = getPreviousOrNextWeek(yearAndWeek, 'next')
 
-	return (
-		<div className='flex justify-center gap-2 py-1.5 text-xl'>
-			<Link
-				href={`?${new URLSearchParams({
-					yearAndWeek: previousWeek
-				})}`}
-			>
-				<FaChevronLeft />
-			</Link>
-			<DatePickerWrapped />
+	const dateFromParams = parse(`${yearAndWeek}`, 'RRRR-I', new Date())
 
-			<Link
-				href={`?${new URLSearchParams({
-					yearAndWeek: nextWeek
-				})}`}
-			>
+	return (
+		<div className='flex justify-center gap-2 py-3 text-xl items-center'>
+			<div>
+				<Link href={`/inspections/${previousWeek}`}>
+					<FaChevronLeft />
+				</Link>
+			</div>
+			<DatePickerWrapped date={dateFromParams} />
+			<Link href={`/inspections/${nextWeek}`}>
 				<FaChevronRight />
 			</Link>
 		</div>

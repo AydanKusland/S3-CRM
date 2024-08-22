@@ -13,11 +13,11 @@ export const FactoryAddress = ({
 	return (
 		<input
 			required
-			className='rounded-none'
+			className='rounded-none max-w-32'
 			type='text'
 			name='factoryAddress'
 			defaultValue={inspection?.factoryAddress}
-			placeholder='Адрес завода'
+			placeholder='Город, вокзал'
 			onChange={optimizedDebounce}
 		/>
 	)

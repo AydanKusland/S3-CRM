@@ -11,7 +11,7 @@ datasource db {
 
 model Inspection {
   id String @id @default(uuid())
-  weekAndYear String[]
+  year_week String
   creatorId String
   startDate String
   endDate String

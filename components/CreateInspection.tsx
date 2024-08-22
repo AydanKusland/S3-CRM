@@ -5,8 +5,11 @@ import SubmitButton from './forms/SubmitButton'
 
 function CreateInspection() {
 	return (
-		<form action={createInspectionAction} className='p-3 border-2 grid'>
-			<div className='flex flex-wrap gap-y-2 '>
+		<form
+			action={createInspectionAction}
+			className='py-4 border-y-2 border-cyan-500 grid'
+		>
+			<div className='flex flex-wrap gap-y-2 justify-center'>
 				{/* Даты */}
 				<DateRangePickerComponent inspectionDate={[new Date(), new Date()]} />
 				<MainForm />

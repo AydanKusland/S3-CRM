@@ -4,7 +4,6 @@ import { revalidatePath } from 'next/cache'
 import prisma from './db'
 import { extractDataFromFormData } from './helpers'
 import { InspectionType, InspectionTypeWithId } from './types'
-import { cache } from 'react'
 
 export async function createInspectionAction(
 	formData: FormData
@@ -15,7 +14,7 @@ export async function createInspectionAction(
 		const inspection: InspectionTypeWithId = await prisma.inspection.create({
 			data
 		})
-		revalidatePath('/inspections')
+		revalidatePath(`/inspections/${inspection.year_week}`)
 
 		return inspection
 	} catch (error) {
@@ -24,33 +23,22 @@ export async function createInspectionAction(
 	}
 }
 
-export const getInspections = cache(
-	async (): Promise<InspectionTypeWithId[]> => {
-		try {
-			const inspections = await prisma.inspection.findMany({})
-			console.log('success loading all inspections!!!')
-			return inspections
-		} catch (error) {
-			console.log(error)
-			return []
-		}
-	}
-)
-
 export async function deleteInspectionAction(
+	previousState: number,
 	id: string
-): Promise<InspectionTypeWithId | null> {
+) {
 	try {
-		const inspection = await prisma.inspection.delete({
+		const deletedInspection = await prisma.inspection.delete({
 			where: {
 				id
 			}
 		})
-		revalidatePath('/inspections')
-		return inspection
+		revalidatePath(`/inspections/${deletedInspection.year_week}`)
+		// return deletedInspection
+		return previousState + 1
 	} catch (error) {
 		console.log(error)
-		return null
+		return previousState + 1
 	}
 }
 
@@ -58,8 +46,6 @@ export async function editInspectionAction(
 	id: string,
 	args: Partial<InspectionType>
 ): Promise<InspectionTypeWithId | null> {
-	console.log(args)
-
 	try {
 		const updatedInspection = await prisma.inspection.update({
 			where: {
@@ -67,7 +53,7 @@ export async function editInspectionAction(
 			},
 			data: { ...args }
 		})
-		revalidatePath('/inspections')
+		revalidatePath(`/inspections/${updatedInspection.year_week}`)
 		return updatedInspection
 	} catch (error) {
 		console.log(error)

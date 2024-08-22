@@ -4,9 +4,12 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { editInspectionAction } from 'utils/actions'
-import { changeDateFormatToDDMMYY } from 'utils/helpers'
+import {
+	changeDateFormatToDDMMYY,
+	parseWeekAndYearFromStartDate
+} from 'utils/helpers'
 
-// This stupid piece of shit should take date in MM.DD.YY format
+// This stupid piece of shit takes date in MM.DD.YY format
 // But shows and gives date in DD.MM.YY format
 
 function DateRangePickerComponent({
@@ -24,7 +27,12 @@ function DateRangePickerComponent({
 		if (id && update[1]) {
 			const startDate: string = changeDateFormatToDDMMYY(update[0])
 			const endDate: string = changeDateFormatToDDMMYY(update[1])
-			editInspectionAction(id, { startDate, endDate })
+			const year_week: string = parseWeekAndYearFromStartDate(startDate)
+			editInspectionAction(id, {
+				startDate,
+				endDate,
+				year_week
+			})
 		}
 	}
 
