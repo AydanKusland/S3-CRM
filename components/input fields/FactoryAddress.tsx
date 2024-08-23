@@ -16,8 +16,8 @@ export const FactoryAddress = ({
 			className='rounded-none max-w-32'
 			type='text'
 			name='factoryAddress'
-			defaultValue={inspection?.factoryAddress}
 			placeholder='Город, вокзал'
+			defaultValue={inspection?.factoryAddress}
 			onChange={optimizedDebounce}
 		/>
 	)

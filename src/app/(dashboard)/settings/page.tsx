@@ -11,9 +11,9 @@ function page() {
 	const deleteTovarnoeNapravlenie = (e: React.MouseEvent) => {}
 	const addTovarnoeNapravlenie = (e: React.ChangeEvent) => {}
 	return (
-		<div className='p-4'>
-			<div>
-				<h3>{'Мои товарные направления'}</h3>
+		<section className='grid grid-cols-2 p-4'>
+			<article>
+				<h3 className='text-center mb-4'>{'Товарные направления'}</h3>
 				<div>
 					{currentUser.tovarnieNapravlenia.map(napravlenie => {
 						return (
@@ -36,11 +36,11 @@ function page() {
 						})}
 					</select>
 				</div>
-			</div>
-			<div>
-				<h3>{'Мои заводы'}</h3>
-			</div>
-		</div>
+			</article>
+			<article>
+				<h3 className='text-center mb-4'>{'Заводы'}</h3>
+			</article>
+		</section>
 	)
 }
 

@@ -18,7 +18,7 @@ model Inspection {
   inspectionType String
   province String 
   recommendedExecutor String
-  tovarnoeNapravlenie String
+  TN String
   RTN String
   factoryShortName String
   orderNumber String
@@ -31,21 +31,31 @@ model Inspection {
 
 model Factory {
   id String @id @default(uuid())
-  fullName String
+  fullName String?
   shortName String
-  tovarnoeNapravlenie String[]
-  province String
-  address String
-  contact String
-  product String
-  user User[]
+  TN TN[]
+  province String?
+  address String?
+  contact String?
+  product String?
+  // user User[]
 }
 
 model User {
   id String @id @default(uuid())
   fullName String
   shortName String
-  tovarnoeNapravlenie String[]
-  factories Factory[]
+  TN TN[]
   userRights String[]
+  // inspections Inspection[] @relation("managerKP")
+}
+
+model TN {
+  id Int @id @default(autoincrement())
+  name String
+  number Int 
+  RTN String
+  reportEngineer String
+  factories Factory[]
+  manager User[]
 }

@@ -1,4 +1,4 @@
-import { inspectionMode, InspectionTypeWithId } from 'utils/types'
+import { InspectionTypeWithId } from 'utils/types'
 import useOptimizedDebounce from 'utils/useOptimizedDebounce'
 
 const factories = ['Xianxing', 'UTL', 'Huajia']
@@ -8,11 +8,11 @@ export const FactoryNameInput = ({
 	inspectionType
 }: {
 	inspection?: InspectionTypeWithId
-	inspectionType: string
+	inspectionType?: string
 }) => {
 	const optimizedDebounce = useOptimizedDebounce(inspection)
 
-	if (inspectionType === inspectionMode[0]) {
+	if (inspectionType) {
 		return (
 			<select
 				name='factoryShortName'

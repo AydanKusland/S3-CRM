@@ -10,7 +10,7 @@ const config: Config = {
 		extend: {
 			colors: {
 				// 'my-brown': 'rgba(255, 228, 196, 0.471)'
-				'my-brown': '#FFE4C478'
+				'my-brown': '#f3d4ae78'
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

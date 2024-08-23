@@ -8,7 +8,7 @@ export const CreateAttestationForm = ({
 	inspectionType
 }: {
 	inspection?: InspectionTypeWithId
-	inspectionType: string
+	inspectionType?: string
 }) => {
 	return (
 		<>

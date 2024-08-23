@@ -68,7 +68,7 @@ export const makeProvinceList = (
 }
 
 export function getPreviousOrNextWeek(
-	currentWeek: string,
+	currentWeek = '2024-44',
 	prevOrNext: 'prev' | 'next'
 ): string {
 	// argument format : "1990-46"
@@ -120,6 +120,8 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 		if (!(value instanceof File) && field !== 'year_week')
 			createInspectionData[field] = value === null ? '' : value
 	})
+
+	console.log(createInspectionData)
 
 	return createInspectionData
 }

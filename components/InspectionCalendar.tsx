@@ -7,7 +7,7 @@ import { parse } from 'date-fns'
 export default function InspectionCalendar({
 	yearAndWeek
 }: {
-	yearAndWeek: string
+	yearAndWeek?: string
 }) {
 	const previousWeek = getPreviousOrNextWeek(yearAndWeek, 'prev')
 	const nextWeek = getPreviousOrNextWeek(yearAndWeek, 'next')
