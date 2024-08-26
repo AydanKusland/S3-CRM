@@ -5,23 +5,23 @@ import { useState } from 'react'
 import { FaRegLightbulb } from 'react-icons/fa6'
 
 function Sidebar() {
-	const [sidebar, setSidebar] = useState('border-r-2')
+	const [sidebar, setSidebar] = useState(true)
 
 	return (
 		<aside>
 			<button
-				onClick={() => setSidebar('border-r-2')}
+				onClick={() => setSidebar(true)}
 				className={`${
-					sidebar === 'w-0'
-						? 'top-4 left-1 absolute text-2xl transition-all'
-						: 'hidden'
+					sidebar ? 'hidden' : 'top-4 left-1 absolute text-2xl transition-all'
 				}`}
 			>
 				<FaRegLightbulb />
 			</button>
 			<div
-				className={`h-screen border-cyan-400 w-24 transition-all overflow-hidden ${sidebar}`}
-				onClick={() => setSidebar('w-0')}
+				className={`h-screen border-cyan-400 w-24 transition-all overflow-hidden border-r-2 ${
+					sidebar || 'border-r-0 -translate-x-40 w-0 hidden'
+				}`}
+				onClick={() => setSidebar(false)}
 			>
 				<ul className='grid items-center h-full text-center'>
 					<Link href={'/inspections'}>Inspections</Link>

@@ -107,7 +107,7 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 		'province',
 		'recommendedExecutor',
 		'factoryShortName',
-		'tovarnoeNapravlenie',
+		'TN',
 		'orderNumber',
 		'orderCost',
 		'commentary',

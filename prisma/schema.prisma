@@ -38,7 +38,6 @@ model Factory {
   address String?
   contact String?
   product String?
-  // user User[]
 }
 
 model User {
@@ -47,13 +46,11 @@ model User {
   shortName String
   TN TN[]
   userRights String[]
-  // inspections Inspection[] @relation("managerKP")
 }
 
 model TN {
-  id Int @id @default(autoincrement())
+  number Int @id
   name String
-  number Int 
   RTN String
   reportEngineer String
   factories Factory[]

@@ -6,7 +6,7 @@ export interface InspectionType {
 	province: string
 	recommendedExecutor: string
 	factoryShortName: string
-	tovarnoeNapravlenie: string
+	TN: string
 	orderNumber: string
 	orderCost: string
 	commentary: string
@@ -61,7 +61,7 @@ export const defaultInspectionObject = {
 	province: '',
 	recommendedExecutor: '',
 	factoryShortName: '',
-	tovarnoeNapravlenie: '',
+	TN: '',
 	orderNumber: '',
 	orderCost: '',
 	commentary: '',
