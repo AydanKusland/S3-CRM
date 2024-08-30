@@ -1,3 +1,5 @@
+// server component
+
 import { InspectorsInput } from '../input fields/InspectorsInput'
 import { CommentInput } from '../input fields/CommentInput'
 import { ProvinceInput } from '../input fields/ProvinceInput'

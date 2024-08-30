@@ -7,7 +7,7 @@ export default function SubmitButton() {
 	const { pending } = useFormStatus()
 	return (
 		<button type='submit' disabled={pending} className='ml-1 text-2xl'>
-			<FcPlus />
+			{pending ? 'Создаю инспекцию...' : <FcPlus />}
 		</button>
 	)
 }

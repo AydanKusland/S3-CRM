@@ -1,7 +1,7 @@
 'use client'
 
+import { debounce } from '@/utils/helpers'
 import { InspectionTypeWithId } from 'utils/types'
-import useOptimizedDebounce from 'utils/useOptimizedDebounce'
 
 const inspectors = [
 	'Любой',
@@ -19,7 +19,6 @@ export const InspectorsInput = ({
 }: {
 	inspection?: InspectionTypeWithId
 }) => {
-	const optimizedDebounce = useOptimizedDebounce(inspection)
 	return (
 		<>
 			<input
@@ -30,7 +29,7 @@ export const InspectorsInput = ({
 				autoComplete='on'
 				placeholder='исполнитель'
 				defaultValue={inspection?.recommendedExecutor}
-				onChange={optimizedDebounce}
+				onChange={debounce(inspection)}
 			/>
 			<datalist id='recommendedExecutors'>
 				{inspectors.map(option => (

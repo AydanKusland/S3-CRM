@@ -34,11 +34,18 @@ export type FactoryType = {
 	factoryManagerContact?: string
 }
 
-export interface UserInterface {
-	id: string
+export type TN = {
+	number: number
+	name: string
+	RTN: string
+	reportEngineer: string
+	// factories?: [FactoryType]
+	// manager: User
+}
+
+export type User = {
 	fullName: string
-	shortName: string
-	tovarnoeNapravlenie: string[]
+	TN: string[]
 	factories: FactoryType[]
 	userRights: string[]
 }

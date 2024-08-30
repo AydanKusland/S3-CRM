@@ -1,24 +1,33 @@
 'use client'
 
+import { debounce } from '@/utils/helpers'
+import styled from 'styled-components'
 import { InspectionTypeWithId } from 'utils/types'
-import useOptimizedDebounce from 'utils/useOptimizedDebounce'
 
 export const CommentInput = ({
 	inspection
 }: {
 	inspection?: InspectionTypeWithId
 }) => {
-	const optimizedDebounce = useOptimizedDebounce(inspection)
-
 	return (
-		<input
-			className='max-w-48 rounded-none'
-			type='text'
+		<Textarea
+			rows={1}
+			title={inspection?.commentary}
+			className='max-w-48 rounded-none resize-none hover:resize-y min-h-[26px]'
 			name='commentary'
 			placeholder='комментарий'
 			defaultValue={inspection?.commentary}
 			autoComplete='on'
-			onChange={optimizedDebounce}
+			onChange={debounce(inspection)}
 		/>
 	)
 }
+
+const Textarea = styled.textarea`
+	&::-webkit-scrollbar {
+		width: 7px;
+	}
+	&::-webkit-scrollbar-corner {
+		background-color: var(--myBrown);
+	}
+`

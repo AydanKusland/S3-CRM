@@ -1,8 +1,8 @@
-'use client'
+// client component, child of InspectionTypeSelect
 
 import { InspectionTypeWithId } from 'utils/types'
-import useOptimizedDebounce from 'utils/useOptimizedDebounce'
 import { CreateAttestationForm } from './CreateAttestationForm'
+import { debounce } from '@/utils/helpers'
 
 export const CreateInspectionForm = ({
 	inspection,
@@ -11,10 +11,6 @@ export const CreateInspectionForm = ({
 	inspection?: InspectionTypeWithId
 	inspectionType: string
 }) => {
-	// So they wouldn't interfere with each others timeouts
-	const optimizedDebounce = useOptimizedDebounce(inspection)
-	const optimizedDebounce2 = useOptimizedDebounce(inspection)
-
 	return (
 		<>
 			<CreateAttestationForm
@@ -30,19 +26,21 @@ export const CreateInspectionForm = ({
 				defaultValue={inspection?.orderNumber}
 				placeholder='Номер заказа'
 				autoComplete='on'
-				onChange={optimizedDebounce}
+				onChange={debounce(inspection)}
 			/>
 			{/* Стоимость заказа */}
-			<div className='flex'>
-				<span className='relative text-red-400 bg-my-brown pt-[3px]'>¥</span>
+			<div className='relative'>
+				<span className='text-lg absolute top-1/2 -translate-y-1/2 text-red-700 bg-transparent'>
+					¥
+				</span>
 				<input
-					className='max-w-20 rounded-none pl-px '
+					className='max-w-20 rounded-none'
 					type='number'
 					name='orderCost'
 					step={10000}
 					defaultValue={inspection?.orderCost || 100000}
 					min={0}
-					onChange={optimizedDebounce2}
+					onChange={debounce(inspection)}
 				/>
 			</div>
 		</>

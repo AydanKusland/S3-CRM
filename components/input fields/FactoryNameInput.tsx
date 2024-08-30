@@ -1,5 +1,7 @@
+'use client'
+
+import { debounce } from '@/utils/helpers'
 import { InspectionTypeWithId } from 'utils/types'
-import useOptimizedDebounce from 'utils/useOptimizedDebounce'
 
 const factories = ['Xianxing', 'UTL', 'Huajia']
 
@@ -10,15 +12,13 @@ export const FactoryNameInput = ({
 	inspection?: InspectionTypeWithId
 	inspectionType?: string
 }) => {
-	const optimizedDebounce = useOptimizedDebounce(inspection)
-
 	if (inspectionType) {
 		return (
 			<select
 				name='factoryShortName'
 				className='rounded-none w-36'
 				defaultValue={inspection?.factoryShortName}
-				onChange={optimizedDebounce}
+				onChange={debounce(inspection)}
 			>
 				{factories.map(option => (
 					<option key={option} value={option}>
@@ -35,7 +35,7 @@ export const FactoryNameInput = ({
 				className='rounded-none max-w-36'
 				defaultValue={inspection?.factoryShortName}
 				placeholder='Название завода'
-				onChange={optimizedDebounce}
+				onChange={debounce(inspection)}
 			/>
 		)
 }

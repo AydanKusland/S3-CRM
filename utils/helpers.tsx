@@ -1,3 +1,4 @@
+import { editInspectionAction } from 'actions/inspectionActions'
 import { getWeek } from 'date-fns'
 import {
 	defaultInspectionObject,
@@ -148,3 +149,50 @@ export const getInspections = cache(
 		}
 	}
 )
+
+export function debounce(inspection: InspectionTypeWithId | undefined) {
+	let timeout: NodeJS.Timeout
+	return (
+		e: React.ChangeEvent<
+			HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+		>
+	): void => {
+		clearTimeout(timeout)
+		timeout = setTimeout(() => {
+			if (inspection) {
+				const newProp = e.target.value as string
+				editInspectionAction(inspection.id, {
+					[e.target.name]: newProp
+				})
+			}
+		}, 1500)
+	}
+}
+
+// export default function useOptimizedDebounce(
+// 	inspection: InspectionTypeWithId | undefined
+// ) {
+// 	if (!inspection) return () => {}
+// 	const debounce = () => {
+// 		let timeout: NodeJS.Timeout
+// 		return (
+// 			e: React.ChangeEvent<
+// 				HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+// 			>
+// 		): void => {
+// 			clearTimeout(timeout)
+// 			timeout = setTimeout(() => {
+// 				if (inspection) {
+// 					const newProp = e.target.value as string
+// 					editInspectionAction(inspection.id, {
+// 						[e.target.name]: newProp
+// 					})
+// 				}
+// 			}, 1500)
+// 		}
+// 	}
+
+// 	const optimizedDebounce = useMemo(() => debounce(), [])
+
+// 	return optimizedDebounce
+// }

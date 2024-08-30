@@ -41,15 +41,14 @@ model Factory {
 }
 
 model User {
-  id String @id @default(uuid())
-  fullName String
-  shortName String
+  fullName String @id @unique
+  hashedPassword String @default("***")
   TN TN[]
   userRights String[]
 }
 
 model TN {
-  number Int @id
+  number Int @id @unique
   name String
   RTN String
   reportEngineer String

@@ -22,7 +22,7 @@ export default async function InspectionList({ week }: { week?: string }) {
 				return (
 					<div
 						key={province}
-						className='ml-4 mx-auto grid uppercase mb-2'
+						className='mx-auto grid uppercase mb-2'
 						// onClick={e => hideProvince(e)}
 					>
 						<h3 className='text-center mb-2'>{province}</h3>

@@ -1,3 +1,5 @@
+// server component
+
 const provinces = ['Zhejiang', 'Guangdong', 'Fujiang', 'Shanghai']
 
 export const ProvinceInput = ({ province }: { province?: string }) => {

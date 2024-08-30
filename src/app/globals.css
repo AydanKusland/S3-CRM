@@ -13,7 +13,6 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--foreground-rgb: 98, 235, 255;
-		/* --foreground-rgb: 98, 235, 255; */
 		--background-start-rgb: 0, 0, 15;
 		--background-end-rgb: 0, 0, 50;
 	}
@@ -31,7 +30,8 @@ body {
 
 input,
 select,
-option {
+option,
+textarea {
 	appearance: none;
 	text-align: center;
 	border-radius: 3px;
@@ -42,6 +42,12 @@ option {
 
 input::placeholder {
 	color: rgba(0, 0, 0, 0.75);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 @layer utilities {

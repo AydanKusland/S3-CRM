@@ -3,8 +3,12 @@
 import { useState } from 'react'
 import { inspectionMode, InspectionTypeWithId } from 'utils/types'
 import { CreateInspectionForm } from '../forms/CreateInspectionForm'
-import { editInspectionAction } from 'utils/actions'
-import { CreateAttestationForm } from '../forms/CreateAttestationForm'
+import { editInspectionAction } from 'actions/inspectionActions'
+import { CreateAttestationForm } from 'components/forms/CreateAttestationForm'
+
+const inspectionName = inspectionMode[0]
+const attestation = inspectionMode[1]
+const fieldTest = inspectionMode[2]
 
 export const InspectionTypeSelect = ({
 	inspection
@@ -37,14 +41,13 @@ export const InspectionTypeSelect = ({
 				))}
 			</select>
 			{/* Выбранный вид формы */}
-			{inspectionType === inspectionMode[0] && (
+			{inspectionType === inspectionName && (
 				<CreateInspectionForm
 					inspection={inspection}
 					inspectionType={inspectionType}
 				/>
 			)}
-			{(inspectionType === inspectionMode[1] ||
-				inspectionType === inspectionMode[2]) && (
+			{(inspectionType === attestation || inspectionType === fieldTest) && (
 				<CreateAttestationForm inspection={inspection} />
 			)}
 		</>

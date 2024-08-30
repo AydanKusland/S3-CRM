@@ -1,7 +1,7 @@
 'use client'
 
 import { UserInterface } from 'utils/types'
-import { getAllUsers } from 'utils/userActions'
+import { getAllUsers } from 'actions/userActions'
 
 // export const UsersList = () => {
 // 	const { data: users } = useQuery({

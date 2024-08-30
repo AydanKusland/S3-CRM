@@ -1,3 +1,5 @@
+// Inside client component, createInspectionForm and InspectionTypeSelect
+
 import { InspectionTypeWithId } from 'utils/types'
 import { TovarnoeNapravlenieInput } from '../input fields/TovarnoeNapravlenieInput'
 import { FactoryNameInput } from '../input fields/FactoryNameInput'

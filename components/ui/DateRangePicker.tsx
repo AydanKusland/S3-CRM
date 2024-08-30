@@ -3,7 +3,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 import { useState } from 'react'
 import DatePicker from 'react-datepicker'
-import { editInspectionAction } from 'utils/actions'
+import { editInspectionAction } from 'actions/inspectionActions'
 import {
 	changeDateFormatToDDMMYY,
 	parseWeekAndYearFromStartDate

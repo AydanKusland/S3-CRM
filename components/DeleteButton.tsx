@@ -1,20 +1,23 @@
 'use client'
 
 import { useActionState } from 'react'
-import { TiDelete } from 'react-icons/ti'
-import { deleteInspectionAction } from 'utils/actions'
+import { GoTrash } from 'react-icons/go'
+import { deleteInspectionAction } from 'actions/inspectionActions'
 
 export default function DeleteButton({ id }: { id: string }) {
-	const [error, action, isPending] = useActionState(deleteInspectionAction, 0)
+	const [_, action, isPending] = useActionState(deleteInspectionAction, 0)
 
 	return (
 		<button
-			className={`text-2xl ${isPending ? 'text-gray-600' : 'text-red-600'}`}
+			className={`ml-1 transition-all ${
+				isPending
+					? 'text-gray-600'
+					: 'text-red-600 hover:text-red-300 hover:text-xl'
+			}`}
 			onClick={() => action(id)}
 			disabled={isPending}
-			// formAction={() => formAction(id)}
 		>
-			{isPending ? '...' : <TiDelete />}
+			{isPending ? '...' : <GoTrash />}
 		</button>
 	)
 }

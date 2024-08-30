@@ -1,15 +1,13 @@
 'use client'
 
+import { debounce } from '@/utils/helpers'
 import { InspectionTypeWithId } from 'utils/types'
-import useOptimizedDebounce from 'utils/useOptimizedDebounce'
 
 export const FactoryAddress = ({
 	inspection
 }: {
 	inspection?: InspectionTypeWithId
 }) => {
-	const optimizedDebounce = useOptimizedDebounce(inspection)
-
 	return (
 		<input
 			required
@@ -18,7 +16,7 @@ export const FactoryAddress = ({
 			name='factoryAddress'
 			placeholder='Город, вокзал'
 			defaultValue={inspection?.factoryAddress}
-			onChange={optimizedDebounce}
+			onChange={debounce(inspection)}
 		/>
 	)
 }

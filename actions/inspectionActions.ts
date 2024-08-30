@@ -1,9 +1,9 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import prisma from './db'
-import { extractDataFromFormData } from './helpers'
-import { InspectionType, InspectionTypeWithId } from './types'
+import prisma from '@/utils/db'
+import { extractDataFromFormData } from '@/utils/helpers'
+import { InspectionType, InspectionTypeWithId } from '@/utils/types'
 
 export async function createInspectionAction(
 	formData: FormData
@@ -53,6 +53,8 @@ export async function editInspectionAction(
 			},
 			data: { ...args }
 		})
+		// console.log(updatedInspection)
+
 		revalidatePath(`/inspections/${updatedInspection.year_week}`)
 		return updatedInspection
 	} catch (error) {
