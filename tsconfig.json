@@ -22,7 +22,8 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@/components/*": ["./components/*"],
-			"@/utils/*": ["./utils/*"]
+			"@/utils/*": ["./utils/*"],
+			"@/prisma/*": ["./prisma/*"]
 		},
 		"target": "ES2017"
 	},

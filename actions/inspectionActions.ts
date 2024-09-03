@@ -1,14 +1,15 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import prisma from '@/utils/db'
+import prisma from '@/prisma/db'
 import { extractDataFromFormData } from '@/utils/helpers'
 import { InspectionType, InspectionTypeWithId } from '@/utils/types'
+import { Prisma } from '@prisma/client'
 
 export async function createInspectionAction(
 	formData: FormData
 ): Promise<InspectionTypeWithId | null> {
-	const data: InspectionType = extractDataFromFormData(formData)
+	const data: Prisma.InspectionCreateInput = extractDataFromFormData(formData)
 
 	try {
 		const inspection: InspectionTypeWithId = await prisma.inspection.create({

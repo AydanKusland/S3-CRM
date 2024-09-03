@@ -10,9 +10,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@prisma/client": "^5.19.0",
+		"@types/bcrypt": "^5.0.2",
 		"@types/react": "npm:types-react@rc",
 		"@types/react-dom": "npm:types-react-dom@rc",
-		"@prisma/client": "^5.19.0",
+		"bcrypt": "^5.1.1",
 		"date-fns": "^3.6.0",
 		"next": "^15.0.0-rc.0",
 		"react": "^19.0.0-rc-a960b92c-20240819",
@@ -35,5 +37,8 @@
 	"overrides": {
 		"@types/react": "npm:types-react@rc",
 		"@types/react-dom": "npm:types-react-dom@rc"
+	},
+	"prisma": {
+		"seed": "node prisma/seed.js"
 	}
 }

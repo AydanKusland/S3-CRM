@@ -42,9 +42,10 @@ model Factory {
 
 model User {
   fullName String @id @unique
+  email String @unique
   hashedPassword String @default("***")
   TN TN[]
-  userRights String[]
+  userRights String[] @default([])
 }
 
 model TN {

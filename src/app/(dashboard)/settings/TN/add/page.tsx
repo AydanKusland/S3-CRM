@@ -4,7 +4,7 @@ import { createTN } from 'actions/tnActions'
 import Link from 'next/link'
 import { useActionState } from 'react'
 
-function page() {
+export default function AddTNPage() {
 	const [state, action, isPending] = useActionState(createTN, null)
 
 	return (
@@ -92,5 +92,3 @@ function page() {
 		</form>
 	)
 }
-
-export default page

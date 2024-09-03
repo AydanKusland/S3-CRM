@@ -6,7 +6,8 @@ import {
 	InspectionTypeWithId
 } from './types'
 import { cache } from 'react'
-import prisma from './db'
+import prisma from '../prisma/db'
+import { Prisma } from '@prisma/client'
 
 export const changeDateFormatToDDMMYY = (date: Date): string =>
 	date.toLocaleDateString('ru-RU', {
@@ -90,7 +91,9 @@ export function getPreviousOrNextWeek(
 	return `${year.toString()}-${week.toString()}`
 }
 
-export function extractDataFromFormData(formData: FormData): InspectionType {
+export function extractDataFromFormData(
+	formData: FormData
+): Prisma.InspectionCreateInput {
 	const createInspectionData: InspectionType = defaultInspectionObject
 
 	// Dealing with dates
@@ -121,8 +124,6 @@ export function extractDataFromFormData(formData: FormData): InspectionType {
 		if (!(value instanceof File) && field !== 'year_week')
 			createInspectionData[field] = value === null ? '' : value
 	})
-
-	console.log(createInspectionData)
 
 	return createInspectionData
 }

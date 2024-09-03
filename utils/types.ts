@@ -40,13 +40,13 @@ export type TN = {
 	RTN: string
 	reportEngineer: string
 	// factories?: [FactoryType]
-	// manager: User
+	manager: Partial<UserType>[]
 }
 
-export type User = {
+export type UserType = {
 	fullName: string
-	TN: string[]
-	factories: FactoryType[]
+	email: string
+	TN: Partial<TN>[]
 	userRights: string[]
 }
 

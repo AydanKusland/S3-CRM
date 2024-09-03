@@ -1,11 +1,7 @@
-import InspectionCalendar from '@/components/InspectionCalendar'
-import InspectionList from '@/components/InspectionList'
+import { getWeek } from 'date-fns'
+import { redirect } from 'next/navigation'
 
-export default async function InspectionsPage() {
-	return (
-		<>
-			<InspectionCalendar yearAndWeek='' />
-			<InspectionList />
-		</>
-	)
+export default function InspectionsPage() {
+	const yearAndWeek = `${new Date().getFullYear()}-${getWeek(new Date())}`
+	return redirect(`/inspections/${yearAndWeek}`)
 }

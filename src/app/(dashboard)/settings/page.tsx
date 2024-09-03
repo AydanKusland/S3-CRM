@@ -1,9 +1,7 @@
-// get current user
-
 import Link from 'next/link'
-import prisma from 'utils/db'
+import prisma from '@/prisma/db'
 
-async function page() {
+export default async function SettingsPage() {
 	const user = await prisma.user.findUnique({
 		where: {
 			fullName: 'Тугов Сергей'
@@ -44,5 +42,3 @@ async function page() {
 		</section>
 	)
 }
-
-export default page
