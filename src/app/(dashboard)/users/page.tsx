@@ -9,7 +9,7 @@ export default function UsersPage() {
 			<UsersList />
 			<Link
 				href={'users/addUser'}
-				className='block mt-8 text-center hover:translate-y-2 hover:scale-95 hover:text-red-500 transition'
+				className='block mt-6 text-center hover:translate-y-2 hover:scale-95 hover:text-red-500 transition'
 			>
 				Добавить мученика!
 			</Link>

@@ -100,3 +100,34 @@ export async function editTNAction(number: number, formData: FormData) {
 	}
 	redirect(`/settings/TN/${data.number}`)
 }
+
+type DisconnectManagerObject = {
+	fullName: string
+	number: number
+}
+
+export async function disconnectManagerFromTN({
+	fullName,
+	number
+}: DisconnectManagerObject): Promise<DisconnectManagerObject> {
+	try {
+		await prisma.tN.update({
+			where: {
+				number
+			},
+			data: {
+				manager: {
+					disconnect: {
+						fullName
+					}
+				}
+			}
+		})
+		revalidatePath(`/settings/TN/${number}`)
+		revalidatePath('/settings/TN')
+		return { fullName: 'success!', number }
+	} catch (error) {
+		console.log(error)
+		return { fullName: 'failed disconnecting manager!', number }
+	}
+}

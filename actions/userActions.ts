@@ -1,6 +1,8 @@
 'use server'
 
 import prisma from '@/prisma/db'
+import { UserType } from '@/utils/types'
+import { User } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
 export const getAllUsers = async () => {
@@ -29,6 +31,31 @@ export const getAllUsers = async () => {
 		return null
 	}
 }
+export const getUser = async (
+	fullName: string
+): Promise<UserType | 'User not found'> => {
+	try {
+		const user: UserType | null = await prisma.user.findUnique({
+			where: { fullName },
+			select: {
+				fullName: true,
+				email: true,
+				userRights: true,
+				TN: {
+					select: {
+						name: true,
+						number: true
+					}
+				}
+			}
+		})
+		if (user) return user
+	} catch (error) {
+		console.log(error)
+	}
+	return 'User not found'
+}
+
 export const getAllUserNames = async (): Promise<
 	string[] | 'Request Failed'
 > => {

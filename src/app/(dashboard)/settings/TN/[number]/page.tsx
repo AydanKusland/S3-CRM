@@ -1,3 +1,4 @@
+import DisconnectUser from '@/components/TNComponents/DisconnectManager'
 import {
 	editTNAction,
 	getTNWithManagerName,
@@ -5,6 +6,7 @@ import {
 } from 'actions/tnActions'
 import { getAllUserNames } from 'actions/userActions'
 import { redirect } from 'next/navigation'
+import { AiOutlineUserDelete } from 'react-icons/ai'
 
 export default async function IndividualTNPage({
 	params: { number }
@@ -68,16 +70,28 @@ export default async function IndividualTNPage({
 					name='reportEngineer'
 				></input>
 			</div>
+			{/* Текущие менеджеры с возможностью удалить */}
 
+			<div className='grid grid-cols-2  gap-2 sm:gap-8 mb-2 '>
+				<label className='justify-self-end hover:text-violet-600'>
+					Текущие менеджеры КП:
+				</label>
+				<div className='flex gap-2 justify-center bg-my-brown rounded p-[3px]'>
+					{TN.manager.map(({ fullName }: { fullName: string }) => (
+						<DisconnectUser
+							key={fullName}
+							fullName={fullName}
+							number={TN.number}
+						/>
+					))}
+				</div>
+			</div>
+			{/* Добавить менеджера */}
 			<div className='grid grid-cols-2  gap-2 sm:gap-8 mb-2 hover:text-violet-600'>
 				<label htmlFor='manager' className='justify-self-end'>
-					Менеджер КП
+					Добавить менеджера КП:
 				</label>
-				<select
-					name='manager'
-					id='manager'
-					defaultValue={TN?.manager[0].fullName}
-				>
+				<select name='manager' id='manager'>
 					{users?.map(fullName => {
 						return (
 							<option key={fullName} value={fullName}>
