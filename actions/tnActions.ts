@@ -16,13 +16,13 @@ export async function createTN(
 		reportEngineer: formData.get('reportEngineer') as string,
 		manager: {
 			connect: {
-				fullName: 'Тугов Сергей'
+				fullName: formData.get('manager') as string
 			}
 		}
 	}
 
 	try {
-		const newTN = await prisma.tN.create({ data: data })
+		const newTN = await prisma.tN.create({ data })
 		revalidatePath('settings/TN')
 		return newTN.number
 	} catch (error) {

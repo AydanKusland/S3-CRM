@@ -8,40 +8,42 @@ export default function User({ user }: { user: UserType }) {
 	}
 
 	return (
-		<div className='border-2 border-cyan-400 max-w-screen-sm m-3 p-2 text-center mx-auto'>
-			<Link href={`/users/${user.fullName}`} className='text-lg'>
+		<div className='w-11/12 border-2 border-cyan-600 max-w-screen-md p-3 text-center mx-auto'>
+			<Link href={`/users/${user.fullName}`} className='block text-xl my-2'>
 				{user.fullName}
 			</Link>
-			<div className='flex gap-2 justify-center'>
+			<div className='flex gap-2 justify-evenly'>
 				{/* Товарные направления */}
-				<div className='text-center p-3'>
-					<h4 className='underline'>Товарные направления:</h4>
+				<div>
+					<h4 className='underline my-3 text-lg'>Товарные направления</h4>
 					{user.TN.map(tn => (
 						<Link
 							href={`/settings/TN/${tn.number}`}
 							key={tn.number}
-							className='block'
+							className='block p-1'
 						>
 							{tn.name}
 						</Link>
 					))}
 				</div>
 				{/* Права */}
-				<div className='justify-around p-3'>
-					<h4 className='underline'>Права:</h4>
-					<div className='flex gap-2 justify-center'>
+				<div className='justify-around'>
+					<h4 className='underline text-lg my-3'>Права</h4>
+					<div className='flex gap-2 justify-around'>
 						{/* Доступные права */}
-						<h3 className=''>Доступные права</h3>
-						<div className='flex justify-around'>
-							<div>
-								{user.userRights.map((right: string) => {
-									return (
-										<div key={right} className='flex gap-2'>
-											<div>{right}</div>
-											<button onClick={deleteRight}>delete</button>
-										</div>
-									)
-								})}
+						<div>
+							<h3 className=''>Доступные права</h3>
+							<div className='flex justify-around'>
+								<div>
+									{user.userRights.map((right: string) => {
+										return (
+											<div key={right} className='flex gap-2'>
+												<div>{right}</div>
+												<button onClick={deleteRight}>delete</button>
+											</div>
+										)
+									})}
+								</div>
 							</div>
 						</div>
 						{/* Не доступные права */}

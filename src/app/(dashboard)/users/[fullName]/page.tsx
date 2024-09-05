@@ -12,7 +12,7 @@ export default async function UserPage({
 
 	if (user !== 'User not found')
 		return (
-			<div className='mt-8'>
+			<div className='grid h-full place-content-center'>
 				<UserComponent user={user} />
 			</div>
 		)

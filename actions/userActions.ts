@@ -2,7 +2,6 @@
 
 import prisma from '@/prisma/db'
 import { UserType } from '@/utils/types'
-import { User } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
 export const getAllUsers = async () => {
@@ -73,31 +72,28 @@ export const getAllUserNames = async (): Promise<
 	}
 }
 
-export const addUser = async (password: string) => {
+export const createUser = async (
+	prev: {
+		status: string
+		fullName: string
+	},
+	formData: FormData
+): Promise<{
+	status: 'success!' | 'Create User Failed!'
+	fullName: string
+}> => {
 	try {
 		const newUser = await prisma.user.create({
 			data: {
-				fullName: 'Лашманкин Максим',
-				hashedPassword: await bcrypt.hash(password, 10),
-				email: 'hahaha@mail.com'
+				fullName: formData.get('fullName') as string,
+				// hashedPassword: await bcrypt.hash(password, 10),
+				hashedPassword: await bcrypt.hash('123', 10),
+				email: formData.get('email') as string
 			}
 		})
-		return newUser
+		return { status: 'success!', fullName: newUser.fullName }
 	} catch (error) {
 		console.log(error)
-		return null
+		return { status: 'Create User Failed!', fullName: '' }
 	}
 }
-
-// type User = {
-// 	argOne : string
-// }
-
-// export const createUser = async (userArgs : User) => {
-// 	try {
-// 		const user = await prisma.user.create({ data: userArgs })
-// 		return user
-// 	} catch (error) {
-// 		console.log(error)
-// 	}
-// }

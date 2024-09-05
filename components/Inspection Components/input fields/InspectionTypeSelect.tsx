@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { inspectionMode, InspectionTypeWithId } from 'utils/types'
 import { CreateInspectionForm } from '../forms/CreateInspectionForm'
 import { editInspectionAction } from 'actions/inspectionActions'
-import { CreateAttestationForm } from 'components/forms/CreateAttestationForm'
+import { CreateAttestationForm } from '@/components/Inspection Components/forms/CreateAttestationForm'
 
 const inspectionName = inspectionMode[0]
 const attestation = inspectionMode[1]

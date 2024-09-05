@@ -7,7 +7,7 @@
 	--background-start-rgb: 214, 219, 220;
 	--background-end-rgb: 255, 255, 255;
 	--myBrown: #f3d4ae78;
-	--myBlue: rgb(83, 210, 230);
+	--myBlue: rgb(79, 224, 247);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,7 +19,7 @@
 }
 
 body {
-	color: rgb(var(--foreground-rgb));
+	color: var(--myBlue);
 	background: linear-gradient(
 			to bottom,
 			transparent,

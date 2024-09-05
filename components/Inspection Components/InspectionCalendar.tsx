@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import DatePickerWrapped from './ui/DatePickerWrapped'
+import DatePickerWrapped from '../ui/DatePickerWrapped'
 import { getPreviousOrNextWeek } from 'utils/helpers'
 import { getWeek, parse } from 'date-fns'
 

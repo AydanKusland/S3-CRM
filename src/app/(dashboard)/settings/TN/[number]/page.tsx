@@ -6,7 +6,6 @@ import {
 } from 'actions/tnActions'
 import { getAllUserNames } from 'actions/userActions'
 import { redirect } from 'next/navigation'
-import { AiOutlineUserDelete } from 'react-icons/ai'
 
 export default async function IndividualTNPage({
 	params: { number }

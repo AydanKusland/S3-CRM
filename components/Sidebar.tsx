@@ -17,7 +17,7 @@ function Sidebar() {
 			<aside
 				className={`h-screen overflow-hidden transition-all  ${
 					sidebar
-						? 'border-cyan-400 absolute z-10 bg-cyan-950 w-screen md:px-2 md:max-w-28 md:bg-inherit md:relative md:border-r-2'
+						? 'border-cyan-600 absolute z-10 bg-cyan-950 w-screen md:px-2 md:max-w-28 md:bg-inherit md:relative md:border-r-2'
 						: 'max-w-0 border-none px-0'
 				}`}
 				onClick={e => handleSidebar(e)}

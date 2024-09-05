@@ -1,4 +1,4 @@
-import DateRangePickerComponent from './ui/DateRangePicker'
+import DateRangePickerComponent from '../ui/DateRangePicker'
 import { InspectionTypeWithId } from 'utils/types'
 import { MainForm } from './forms/MainForm'
 import { parseDateStringFromDDMMYYToDateStringMMDDYY } from 'utils/helpers'
