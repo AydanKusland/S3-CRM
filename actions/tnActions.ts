@@ -27,7 +27,7 @@ export async function createTN(
 		return newTN.number
 	} catch (error) {
 		console.log(error)
-		return 'error from createTN server action'
+		return 'Произошла ошибка во время создания товарного направления!'
 	}
 }
 

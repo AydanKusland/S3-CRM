@@ -9,8 +9,10 @@ const config: Config = {
 	theme: {
 		extend: {
 			colors: {
-				// 'my-brown': 'rgba(255, 228, 196, 0.471)'
-				'my-brown': '#f3d4ae78'
+				'my-brown': '#f3d4ae78',
+				'my-green': '#4fe0b3',
+				'my-darkerGreen': '#42ac8a',
+				'my-darkGreen': '#2c6b57'
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

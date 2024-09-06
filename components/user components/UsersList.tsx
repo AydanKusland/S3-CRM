@@ -8,7 +8,7 @@ export const UsersList = async () => {
 	if (!users) return <h1>Can't find any users!</h1>
 
 	return (
-		<div className='grid gap-y-3 lg:grid-cols-2 xl:grid-cols-3 justify-evenly'>
+		<div className='grid gap-7 lg:grid-cols-2 xl:grid-cols-3'>
 			{users.map((user: UserType) => {
 				return <User key={user.fullName} user={user} />
 			})}

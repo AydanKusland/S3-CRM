@@ -12,11 +12,11 @@ export default async function SettingsPage() {
 	})
 
 	return (
-		<section className='max-w-screen-xl mx-auto pt-5 px-8'>
-			<h3 className='text-center mb-8 text-xl select-none hover:scale-105 hover:-rotate-1 transition'>
+		<section className='grid h-full place-content-center pb-6 px-6'>
+			<h3 className='text-center my-6 text-xl select-none hover:scale-105 hover:-rotate-1 transition'>
 				&#x1F60D; Мои товарные направления &#x1F60D;
 			</h3>
-			<div className='grid grid-cols-3 justify-around gap-6 text-center'>
+			<div className='grid md:grid-cols-2 lg:grid-cols-3 justify-around gap-x-8 gap-y-6 text-center'>
 				{user?.TN.map(napravlenie => {
 					return (
 						<Link
@@ -32,13 +32,13 @@ export default async function SettingsPage() {
 						</Link>
 					)
 				})}
+				<Link
+					href={`settings/TN/add`}
+					className='grid mb-20 place-items-center border-2 border-cyan-200 bg-slate-700 h-full text-lg text-center hover:translate-y-1 hover:scale-95 hover:text-red-500 transition'
+				>
+					<p>Добавить товарное направление!</p>
+				</Link>
 			</div>
-			<Link
-				href={`settings/TN/add`}
-				className='block mt-8 text-center hover:translate-y-2 hover:scale-95 hover:text-red-500 transition'
-			>
-				Добавить товарное направление!
-			</Link>
 		</section>
 	)
 }

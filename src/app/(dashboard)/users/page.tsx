@@ -5,11 +5,11 @@ import Link from 'next/link'
 
 export default function UsersPage() {
 	return (
-		<div className='mt-8'>
+		<div className='grid h-full place-content-center'>
 			<UsersList />
 			<Link
 				href={'users/addUser'}
-				className='block mt-5 text-center text-lg hover:translate-y-2 hover:scale-95 hover:text-red-500 transition'
+				className='mt-6 text-center text-xl hover:translate-y-1 hover:scale-95 hover:text-red-500 transition'
 			>
 				Добавить мученика!
 			</Link>

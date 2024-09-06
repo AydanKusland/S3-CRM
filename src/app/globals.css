@@ -7,7 +7,10 @@
 	--background-start-rgb: 214, 219, 220;
 	--background-end-rgb: 255, 255, 255;
 	--myBrown: #f3d4ae78;
-	--myBlue: rgb(79, 224, 247);
+	--myGreen: #4fe0b3;
+	--myDarkerGreen: #42ac8a;
+	--myDarkGreen: #2c6b57;
+	/* --myBlue: rgb(79, 224, 247); */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,7 +22,7 @@
 }
 
 body {
-	color: var(--myBlue);
+	color: var(--myGreen);
 	background: linear-gradient(
 			to bottom,
 			transparent,
@@ -36,7 +39,7 @@ textarea {
 	text-align: center;
 	border-radius: 3px;
 	padding: 3px;
-	color: var(--myBlue);
+	color: var(--myGreen);
 	background-color: var(--myBrown);
 }
 

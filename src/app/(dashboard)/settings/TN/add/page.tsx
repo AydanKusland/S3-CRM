@@ -6,7 +6,10 @@ export default async function AddTNPage() {
 
 	if (users !== 'Request Failed')
 		return (
-			<form className='max-w-fit drop-shadow-lg mx-auto mt-20'>
+			<form className='grid h-full place-content-center drop-shadow-lg text-center gap-1'>
+				<p className='mb-4 text-lg hover:text-my-darkGreen transition cursor-pointer'>
+					Добавить товарное направление
+				</p>
 				<div className='grid grid-cols-2 gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
 					<label htmlFor='number' className='justify-self-end'>
 						Номер товарного направления

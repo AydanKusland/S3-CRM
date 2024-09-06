@@ -8,8 +8,11 @@ export default function User({ user }: { user: UserType }) {
 	}
 
 	return (
-		<div className='w-11/12 border-2 border-cyan-600 max-w-screen-md p-3 text-center mx-auto'>
-			<Link href={`/users/${user.fullName}`} className='block text-xl my-2'>
+		<div className='rounded-t border-2 border-my-darkGreen max-w-screen-md p-3 text-center shadow-sm shadow-lime-700 hover:border-my-green hover:shadow-2xl transition-all'>
+			<Link
+				href={`/users/${user.fullName}`}
+				className='block text-xl tracking-wider  my-2 hover:scale-105 hover:text-my-darkerGreen transition'
+			>
 				{user.fullName}
 			</Link>
 			<div className='flex gap-2 justify-evenly'>
@@ -34,16 +37,14 @@ export default function User({ user }: { user: UserType }) {
 						<div>
 							<h3 className=''>Доступные права</h3>
 							<div className='flex justify-around'>
-								<div>
-									{user.userRights.map((right: string) => {
-										return (
-											<div key={right} className='flex gap-2'>
-												<div>{right}</div>
-												<button onClick={deleteRight}>delete</button>
-											</div>
-										)
-									})}
-								</div>
+								{user.userRights.map((right: string) => {
+									return (
+										<div key={right} className='flex gap-2'>
+											<div>{right}</div>
+											<button onClick={deleteRight}>delete</button>
+										</div>
+									)
+								})}
 							</div>
 						</div>
 						{/* Не доступные права */}

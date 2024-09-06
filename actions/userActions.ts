@@ -3,6 +3,8 @@
 import prisma from '@/prisma/db'
 import { UserType } from '@/utils/types'
 import bcrypt from 'bcrypt'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export const getAllUsers = async () => {
 	try {
@@ -91,9 +93,26 @@ export const createUser = async (
 				email: formData.get('email') as string
 			}
 		})
+		revalidatePath('/users')
 		return { status: 'success!', fullName: newUser.fullName }
 	} catch (error) {
 		console.log(error)
 		return { status: 'Create User Failed!', fullName: '' }
+	}
+}
+
+export const deleteUser = async (
+	prev: string
+): Promise<'Пользователь удалён!' | 'Удаление пользователя провалилось!'> => {
+	try {
+		await prisma.user.delete({
+			where: {
+				fullName: prev
+			}
+		})
+		return 'Пользователь удалён!'
+	} catch (error) {
+		console.log(error)
+		return 'Удаление пользователя провалилось!'
 	}
 }

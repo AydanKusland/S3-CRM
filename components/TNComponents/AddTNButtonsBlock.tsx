@@ -10,7 +10,7 @@ export default function AddTNButtonsBlock() {
 			<button
 				type='submit'
 				formAction={action}
-				className='text-center min-w-full p-1.5 bg-lime-600 rounded uppercase tracking-wide hover:bg-lime-700 hover:text-violet-800 transition-all'
+				className='text-center min-w-full p-1.5 bg-lime-800 rounded uppercase tracking-wide hover:bg-lime-700 hover:text-violet-950 transition-all'
 				disabled={isPending}
 			>
 				{isPending

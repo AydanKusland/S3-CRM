@@ -1,6 +1,7 @@
 import UserComponent from '@/components/user components/User'
 import { UserType } from 'utils/types'
 import { getUser } from 'actions/userActions'
+import DeleteUserButton from '@/components/user components/DeleteUserButton'
 
 export default async function UserPage({
 	params: { fullName }
@@ -14,7 +15,12 @@ export default async function UserPage({
 		return (
 			<div className='grid h-full place-content-center'>
 				<UserComponent user={user} />
+				<DeleteUserButton fullName={user.fullName} />
 			</div>
 		)
-	return <h1>А был ли юзер?</h1>
+	return (
+		<div className='grid h-full place-content-center text-xl'>
+			А был ли юзер?
+		</div>
+	)
 }

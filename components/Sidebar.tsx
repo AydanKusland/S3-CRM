@@ -15,14 +15,14 @@ function Sidebar() {
 	return (
 		<>
 			<aside
-				className={`h-screen overflow-hidden transition-all  ${
+				className={`h-full overflow-hidden transition-all border-my-darkerGreen ${
 					sidebar
-						? 'border-cyan-600 absolute z-10 bg-cyan-950 w-screen md:px-2 md:max-w-28 md:bg-inherit md:relative md:border-r-2'
+						? ' text-lg z-10 bg-lime-900 w-screen md:px-2 md:max-w-28 md:bg-inherit md:relative md:border-r-2'
 						: 'max-w-0 border-none px-0'
 				}`}
 				onClick={e => handleSidebar(e)}
 			>
-				<ul className='grid items-center h-full text-center '>
+				<ul className='grid items-center h-screen text-center '>
 					<Link
 						href={'/inspections'}
 						className='hover:text-cyan-100 transition'
