@@ -1,4 +1,4 @@
-import AddTNButtonsBlock from '@/components/TNComponents/AddTNButtonsBlock'
+import AddTNButtonsBlock from '@/components/TN Components/AddTNButtonsBlock'
 import { getAllUserNames } from 'actions/userActions'
 
 export default async function AddTNPage() {

@@ -20,7 +20,7 @@ export const CreateInspectionForm = ({
 			{/* Номера заказа*/}
 			<input
 				required
-				className='max-w-32 rounded-none '
+				className='rounded-none '
 				type='text'
 				name='orderNumber'
 				defaultValue={inspection?.orderNumber}
@@ -30,11 +30,11 @@ export const CreateInspectionForm = ({
 			/>
 			{/* Стоимость заказа */}
 			<div className='relative'>
-				<span className='text-lg absolute top-1/2 -translate-y-1/2 text-red-700 bg-transparent'>
+				<span className='text-lg absolute top-1/2 left-12 -translate-y-1/2 text-red-700 bg-transparent'>
 					¥
 				</span>
 				<input
-					className='max-w-20 rounded-none'
+					className='rounded-none w-full'
 					type='number'
 					name='orderCost'
 					step={10000}

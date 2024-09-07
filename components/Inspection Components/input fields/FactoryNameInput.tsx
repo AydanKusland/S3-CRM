@@ -16,7 +16,7 @@ export const FactoryNameInput = ({
 		return (
 			<select
 				name='factoryShortName'
-				className='rounded-none w-36'
+				className='rounded-none'
 				defaultValue={inspection?.factoryShortName}
 				onChange={debounce(inspection)}
 			>
@@ -32,7 +32,7 @@ export const FactoryNameInput = ({
 			<input
 				required
 				name='factoryShortName'
-				className='rounded-none max-w-36'
+				className='rounded-none'
 				defaultValue={inspection?.factoryShortName}
 				placeholder='Название завода'
 				onChange={debounce(inspection)}

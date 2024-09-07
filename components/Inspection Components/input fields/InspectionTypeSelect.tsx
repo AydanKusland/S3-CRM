@@ -30,7 +30,7 @@ export const InspectionTypeSelect = ({
 		<>
 			<select
 				name='inspectionType'
-				className={`max-w-${inspection ? '44' : '52'} rounded-none`}
+				className='rounded-none'
 				onChange={chooseForm}
 				defaultValue={inspectionType}
 			>

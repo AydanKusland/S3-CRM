@@ -1,4 +1,4 @@
-import DisconnectUser from '@/components/TNComponents/DisconnectManager'
+import DisconnectUser from '@/components/TN Components/DisconnectManager'
 import {
 	editTNAction,
 	getTNWithManagerName,

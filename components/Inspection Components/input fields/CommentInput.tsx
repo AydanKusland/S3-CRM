@@ -13,7 +13,7 @@ export const CommentInput = ({
 		<Textarea
 			rows={1}
 			title={inspection?.commentary}
-			className='max-w-48 rounded-none resize-none hover:resize-y min-h-[26px]'
+			className='rounded-none resize-none hover:resize-y min-h-[26px]'
 			name='commentary'
 			placeholder='комментарий'
 			defaultValue={inspection?.commentary}

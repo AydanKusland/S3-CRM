@@ -9,7 +9,7 @@ export default function DeleteButton({ id }: { id: string }) {
 
 	return (
 		<button
-			className={`ml-1 transition-all ${
+			className={`absolute -right-5 top-1/2 -translate-y-1/2 transition-all ${
 				isPending
 					? 'text-gray-600'
 					: 'text-red-600 hover:text-red-300 hover:text-xl'

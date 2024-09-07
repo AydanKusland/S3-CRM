@@ -22,7 +22,7 @@ export const TovarnoeNapravlenieInput = ({
 	return (
 		<select
 			name='TN'
-			className='max-w-40 rounded-none pl-1 text-sm'
+			className='rounded-none pl-1 text-sm'
 			defaultValue={inspection?.TN}
 			required
 			onChange={debounce(inspection)}

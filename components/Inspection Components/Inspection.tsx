@@ -16,7 +16,10 @@ export const Inspection = ({
 
 	return (
 		<form>
-			<div key={inspection.id} className='flex flex-wrap py-1 text-sm'>
+			<div
+				key={inspection.id}
+				className='relative grid grid-cols-2 md:grid-cols-4 xl:grid-flow-col md:gap-y-3 max-w-[1940px] mx-auto  text-sm'
+			>
 				{/* Даты */}
 				<DateRangePickerComponent
 					inspectionDate={[startDate, endDate]}

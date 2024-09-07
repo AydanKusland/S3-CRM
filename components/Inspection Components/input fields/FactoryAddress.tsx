@@ -11,7 +11,7 @@ export const FactoryAddress = ({
 	return (
 		<input
 			required
-			className='rounded-none max-w-32'
+			className='rounded-none'
 			type='text'
 			name='factoryAddress'
 			placeholder='Город, вокзал'

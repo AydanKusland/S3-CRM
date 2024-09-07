@@ -38,7 +38,7 @@ function DateRangePickerComponent({
 
 	return (
 		<DatePicker
-			className={`max-w-${id ? '36' : '40'} rounded-r-none`}
+			className='rounded-r-none w-full'
 			dateFormat='dd.MM.yy'
 			selectsRange={true}
 			startDate={startDate}
@@ -54,5 +54,3 @@ function DateRangePickerComponent({
 	)
 }
 export default DateRangePickerComponent
-
-const classes = ['max-w-36', 'max-w-40']
