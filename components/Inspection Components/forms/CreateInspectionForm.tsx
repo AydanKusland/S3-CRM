@@ -30,11 +30,9 @@ export const CreateInspectionForm = ({
 			/>
 			{/* Стоимость заказа */}
 			<div className='relative'>
-				<span className='text-lg absolute top-1/2 left-12 -translate-y-1/2 text-red-700 bg-transparent'>
-					¥
-				</span>
+				<p className='absolute top-1/2 -translate-y-1/2 left-[25%] '>¥</p>
 				<input
-					className='rounded-none w-full'
+					className='rounded-none w-full min-h-[30px]'
 					type='number'
 					name='orderCost'
 					step={10000}

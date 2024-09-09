@@ -9,7 +9,7 @@ export default function SubmitButton() {
 		<button
 			type='submit'
 			disabled={pending}
-			className='text-2xl hover:scale-105 hover:rotate-90 transition'
+			className='text-2xl hover:scale-105 hover:rotate-90 transition justify-self-center'
 		>
 			{pending ? 'Создаю инспекцию...' : <FcPlus />}
 		</button>

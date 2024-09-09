@@ -9,10 +9,10 @@ export default function DeleteButton({ id }: { id: string }) {
 
 	return (
 		<button
-			className={`absolute -right-5 top-1/2 -translate-y-1/2 transition-all ${
+			className={`absolute right-px -translate-y-1/2 bottom-0 transition-all ${
 				isPending
 					? 'text-gray-600'
-					: 'text-red-600 hover:text-red-300 hover:text-xl'
+					: 'text-red-600 hover:text-red-300 hover:text-lg'
 			}`}
 			onClick={() => action(id)}
 			disabled={isPending}

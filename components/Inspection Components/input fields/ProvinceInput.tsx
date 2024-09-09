@@ -7,7 +7,7 @@ export const ProvinceInput = ({ province }: { province?: string }) => {
 	return (
 		<select
 			required
-			className={`rounded-none ${visibility}`}
+			className={`grow rounded-none ${visibility}`}
 			name='province'
 			defaultValue={province}
 		>

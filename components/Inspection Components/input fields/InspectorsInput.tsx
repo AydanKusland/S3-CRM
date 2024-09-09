@@ -23,7 +23,7 @@ export const InspectorsInput = ({
 		<>
 			<input
 				required
-				className='rounded-l-none'
+				className='grow rounded-l-none'
 				list='recommendedExecutors'
 				name='recommendedExecutor'
 				autoComplete='on'

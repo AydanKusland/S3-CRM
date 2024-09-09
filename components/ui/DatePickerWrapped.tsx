@@ -14,7 +14,7 @@ export default function DatePickerWrapped({ date }: { date: Date }) {
 
 	return (
 		<DatePicker
-			className='max-w-28'
+			className='max-w-32'
 			selected={date}
 			onChange={(date: Date) => handleChange(date)}
 			dateFormat='R - II'

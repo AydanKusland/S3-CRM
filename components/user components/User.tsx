@@ -8,7 +8,7 @@ export default function User({ user }: { user: UserType }) {
 	}
 
 	return (
-		<div className='rounded-t border-2 border-my-darkGreen max-w-screen-md p-3 text-center shadow-sm shadow-lime-700 hover:border-my-green hover:shadow-2xl transition-all'>
+		<div className='w-full rounded-t border-2 border-my-darkGreen max-w-screen-md p-3 text-center shadow-sm shadow-lime-700 hover:border-my-green hover:shadow-2xl transition-all'>
 			<Link
 				href={`/users/${user.fullName}`}
 				className='block text-xl tracking-wider  my-2 hover:scale-105 hover:text-my-darkerGreen transition'

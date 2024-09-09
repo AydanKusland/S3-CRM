@@ -32,14 +32,17 @@ export default function AddUserPage() {
 			</button>
 			{status.status === 'success!' && (
 				<>
-					<p className='text-center text-xl text-green-500 mt-4 transition-all'>
+					<p className='text-center text-lg text-my-green mt-4 transition-all'>
 						{'Новый пользователь успешно создан!'}
 					</p>
 					<Link
 						href={`${status.fullName}`}
-						className='mt-3 text-center text-green-600 text-lg'
+						className='mt-3 text-center text-my-green text-lg'
 					>
-						{`Навестить страничку ${status.fullName}`}
+						Навестить страничку{' '}
+						<span className='italic text-xl text-my-darkerGreen hover:text-my-darkGreen transition'>
+							{status.fullName}
+						</span>
 					</Link>
 				</>
 			)}

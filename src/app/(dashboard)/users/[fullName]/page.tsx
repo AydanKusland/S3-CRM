@@ -1,7 +1,7 @@
-import UserComponent from '@/components/User Components/User'
+import UserComponent from '@/components/user components/User'
 import { UserType } from 'utils/types'
 import { getUser } from 'actions/userActions'
-import DeleteUserButton from '@/components/User Components/DeleteUserButton'
+import DeleteUserButton from '@/components/user components/DeleteUserButton'
 
 export default async function UserPage({
 	params: { fullName }

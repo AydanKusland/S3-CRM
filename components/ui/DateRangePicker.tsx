@@ -38,7 +38,7 @@ function DateRangePickerComponent({
 
 	return (
 		<DatePicker
-			className='rounded-r-none w-full'
+			className='grow rounded-r-none w-full min-h-[30px] h-full'
 			dateFormat='dd.MM.yy'
 			selectsRange={true}
 			startDate={startDate}

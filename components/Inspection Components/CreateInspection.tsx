@@ -7,14 +7,12 @@ function CreateInspection() {
 	return (
 		<form
 			action={createInspectionAction}
-			className='py-3 border-y-2 border-my-darkerGreen hover:py-14 hover:my-10 transition-all duration-700'
+			className='relative py-3 border-y-2 border-my-darkerGreen hover:py-8 transition-all duration-1000 overflow-hidden'
 		>
-			{/* <div className='flex flex-wrap gap-y-2 justify-center'> */}
-			<div className='grid relative md:px-4 grid-cols-2 md:gap-y-3 md:grid-cols-4 lg:grid-cols-5 max-w-[1940px] md:mx-auto'>
-				{/* Даты */}
+			<div className='grid relative grid-cols-3 md:px-4 md:gap-y-px md:mx-auto md:grid-cols-5 max-w-[1800px] '>
 				<DateRangePickerComponent inspectionDate={[new Date(), new Date()]} />
 				<MainForm />
-				<div className='absolute left-1/2 -bottom-8 2xl:-right-4 2xl:top-1/2 2xl:-translate-y-1/2 grid place-items-center'>
+				<div className='grid place-items-center bottom-1 md:absolute md:left-1/2 md:-translate-x-1/2 md:-bottom-7 2xl:top-1/2 2xl:-translate-y-1/2 2xl:left-full'>
 					<SubmitButton />
 				</div>
 			</div>

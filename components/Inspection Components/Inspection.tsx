@@ -15,19 +15,17 @@ export const Inspection = ({
 	]
 
 	return (
-		<form>
-			<div
-				key={inspection.id}
-				className='relative grid grid-cols-2 md:grid-cols-4 xl:grid-flow-col md:gap-y-3 max-w-[1940px] mx-auto  text-sm'
-			>
-				{/* Даты */}
-				<DateRangePickerComponent
-					inspectionDate={[startDate, endDate]}
-					id={inspection.id}
-				/>
-				<MainForm inspection={inspection} />
-				<DeleteButton id={inspection.id} />
-			</div>
-		</form>
+		<article
+			key={inspection.id}
+			className='relative grid mx-auto text-sm grid-cols-3 md:grid-cols-5 lg:grid-cols-5 lg:gap-y-px lg:max-w-[1940px] xl:grid-flow-col-dense mb-2 '
+		>
+			{/* Даты */}
+			<DateRangePickerComponent
+				inspectionDate={[startDate, endDate]}
+				id={inspection.id}
+			/>
+			<MainForm inspection={inspection} />
+			<DeleteButton id={inspection.id} />
+		</article>
 	)
 }

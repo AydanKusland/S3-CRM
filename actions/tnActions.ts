@@ -89,14 +89,12 @@ export async function editTNAction(number: number, formData: FormData) {
 			},
 			data
 		})
-		console.log(newTN.number, 'newTN number')
 		revalidatePath(`/settings/TN/${newTN.number}`)
 		revalidatePath(`/settings/TN/${number}`)
 		revalidatePath('/settings/TN')
-		// return newTN.number
 	} catch (error) {
 		console.log(error)
-		return 'error from createTN server action'
+		return 400
 	}
 	redirect(`/settings/TN/${data.number}`)
 }

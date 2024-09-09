@@ -6,7 +6,7 @@
 	--foreground-rgb: 0, 0, 0;
 	--background-start-rgb: 214, 219, 220;
 	--background-end-rgb: 255, 255, 255;
-	--myBrown: #f3d4ae78;
+	--myBrown: #c58d498f;
 	--myGreen: #4fe0b3;
 	--myDarkerGreen: #42ac8a;
 	--myDarkGreen: #2c6b57;
@@ -41,6 +41,7 @@ textarea {
 	padding: 3px;
 	color: var(--myGreen);
 	background-color: var(--myBrown);
+	border-right: 2px dotted #2c6b57;
 }
 
 input::placeholder {

@@ -17,15 +17,15 @@ export default async function InspectionList({ week }: { week?: string }) {
 	}
 
 	return (
-		<div className='mt-2 md:px-4'>
+		<div className='md:px-4'>
 			{provinceList.map((province: string) => {
 				return (
 					<div
 						key={province}
 						// onClick={e => hideProvince(e)}
 					>
-						<h3 className='text-center uppercase mb-2'>{province}</h3>
-						<div className='mb-4'>
+						<h3 className='text-center uppercase my-3'>{province}</h3>
+						<div className=''>
 							{inspections.map(inspection => {
 								if (inspection.province === province)
 									return (
