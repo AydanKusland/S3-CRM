@@ -1,6 +1,6 @@
 // ADMIN RIGHTS REQUIRED
 
-import { UsersList } from '@/components/user components/UsersList'
+import { UsersList } from '@/components/User Components/UsersList'
 import Link from 'next/link'
 
 export default function UsersPage() {

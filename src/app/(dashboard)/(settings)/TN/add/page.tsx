@@ -7,11 +7,11 @@ export default async function AddTNPage() {
 	if (users !== 'Request Failed')
 		return (
 			<form className='grid h-full place-content-center drop-shadow-lg text-center gap-1'>
-				<p className='mb-4 text-lg hover:text-my-darkGreen transition cursor-pointer'>
+				<p className='mb-6 text-xl hover:text-my-darkGreen transition cursor-pointer'>
 					Добавить товарное направление
 				</p>
 				<div className='grid grid-cols-2 gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
-					<label htmlFor='number' className='justify-self-end'>
+					<label htmlFor='number' className='justify-self-end cursor-pointer'>
 						Номер товарного направления
 					</label>
 					<input
@@ -19,11 +19,13 @@ export default async function AddTNPage() {
 						type='number'
 						name='number'
 						id='number'
-						placeholder='0-150'
+						max={1000}
+						min={1}
+						placeholder='0-1000'
 					/>
 				</div>
 				<div className='grid grid-cols-2  gap-2 sm:gap-8 mb-2 hover:text-violet-400'>
-					<label htmlFor='name' className='justify-self-end'>
+					<label htmlFor='name' className='justify-self-end cursor-pointer'>
 						Название товарного направления
 					</label>
 					<input
@@ -35,7 +37,7 @@ export default async function AddTNPage() {
 					/>
 				</div>
 				<div className='grid grid-cols-2  gap-2 sm:gap-8 mb-2 hover:text-violet-500'>
-					<label htmlFor='RTN' className='justify-self-end'>
+					<label htmlFor='RTN' className='justify-self-end cursor-pointer'>
 						РТН
 					</label>
 					<input
@@ -47,7 +49,10 @@ export default async function AddTNPage() {
 					/>
 				</div>
 				<div className='grid grid-cols-2  gap-2 sm:gap-8 mb-2 hover:text-violet-600'>
-					<label htmlFor='reportEngineer' className='justify-self-end'>
+					<label
+						htmlFor='reportEngineer'
+						className='justify-self-end cursor-pointer'
+					>
 						Инженер ЦО
 					</label>
 					<input
@@ -58,8 +63,8 @@ export default async function AddTNPage() {
 						defaultValue={'Сорокин Денис'}
 					/>
 				</div>
-				<div className='grid grid-cols-2  gap-2 sm:gap-8 mb-4 hover:text-violet-700'>
-					<label htmlFor='manager' className='justify-self-end'>
+				<div className='grid grid-cols-2  gap-2 sm:gap-8 mb-2 hover:text-violet-700'>
+					<label htmlFor='manager' className='justify-self-end cursor-pointer'>
 						Менеджер КП
 					</label>
 					<select name='manager' id='manager'>

@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+	.my-vertical-text {
+		writing-mode: vertical-lr;
+		text-orientation: upright;
+		letter-spacing: -0.25rem;
+	}
+}
+
 :root {
 	--foreground-rgb: 0, 0, 0;
 	--background-start-rgb: 214, 219, 220;
@@ -52,10 +63,4 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
-}
-
-@layer utilities {
-	.text-balance {
-		text-wrap: balance;
-	}
 }

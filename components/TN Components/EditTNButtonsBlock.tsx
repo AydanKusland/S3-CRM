@@ -16,8 +16,10 @@ export default function AddTNButtonsBlock({ number }: { number: number }) {
 					? 'Пытаюсь добавить, не отвлекай...'
 					: 'Изменить товарное направление'}
 			</button>
-			{typeof state === 'string' && (
-				<p className='text-center mt-4 text-red-600 text-xl'>{state}</p>
+			{state === 400 && (
+				<p className='text-center mt-4 text-red-600 text-xl'>
+					"Не получилось изменить ТН"
+				</p>
 			)}
 		</>
 	)

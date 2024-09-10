@@ -4,6 +4,7 @@ import { Prisma, TN } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import prisma from '@/prisma/db'
 import { redirect } from 'next/navigation'
+import { BOSS_NAME } from '@/utils/CONSTANTS'
 
 export async function createTN(
 	previousState: null | string | number,
@@ -15,15 +16,16 @@ export async function createTN(
 		RTN: formData.get('RTN') as string,
 		reportEngineer: formData.get('reportEngineer') as string,
 		manager: {
-			connect: {
-				fullName: formData.get('manager') as string
-			}
+			connect: [
+				{ fullName: formData.get('manager') as string },
+				{ fullName: BOSS_NAME }
+			]
 		}
 	}
 
 	try {
 		const newTN = await prisma.tN.create({ data })
-		revalidatePath('settings/TN')
+		revalidatePath('/settings/TN')
 		return newTN.number
 	} catch (error) {
 		console.log(error)
@@ -31,18 +33,31 @@ export async function createTN(
 	}
 }
 
-export async function getUserTN(fullName: string): Promise<TN[] | null> {
+export type UserTN_Names = {
+	name: string
+	manager: {
+		fullName: string
+	}[]
+}[]
+export async function getUserTN(
+	fullName: string
+): Promise<UserTN_Names | 'Не удалось получить ТН'> {
 	try {
-		const TN = await prisma.user.findUnique({
-			include: { TN: true },
-			where: { fullName }
+		const TN: UserTN_Names = await prisma.tN.findMany({
+			select: {
+				manager: {
+					where: { fullName },
+					select: {
+						fullName: true
+					}
+				},
+				name: true
+			}
 		})
-		// console.log(TN)
-		if (TN?.TN) return TN?.TN
-		return null
+		return TN
 	} catch (error) {
 		console.log(error)
-		return null
+		return 'Не удалось получить ТН'
 	}
 }
 

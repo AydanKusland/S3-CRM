@@ -9,16 +9,6 @@ export const TovarnoeNapravlenieInput = ({
 }: {
 	inspection?: InspectionTypeWithId
 }) => {
-	// const [TN, setTN] = useState<TN[] | null>(null)
-
-	// useEffect(() => {
-	// 	async function getTN(fullName: string) {
-	// 		const TN = await getUserTN(fullName)
-	// 		setTN(TN)
-	// 	}
-	// 	getTN('Тугов Сергей')
-	// }, [])
-
 	return (
 		<select
 			name='TN'

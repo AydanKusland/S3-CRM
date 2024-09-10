@@ -4,7 +4,6 @@ import prisma from '@/prisma/db'
 import { UserType } from '@/utils/types'
 import bcrypt from 'bcrypt'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 
 export const getAllUsers = async () => {
 	try {

@@ -30,13 +30,13 @@ model Inspection {
 }
 
 model Factory {
-  id String @id @default(uuid())
-  fullName String?
-  shortName String
+  name String @id
+  province String
+  city String
   TN TN[]
-  province String?
+  fullName String?
+  fullNameCN String?
   address String?
-  contact String?
   product String?
 }
 
@@ -50,7 +50,7 @@ model User {
 
 model TN {
   number Int @id @unique
-  name String
+  name String @unique
   RTN String
   reportEngineer String
   factories Factory[]

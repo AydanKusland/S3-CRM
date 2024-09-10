@@ -1,13 +1,11 @@
 import DisconnectUser from '@/components/TN Components/DisconnectManager'
-import {
-	editTNAction,
-	getTNWithManagerName,
-	TN_WithManagerName
-} from 'actions/tnActions'
+import { getTNWithManagerName, TN_WithManagerName } from 'actions/tnActions'
 import { getAllUserNames } from 'actions/userActions'
 import { redirect } from 'next/navigation'
 import EditTNButtonsBlock from '@/components/TN Components/EditTNButtonsBlock'
-import Factory from '@/components/TN Components/Factory'
+import Factory from '@/components/Factories Components/Factory'
+import Link from 'next/link'
+import { FcPlus } from 'react-icons/fc'
 
 export default async function IndividualTNPage({
 	params: { number }
@@ -22,17 +20,12 @@ export default async function IndividualTNPage({
 		getAllUserNames()
 	])
 
-	// const editTNActionWithId = editTNAction.bind(null, Number(number))
-
 	if (TN === 'Request Failed' || users === 'Request Failed')
 		redirect('/settings/TN/add')
 	return (
 		<>
-			<form
-				// action={editTNActionWithId}
-				className='h-1/3 grid place-content-center gap-1'
-			>
-				<h3 className='text-xl text-center mb-7 select-none hover:scale-105 hover:-rotate-1 hover:text-violet-500 transition'>
+			<form className='h-1/2 grid place-content-center gap-1'>
+				<h3 className='text-3xl text-center mb-7 select-none hover:scale-105 hover:-rotate-1 hover:text-violet-500 transition'>
 					{TN.name}
 				</h3>
 
@@ -106,7 +99,15 @@ export default async function IndividualTNPage({
 				<EditTNButtonsBlock number={Number(number)} />
 			</form>
 			<section className='mt-6 text-center'>
-				<h1 className='text-xl'>Заводы Товарного Направления</h1>
+				<div className='flex justify-center gap-5'>
+					<h1 className='text-2xl'>Поставщики Товарного Направления</h1>
+					<Link
+						href={'/factories/add'}
+						className='grid place-items-center text-3xl'
+					>
+						<FcPlus />
+					</Link>
+				</div>
 				<div className='grid'>
 					<Factory />
 				</div>

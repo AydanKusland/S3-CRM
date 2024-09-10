@@ -13,14 +13,14 @@ export default async function SettingsPage() {
 
 	return (
 		<section className='grid h-full place-content-center pb-6 px-6'>
-			<h3 className='text-center my-6 text-xl select-none hover:scale-105 hover:-rotate-1 transition'>
+			<h3 className='text-center my-10 text-2xl select-none hover:scale-105 hover:-rotate-1 transition'>
 				&#x1F60D; Мои товарные направления &#x1F60D;
 			</h3>
 			<div className='grid md:grid-cols-2 lg:grid-cols-3 justify-around gap-x-8 gap-y-6 text-center'>
 				{user?.TN.map(napravlenie => {
 					return (
 						<Link
-							href={`/settings/TN/${napravlenie.number}`}
+							href={`/TN/${napravlenie.number}`}
 							key={napravlenie.number}
 							className='border-2 border-cyan-200 p-2 bg-zinc-800 hover:bg-zinc-900 hover:scale-105 hover:border-cyan-500 transition-all'
 						>
@@ -33,7 +33,7 @@ export default async function SettingsPage() {
 					)
 				})}
 				<Link
-					href={`settings/TN/add`}
+					href={`/TN/add`}
 					className='grid mb-20 place-items-center border-2 border-cyan-200 bg-slate-700 h-full text-lg text-center hover:translate-y-1 hover:scale-95 hover:text-red-500 transition'
 				>
 					<p>Добавить товарное направление!</p>

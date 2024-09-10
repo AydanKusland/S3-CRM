@@ -21,7 +21,7 @@ export default function User({ user }: { user: UserType }) {
 					<h4 className='underline my-3 text-lg'>Товарные направления</h4>
 					{user.TN.map(tn => (
 						<Link
-							href={`/settings/TN/${tn.number}`}
+							href={`/TN/${tn.number}`}
 							key={tn.number}
 							className='block p-1'
 						>

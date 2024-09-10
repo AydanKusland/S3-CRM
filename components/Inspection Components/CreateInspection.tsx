@@ -1,7 +1,7 @@
 import { createInspectionAction } from 'actions/inspectionActions'
 import { MainForm } from './forms/MainForm'
 import DateRangePickerComponent from '../ui/DateRangePicker'
-import SubmitButton from './forms/SubmitButton'
+import SubmitButton from './SubmitButton'
 
 function CreateInspection() {
 	return (
