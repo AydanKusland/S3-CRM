@@ -38,6 +38,7 @@ model Factory {
   fullNameCN String?
   address String?
   product String?
+  chat String[] @default([])
 }
 
 model User {

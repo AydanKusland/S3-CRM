@@ -27,3 +27,39 @@ export async function createFactory(
 }
 
 export async function getFactory(name: string) {}
+export async function getUserFactories(fullName: string) {
+	try {
+		const myFactories = await prisma.factory.findMany({
+			include: {
+				TN: {
+					where: {
+						manager: {
+							some: { fullName }
+						}
+					},
+					select: { name: true }
+				}
+			}
+		})
+		// const myFactories = await prisma.factory.findMany({
+		// 	include: {
+		// 		TN: {
+		// 			select: {
+		// 				manager: {
+		// 					where: {
+		// 						fullName
+		// 					},
+		// 					select: {
+		// 						fullName: false
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// })
+		return myFactories
+	} catch (error) {
+		console.log(error)
+		return 'Не удалось загрузить заводы'
+	}
+}

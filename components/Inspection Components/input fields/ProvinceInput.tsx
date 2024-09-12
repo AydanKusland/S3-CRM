@@ -1,6 +1,6 @@
 // server component
 
-const provinces = ['Zhejiang', 'Guangdong', 'Fujiang', 'Shanghai']
+import { PROVINCE_LIST } from '@/utils/CONSTANTS'
 
 export const ProvinceInput = ({ province }: { province?: string }) => {
 	const visibility = province && 'hidden'
@@ -11,7 +11,7 @@ export const ProvinceInput = ({ province }: { province?: string }) => {
 			name='province'
 			defaultValue={province}
 		>
-			{provinces.map(province => (
+			{PROVINCE_LIST.map(province => (
 				<option key={province}>{province}</option>
 			))}
 		</select>

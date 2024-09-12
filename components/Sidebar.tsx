@@ -37,6 +37,12 @@ function Sidebar() {
 						ТН
 					</Link>
 					<Link
+						href={'/factories'}
+						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-normal'
+					>
+						Поставщики
+					</Link>
+					<Link
 						href={'/users'}
 						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-normal'
 					>
