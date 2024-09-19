@@ -26,7 +26,7 @@ model Inspection {
   commentary String
   factoryAddress String
   managerKP String
-  reportReceived String
+  reportReceived Boolean @default(false)
 }
 
 model Factory {
@@ -39,6 +39,10 @@ model Factory {
   address String?
   product String?
   chat String[] @default([])
+  managerContactData String?
+  bossContactData String?
+  active Boolean @default(true)
+  paymentTerms String?
 }
 
 model User {

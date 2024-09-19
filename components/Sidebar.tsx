@@ -26,25 +26,25 @@ function Sidebar() {
 				<ul className='grid md:grid-flow-col justify-evenly items-center h-screen text-center text-lg transition md:my-vertical-text '>
 					<Link
 						href={'/inspections'}
-						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-normal'
+						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-tighter'
 					>
 						Инспекции
 					</Link>
 					<Link
 						href={'/TN'}
-						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-normal'
+						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-tighter'
 					>
 						ТН
 					</Link>
 					<Link
 						href={'/factories'}
-						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-normal'
+						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-tighter'
 					>
 						Поставщики
 					</Link>
 					<Link
 						href={'/users'}
-						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-normal'
+						className='hover:text-cyan-100 hover:text-xl transition-all duration-500 hover:tracking-tighter'
 					>
 						Пользователи
 					</Link>
