@@ -13,7 +13,7 @@ export interface InspectionType {
 	factoryAddress: string
 	managerKP: string
 	RTN: string
-	reportReceived: string
+	reportReceived: boolean
 	year_week: string
 }
 
@@ -75,6 +75,6 @@ export const defaultInspectionObject = {
 	factoryAddress: '',
 	managerKP: '-',
 	RTN: '-',
-	reportReceived: 'false',
+	reportReceived: false,
 	year_week: '2025_01'
 }

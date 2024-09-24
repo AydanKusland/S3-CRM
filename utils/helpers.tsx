@@ -122,7 +122,10 @@ export function extractDataFromFormData(
 	fields.forEach((field: keyof InspectionType): void => {
 		const value = formData.get(field)
 		if (!(value instanceof File) && field !== 'year_week')
-			createInspectionData[field] = value === null ? '' : value
+			if (field === 'reportReceived')
+				createInspectionData.reportReceived =
+					value === null ? false : (value as unknown as boolean)
+			else createInspectionData[field] = value === null ? '' : value
 	})
 
 	return createInspectionData

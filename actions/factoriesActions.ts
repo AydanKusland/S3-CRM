@@ -1,6 +1,7 @@
 'use server'
 
 import prisma from '@/prisma/db'
+import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 
 export async function createFactory(
@@ -26,7 +27,26 @@ export async function createFactory(
 	}
 }
 
-export async function getFactory(name: string) {}
+export async function getFactory(
+	name: string
+): Promise<Prisma.$FactoryPayload | string> {
+	try {
+		const factory = await prisma.factory.findUnique({
+			where: { name },
+			include: {
+				TN: {
+					select: { name: true }
+				}
+			}
+		})
+		if (factory) return factory
+		return 'Завод не найден'
+	} catch (error) {
+		console.log(error)
+		return 'Не удалось загрузить завод'
+	}
+}
+
 export async function getUserFactories(fullName: string) {
 	try {
 		const myFactories = await prisma.factory.findMany({
@@ -41,22 +61,6 @@ export async function getUserFactories(fullName: string) {
 				}
 			}
 		})
-		// const myFactories = await prisma.factory.findMany({
-		// 	include: {
-		// 		TN: {
-		// 			select: {
-		// 				manager: {
-		// 					where: {
-		// 						fullName
-		// 					},
-		// 					select: {
-		// 						fullName: false
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// })
 		return myFactories
 	} catch (error) {
 		console.log(error)
