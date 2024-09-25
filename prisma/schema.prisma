@@ -37,12 +37,14 @@ model Factory {
   fullName String?
   fullNameCN String?
   address String?
+  howToGetThere String?
   product String?
-  chat String[] @default([])
   managerContactData String?
   bossContactData String?
   active Boolean @default(true)
   paymentTerms String?
+  TPPLink String?
+  chat String[] @default([])
 }
 
 model User {

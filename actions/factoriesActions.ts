@@ -27,18 +27,22 @@ export async function createFactory(
 	}
 }
 
+type FactoryWithTNNameType = Prisma.FactoryCreateInput & {
+	TN: { name: string }[]
+}
 export async function getFactory(
 	name: string
-): Promise<Prisma.$FactoryPayload | string> {
+): Promise<FactoryWithTNNameType | string> {
 	try {
-		const factory = await prisma.factory.findUnique({
-			where: { name },
-			include: {
-				TN: {
-					select: { name: true }
+		const factory: FactoryWithTNNameType | null =
+			await prisma.factory.findUnique({
+				where: { name },
+				include: {
+					TN: {
+						select: { name: true }
+					}
 				}
-			}
-		})
+			})
 		if (factory) return factory
 		return 'Завод не найден'
 	} catch (error) {

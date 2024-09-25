@@ -1,3 +1,4 @@
+import EditFactoryButton from '@/components/Factories Components/EditFactoryButton'
 import { PROVINCE_LIST } from '@/utils/CONSTANTS'
 import { getFactory } from 'actions/factoriesActions'
 
@@ -7,7 +8,7 @@ export default async function FactoryPage({
 	params: { name: string }
 }) {
 	const factory = await getFactory(name)
-	const TN: string[] = []
+	// const TN: string[] = []
 	if (factory && typeof factory !== 'string')
 		return (
 			<div className='h-full grid place-content-center text-center'>
@@ -19,27 +20,43 @@ export default async function FactoryPage({
 						<label htmlFor='name' className='justify-self-end'>
 							Краткое название поставщика:
 						</label>
-						<input required name='name' id='name' />
+						<input required name='name' id='name' defaultValue={factory.name} />
 					</div>
 					<div className='grid grid-cols-2 gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
 						<label htmlFor='fullName' className='justify-self-end'>
 							Полное название поставщика:
 						</label>
-						<input name='fullName' id='fullName' />
+						<input
+							name='fullName'
+							id='fullName'
+							placeholder={factory.fullName || 'не указано'}
+							defaultValue={factory.fullName || ''}
+							className='w-[300px]'
+						/>
 					</div>
 					<div className='grid grid-cols-2 gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
 						<label htmlFor='fullNameCN' className='justify-self-end'>
 							Китайское название поставщика:
 						</label>
-						<input name='fullNameCN' id='fullNameCN' />
+						<input
+							name='fullNameCN'
+							id='fullNameCN'
+							placeholder={factory.fullNameCN || 'не указано'}
+							defaultValue={factory.fullNameCN || ''}
+						/>
 					</div>
 					<div className='grid grid-cols-2 gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
 						<label htmlFor='province' className='justify-self-end'>
 							Провинция
 						</label>
-						<select required name='province' id='province'>
+						<select
+							required
+							name='province'
+							id='province'
+							defaultValue={factory.province}
+						>
 							{PROVINCE_LIST.map(province => (
-								<option key={province} value='province'>
+								<option key={province} value={province}>
 									{province}
 								</option>
 							))}
@@ -49,25 +66,50 @@ export default async function FactoryPage({
 						<label htmlFor='city' className='justify-self-end'>
 							Город:
 						</label>
-						<input required name='city' id='city' />
+						<input
+							required
+							name='city'
+							id='city'
+							placeholder={factory.city || 'не указано'}
+							defaultValue={factory.city || ''}
+						/>
 					</div>
 					<div className='grid grid-cols-2 gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
 						<label htmlFor='address' className='justify-self-end'>
 							Район и точный адрес:
 						</label>
-						<input name='address' id='address' />
+						<input
+							name='address'
+							id='address'
+							placeholder={factory.address || 'не указано'}
+							defaultValue={factory.address || ''}
+						/>
 					</div>
 					<div className='grid grid-cols-2 gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
-						<label htmlFor='address' className='justify-self-end'>
-							Ближайшая Ж/Д станция:
+						<label htmlFor='howToGetThere' className='justify-self-end'>
+							Как добираться:
 						</label>
-						<input name='address' id='address' />
+						<textarea
+							name='howToGetThere'
+							id='howToGetThere'
+							placeholder={factory.howToGetThere || 'не указано'}
+							defaultValue={factory.howToGetThere || ''}
+						/>
 					</div>
 					<div className='grid grid-cols-2 gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
-						<label htmlFor='TPPLink' className='justify-self-end'>
+						<a
+							target='_blank'
+							href={factory.TPPLink || ''}
+							className='justify-self-end '
+						>
 							Ссылка на ТПП:
-						</label>
-						<input type='link' name='TPPLink' id='TPPLink' />
+						</a>
+						<input
+							type='link'
+							name='TPPLink'
+							id='TPPLink'
+							defaultValue={factory.TPPLink || ''}
+						/>
 					</div>
 
 					<div className='grid grid-cols-2  gap-2 sm:gap-8 mb-2 hover:text-violet-400'>
@@ -79,7 +121,7 @@ export default async function FactoryPage({
 						</select>
 					</div>
 
-					{/* <AddTNButtonsBlock /> */}
+					<EditFactoryButton />
 				</form>
 			</div>
 		)
