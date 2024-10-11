@@ -35,15 +35,16 @@ export async function createTN(
 
 export type UserTN_Names = {
 	name: string
+	number: number
 	manager: {
 		fullName: string
 	}[]
-}[]
+}
 export async function getUserTN(
 	fullName: string
-): Promise<UserTN_Names | 'Не удалось получить ТН'> {
+): Promise<UserTN_Names[] | 'Не удалось получить ТН'> {
 	try {
-		const TN: UserTN_Names = await prisma.tN.findMany({
+		const TN: UserTN_Names[] = await prisma.tN.findMany({
 			select: {
 				manager: {
 					where: { fullName },
@@ -51,7 +52,8 @@ export async function getUserTN(
 						fullName: true
 					}
 				},
-				name: true
+				name: true,
+				number: true
 			}
 		})
 		return TN

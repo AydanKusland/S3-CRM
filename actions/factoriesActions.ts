@@ -26,25 +26,51 @@ export async function createFactory(
 		return 'Произошла ошибка во время создания поставщика!'
 	}
 }
+export async function editFactory(
+	prev: string,
+	formData: FormData
+): Promise<string | 'Произошла ошибка во время редактирования поставщика!'> {
+	const data = {
+		name: formData.get('name') as string,
+		province: formData.get('province') as string,
+		city: formData.get('city') as string,
+		TN: {
+			connect: { name: formData.get('TN') as string }
+		}
+	}
+
+	try {
+		const newFactory = await prisma.factory.update({
+			where: { name: data.name },
+			data
+		})
+		revalidatePath('/factories')
+		revalidatePath(`/factories/${data.name}`)
+		return newFactory.name
+	} catch (error) {
+		console.log(error)
+		return 'Произошла ошибка во время редактирования поставщика!'
+	}
+}
 
 type FactoryWithTNNameType = Prisma.FactoryCreateInput & {
-	TN: { name: string }[]
+	TN: { name: string; number: number }[]
 }
 export async function getFactory(
 	name: string
-): Promise<FactoryWithTNNameType | string> {
+): Promise<FactoryWithTNNameType | 'Не удалось загрузить завод'> {
 	try {
 		const factory: FactoryWithTNNameType | null =
 			await prisma.factory.findUnique({
 				where: { name },
 				include: {
 					TN: {
-						select: { name: true }
+						select: { name: true, number: true }
 					}
 				}
 			})
 		if (factory) return factory
-		return 'Завод не найден'
+		return 'Не удалось загрузить завод'
 	} catch (error) {
 		console.log(error)
 		return 'Не удалось загрузить завод'
@@ -69,5 +95,34 @@ export async function getUserFactories(fullName: string) {
 	} catch (error) {
 		console.log(error)
 		return 'Не удалось загрузить заводы'
+	}
+}
+
+export async function disconnectTNfromFactory({
+	TN_number: number,
+	factory
+}: {
+	TN_number: number
+	factory: string
+}) {
+	try {
+		await prisma.factory.update({
+			where: {
+				name: factory
+			},
+			data: {
+				TN: {
+					disconnect: {
+						number
+					}
+				}
+			}
+		})
+		revalidatePath('/factories')
+		revalidatePath(`/factories/${factory}`)
+		return { TN_number: 0, factory: 'ТН удалено!' }
+	} catch (error) {
+		console.log(error)
+		return { TN_number: number, factory: 'Не удалось удалить ТН!' }
 	}
 }
