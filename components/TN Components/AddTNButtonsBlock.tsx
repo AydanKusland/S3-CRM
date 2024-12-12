@@ -19,7 +19,7 @@ export default function AddTNButtonsBlock() {
 			</button>
 			{typeof state === 'number' && (
 				<Link
-					href={`/settings/TN/${state}`}
+					href={`/TN/${state}`}
 					className='block text-center text-lg mt-4 min-w-full p-1 bg-lime-600 rounded font-semibold uppercase tracking-wide hover:bg-lime-700 hover:text-violet-900 transition-all'
 				>
 					Сработало! Перейти в новый проект

@@ -99,6 +99,8 @@ export async function editTNAction(number: number, formData: FormData) {
 		}
 	}
 
+	console.log(data)
+
 	try {
 		const newTN: TN = await prisma.tN.update({
 			where: {
@@ -106,14 +108,14 @@ export async function editTNAction(number: number, formData: FormData) {
 			},
 			data
 		})
-		revalidatePath(`/settings/TN/${newTN.number}`)
-		revalidatePath(`/settings/TN/${number}`)
-		revalidatePath('/settings/TN')
+		revalidatePath(`/TN/${newTN.number}`)
+		revalidatePath(`/TN/${number}`)
+		revalidatePath(`/TN`)
 	} catch (error) {
 		console.log(error)
 		return 400
 	}
-	redirect(`/settings/TN/${data.number}`)
+	redirect(`/TN/${data.number}`)
 }
 
 type DisconnectManagerObject = {

@@ -8,10 +8,11 @@ import Link from 'next/link'
 import { FcPlus } from 'react-icons/fc'
 
 export default async function IndividualTNPage({
-	params: { number }
+	params
 }: {
 	params: { number: string }
 }) {
+	const { number } = await params
 	const [TN, users]: [
 		TN_WithManagerName | 'Request Failed',
 		string[] | 'Request Failed'
@@ -20,8 +21,7 @@ export default async function IndividualTNPage({
 		getAllUserNames()
 	])
 
-	if (TN === 'Request Failed' || users === 'Request Failed')
-		redirect('/settings/TN/add')
+	if (TN === 'Request Failed' || users === 'Request Failed') redirect('/TN/add')
 	return (
 		<>
 			<form className='h-1/2 grid place-content-center gap-1'>
@@ -87,6 +87,7 @@ export default async function IndividualTNPage({
 						Добавить менеджера КП:
 					</label>
 					<select name='manager' id='manager'>
+						<option value={''}>Выбери меня!</option>
 						{users?.map(fullName => {
 							return (
 								<option key={fullName} value={fullName}>

@@ -1,7 +1,7 @@
 'use client'
 import { editTNAction } from 'actions/tnActions'
 import { useActionState } from 'react'
-export default function AddTNButtonsBlock({ number }: { number: number }) {
+export default function EditTNButtonsBlock({ number }: { number: number }) {
 	const [state, action, isPending] = useActionState(editTNAction, number)
 
 	return (
@@ -13,12 +13,12 @@ export default function AddTNButtonsBlock({ number }: { number: number }) {
 				disabled={isPending}
 			>
 				{isPending
-					? 'Пытаюсь добавить, не отвлекай...'
+					? 'Пытаюсь изменить, не отвлекай...'
 					: 'Изменить товарное направление'}
 			</button>
 			{state === 400 && (
 				<p className='text-center mt-4 text-red-600 text-xl'>
-					"Не получилось изменить ТН"
+					Не получилось изменить ТН
 				</p>
 			)}
 		</>
