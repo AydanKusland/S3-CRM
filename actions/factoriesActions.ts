@@ -3,6 +3,7 @@
 import prisma from '@/prisma/db'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export async function createFactory(
 	prev: string,
@@ -27,30 +28,41 @@ export async function createFactory(
 	}
 }
 export async function editFactory(
-	prev: string,
+	name: string,
 	formData: FormData
-): Promise<string | 'Произошла ошибка во время редактирования поставщика!'> {
-	const data = {
+): Promise<'Произошла ошибка во время редактирования поставщика!'> {
+	const addNewTN = formData.get('TN') as string
+
+	let data: Prisma.FactoryUpdateInput = {
 		name: formData.get('name') as string,
 		province: formData.get('province') as string,
-		city: formData.get('city') as string,
-		TN: {
-			connect: { name: formData.get('TN') as string }
-		}
+		city: formData.get('city') as string
 	}
+
+	if (addNewTN !== '')
+		data = {
+			...data,
+			TN: {
+				connect: { name: addNewTN }
+			}
+		}
+
+	console.log(data)
 
 	try {
 		const newFactory = await prisma.factory.update({
-			where: { name: data.name },
+			where: { name },
 			data
 		})
 		revalidatePath('/factories')
-		revalidatePath(`/factories/${data.name}`)
-		return newFactory.name
+		revalidatePath(`/factories/${encodeURIComponent(data.name)}`)
+		revalidatePath(`/factories/${encodeURIComponent(name)}`)
+		// return newFactory.name
 	} catch (error) {
 		console.log(error)
 		return 'Произошла ошибка во время редактирования поставщика!'
 	}
+	redirect(`/factories/${encodeURIComponent(data.name)}`)
 }
 
 type FactoryWithTNNameType = Prisma.FactoryCreateInput & {

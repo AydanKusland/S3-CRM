@@ -2,8 +2,11 @@
 import { editFactory } from 'actions/factoriesActions'
 import { useActionState } from 'react'
 
-export default function EditFactoryButton() {
-	const [state, action, isPending] = useActionState(editFactory, '')
+export default function EditFactoryButton({ name }: { name: string }) {
+	const [state, action, isPending] = useActionState(
+		editFactory,
+		decodeURIComponent(name)
+	)
 
 	return (
 		<>

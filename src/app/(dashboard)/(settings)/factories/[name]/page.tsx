@@ -5,11 +5,13 @@ import { getFactory } from 'actions/factoriesActions'
 import { getUserTN } from 'actions/tnActions'
 
 export default async function FactoryPage({
-	params: { name }
+	params
 }: {
 	params: { name: string }
 }) {
-	const factory = await getFactory(name)
+	const { name } = await params
+	const decodedName = decodeURIComponent(name)
+	const factory = await getFactory(decodedName)
 	// Поменять на текущего юзера и сделать рэйс из промисов
 	const TN = await getUserTN('Тугов Сергей')
 	if (factory !== 'Не удалось загрузить завод')
@@ -19,7 +21,7 @@ export default async function FactoryPage({
 					{factory.name}
 				</h1>
 				<form className='grid h-full place-content-center drop-shadow-lg text-center gap-1 min-w-[600px]'>
-					<div className='w-[600px] grid grid-cols-[230px_1fr] gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
+					<div className='grid grid-cols-[230px_1fr] gap-2 sm:gap-8 mb-2 hover:text-violet-300'>
 						<label htmlFor='name'>Краткое название поставщика:</label>
 						<input required name='name' id='name' defaultValue={factory.name} />
 					</div>
@@ -126,8 +128,7 @@ export default async function FactoryPage({
 							</select>
 						</div>
 					)}
-
-					<EditFactoryButton />
+					<EditFactoryButton name={name} />
 				</form>
 			</div>
 		)

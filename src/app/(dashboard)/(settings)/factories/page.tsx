@@ -16,7 +16,7 @@ export default async function MyFactoriesPage() {
 								className='border-2 p-1 text-center min-w-fit w-1/3 max-w-screen-sm transition shadow-md shadow-slate-200  hover:scale-105 hover:shadow-lg hover:shadow-lime-300 '
 							>
 								<p>{factory.name}</p>
-								<p>{factory.TN[0].name}</p>
+								<p>{factory.TN[0]?.name}</p>
 								<p>
 									{factory.province}
 									{'    '}

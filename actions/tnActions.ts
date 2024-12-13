@@ -87,19 +87,17 @@ export async function getTNWithManagerName(
 }
 
 export async function editTNAction(number: number, formData: FormData) {
-	const data: Prisma.TNUpdateInput = {
+	const manager: '' | string = formData.get('manager') as string
+
+	let data: Prisma.TNUpdateInput = {
 		number: Number(formData.get('number') as string),
 		name: formData.get('name') as string,
 		RTN: formData.get('RTN') as string,
-		reportEngineer: formData.get('reportEngineer') as string,
-		manager: {
-			connect: {
-				fullName: formData.get('manager') as string
-			}
-		}
+		reportEngineer: formData.get('reportEngineer') as string
 	}
 
-	console.log(data)
+	if (manager !== '')
+		data = { ...data, manager: { connect: { fullName: manager } } }
 
 	try {
 		const newTN: TN = await prisma.tN.update({
