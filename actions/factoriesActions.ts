@@ -32,9 +32,10 @@ export async function editFactory(
 	formData: FormData
 ): Promise<'Произошла ошибка во время редактирования поставщика!'> {
 	const addNewTN = formData.get('TN') as string
+	const newName = formData.get('name') as string
 
 	let data: Prisma.FactoryUpdateInput = {
-		name: formData.get('name') as string,
+		name: newName,
 		province: formData.get('province') as string,
 		city: formData.get('city') as string
 	}
@@ -55,14 +56,14 @@ export async function editFactory(
 			data
 		})
 		revalidatePath('/factories')
-		revalidatePath(`/factories/${encodeURIComponent(data.name)}`)
+		revalidatePath(`/factories/${encodeURIComponent(newName)}`)
 		revalidatePath(`/factories/${encodeURIComponent(name)}`)
 		// return newFactory.name
 	} catch (error) {
 		console.log(error)
 		return 'Произошла ошибка во время редактирования поставщика!'
 	}
-	redirect(`/factories/${encodeURIComponent(data.name)}`)
+	redirect(`/factories/${encodeURIComponent(newName)}`)
 }
 
 type FactoryWithTNNameType = Prisma.FactoryCreateInput & {
